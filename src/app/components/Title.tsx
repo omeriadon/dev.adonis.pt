@@ -1,6 +1,6 @@
 "use client";
 
-import "./Title.css";
+import styles from "./Title.module.css";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -31,7 +31,7 @@ export default function Title() {
 		<div className="mb-12 grid place-items-start">
 			<motion.p
 				key={pathname}
-				className="text-8xl"
+				className={styles.title}
 				variants={container}
 				initial="hidden"
 				animate="visible"

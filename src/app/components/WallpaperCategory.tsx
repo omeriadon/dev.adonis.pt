@@ -11,10 +11,11 @@ export interface CategoryProps {
 }
 
 export function WallpaperCategory(props: CategoryProps) {
-	const isAbsolute = props.thumbnail.startsWith("/");
-	const hasExt = /\.[a-zA-Z0-9]+$/.test(props.thumbnail);
+	const isPlaceholder = !props.thumbnail;
+	const isAbsolute = props.thumbnail?.startsWith("/");
+	const hasExt = /\.[a-zA-Z0-9]+$/.test(props.thumbnail || "");
 	const fileName = hasExt ? props.thumbnail : `${props.thumbnail}.png`;
-	const baseDir = props.path.replace(/\/index\.json$/, "");
+	const baseDir = props.path?.replace(/\/index\.json$/, "") || "";
 	const thumbnailSrc = isAbsolute
 		? hasExt
 			? props.thumbnail
@@ -23,22 +24,24 @@ export function WallpaperCategory(props: CategoryProps) {
 
 	return (
 		<div className={styles.card}>
-			<Image
-				src={thumbnailSrc}
-				alt={props.title}
-				width={1504}
-				height={1504}
-				unoptimized={false}
-				style={{
-					width: "100%",
-					height: "100%",
-					objectFit: "cover",
-				}}
-				className={styles.image}
-			/>
+			<div className={styles.imageWrapper}>
+				{!isPlaceholder ? (
+					<Image
+						src={thumbnailSrc}
+						alt={props.title}
+						fill
+						style={{ objectFit: "cover" }}
+						className={styles.image}
+					/>
+				) : (
+					<div className={styles.placeholder} />
+				)}
+			</div>
 			<div className={styles.cardText}>
-				<p className={styles.cardTitle}>{props.title}</p>
-				<p className={styles.amountCount}>4 wallpapers</p>
+				<p className={styles.cardTitle}>{props.title || "\u00A0"}</p>
+				<p className={styles.amountCount}>
+					{props.title ? "4 wallpapers" : "\u00A0"}
+				</p>
 			</div>
 		</div>
 	);

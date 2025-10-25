@@ -3,6 +3,7 @@
 :root {
 	--background: #000000;
 	--foreground: #ffffff;
+	--blue: #68a6f8;
 }
 
 body {
@@ -10,5 +11,6 @@ body {
 	color: var(--foreground);
 	font-family: var(--font-sans), Helvetica, sans-serif;
 	min-height: 100vh;
-	margin: 0;
+	max-width: 1300px;
+	margin: 0 auto; /* centers the grid horizontally */
 }

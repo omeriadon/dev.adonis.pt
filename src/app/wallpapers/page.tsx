@@ -51,12 +51,29 @@ export default function Wallpapers() {
 	return (
 		<div>
 			<div>
-				{loading && <p>Loading...</p>}
+				{loading && (
+					// <div className={styles.grid}>
+					// 	{Array.from({ length: 4 }).map((_, i) => (
+					// 		<WallpaperCategory
+					// 			key={i}
+					// 			id={`placeholder-${i}`}
+					// 			title=""
+					// 			description=""
+					// 			tags={[]}
+					// 			thumbnail="t"
+					// 			path=""
+					// 		/>
+					// 	))}
+					// </div>
+					<p></p>
+				)}
 				{!loading && error && <p style={{ color: "red" }}>{error}</p>}
 				{!loading && !error && categories.length === 0 && (
 					<p>No categories found.</p>
 				)}
+				{/*{!loading && !error && (*/}
 				{!loading && !error && (
+
 					<div className={styles.grid}>
 						{categories.map((cat) => (
 							<WallpaperCategory

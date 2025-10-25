@@ -1,17 +1,23 @@
-import "./Navbar.css";
+import styles from "./Navbar.module.css";
 
 export default function Navbar() {
 	return (
-		<nav className="navbar">
-			<ul className="nav-list">
+		<nav className={styles.navbar}>
+			<ul className={styles.navList}>
 				<li>
-					<a href="/" className="navbar-title">Adon Omeri</a>
+					<a href="/" className={styles.navbarTitle}>
+						Adon Omeri
+					</a>
 				</li>
 				<li>
-					<a href="/wallpapers" className="link">Wallpapers</a>
+					<a href="/wallpapers" className={styles.link}>
+						Wallpapers
+					</a>
 				</li>
 				<li>
-					<a href="#" className="link">Contact</a>
+					<a href="#" className={styles.link}>
+						Contact
+					</a>
 				</li>
 			</ul>
 		</nav>

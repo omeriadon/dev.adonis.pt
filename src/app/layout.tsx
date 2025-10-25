@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import "./components/Navbar.css";
 import Navbar from "./components/Navbar";
 import Title from "./components/Title";
 import Footer from "./components/Footer";
@@ -30,13 +29,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body
-				className={`${departureMono.variable} antialiased px-20 min-h-screen`}
-			>
+			<body className={`${departureMono.variable} antialiased px-20`}>
 				<Navbar />
 				<div className="h-40" />
 				<Title />
-				{children}
+				<div className="min-h-screen">{children}</div>
 				<Footer />
 			</body>
 		</html>
