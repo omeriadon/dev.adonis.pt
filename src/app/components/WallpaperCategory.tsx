@@ -1,5 +1,6 @@
 import styles from "./WallpaperCategory.module.css";
 import Image from "next/image";
+import Link from "next/link";
 
 export interface CategoryProps {
 	id: string;
@@ -23,7 +24,7 @@ export function WallpaperCategory(props: CategoryProps) {
 		: `${baseDir}/${fileName}`;
 
 	return (
-		<div className={styles.card}>
+		<Link href={`/wallpapers/${props.id}`} className={styles.card}>
 			<div className={styles.imageWrapper}>
 				{!isPlaceholder ? (
 					<Image
@@ -51,6 +52,6 @@ export function WallpaperCategory(props: CategoryProps) {
 					{props.title ? "4 wallpapers" : "\u00A0"}
 				</p>
 			</div>
-		</div>
+		</Link>
 	);
 }
