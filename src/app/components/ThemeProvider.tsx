@@ -1,0 +1,101 @@
+"use client";
+import {
+	useState,
+	useEffect,
+	ReactNode,
+	createContext,
+	useContext,
+} from "react";
+
+type Theme = "dark" | "light";
+type ThemeContextType = { theme: Theme; toggleTheme: () => void };
+const ThemeContext = createContext<ThemeContextType | null>(null);
+
+export function useTheme() {
+	const ctx = useContext(ThemeContext);
+	if (!ctx) throw new Error("useTheme must be inside ThemeProvider");
+	return ctx;
+}
+
+export default function ThemeProvider({ children }: { children: ReactNode }) {
+	const [theme, setTheme] = useState<Theme>("dark");
+
+	// Initialize from saved preference or system preference, and apply immediately
+	useEffect(() => {
+		const initial = getPreferredTheme();
+		setTheme(initial);
+		applyThemeToDOM(initial);
+
+		// If the user hasn't explicitly chosen a theme, react to system changes
+		if (
+			!localStorage.getItem("theme") &&
+			typeof window !== "undefined" &&
+			window.matchMedia
+		) {
+			const mql = window.matchMedia("(prefers-color-scheme: dark)");
+			const handler = (e: MediaQueryListEvent) => {
+				const sysTheme: Theme = e.matches ? "dark" : "light";
+				setTheme(sysTheme);
+				applyThemeToDOM(sysTheme);
+			};
+			if (mql.addEventListener) {
+				mql.addEventListener("change", handler);
+				return () => mql.removeEventListener("change", handler);
+			} else {
+				// Safari
+				mql.addListener(handler);
+				return () => mql.removeListener(handler);
+			}
+		}
+	}, []);
+
+	// Persist and apply whenever theme changes
+	useEffect(() => {
+		applyThemeToDOM(theme);
+		try {
+			localStorage.setItem("theme", theme);
+		} catch {}
+	}, [theme]);
+
+	const toggleTheme = () =>
+		setTheme((prev) => {
+			const next = prev === "dark" ? "light" : "dark";
+			applyThemeToDOM(next);
+			try {
+				localStorage.setItem("theme", next);
+			} catch {}
+			return next;
+		});
+
+	return (
+		<ThemeContext.Provider value={{ theme, toggleTheme }}>
+			{children}
+		</ThemeContext.Provider>
+	);
+}
+
+// Helpers
+function applyThemeToDOM(theme: Theme) {
+	if (typeof document === "undefined") return;
+	const root = document.documentElement;
+	// For CSS variables/themes
+	root.setAttribute("data-theme", theme);
+	// For native form controls and UA rendering
+	root.style.colorScheme = theme;
+	// For Tailwind's "class" dark mode strategy
+	if (theme === "dark") {
+		root.classList.add("dark");
+	} else {
+		root.classList.remove("dark");
+	}
+}
+
+function getPreferredTheme(): Theme {
+	if (typeof window === "undefined") return "dark";
+	const saved = localStorage.getItem("theme");
+	if (saved === "dark" || saved === "light") return saved as Theme;
+	return window.matchMedia &&
+		window.matchMedia("(prefers-color-scheme: dark)").matches
+		? "dark"
+		: "light";
+}

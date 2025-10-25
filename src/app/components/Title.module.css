@@ -1,5 +1,40 @@
 .title {
 	font-size: 6rem;
+	will-change: transform, opacity;
+	contain: paint;
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	-webkit-font-smoothing: antialiased;
+	isolation: isolate;
+}
+
+:global(.title-letter) {
+	display: inline-block;
+	opacity: 0;
+	transform: translateY(10px);
+	animation-name: fadeUp;
+	animation-duration: 400ms;
+	animation-timing-function: ease;
+	animation-fill-mode: forwards;
+	animation-delay: var(--delay, 0s);
+	will-change: transform, opacity;
+	backface-visibility: hidden;
+	transform: translateZ(0);
+}
+
+@keyframes fadeUp {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:global(.title-letter) {
+		animation: none;
+		opacity: 1;
+		transform: none;
+	}
 }
 
 @media (max-width: 1000px) {

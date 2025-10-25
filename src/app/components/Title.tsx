@@ -2,7 +2,7 @@
 
 import styles from "./Title.module.css";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import type { CSSProperties } from "react";
 
 export default function Title() {
 	const pathname = usePathname();
@@ -10,38 +10,23 @@ export default function Title() {
 	let text = "";
 	if (pathname.startsWith("/wallpapers")) text = "Wallpapers";
 	else if (pathname === "/") text = "Adon Omeri";
-	else text = "Error";
+	else text = pathname + " ?";
 
 	const letters = text.split("");
 
-	const container = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: { staggerChildren: 0.05 },
-		},
-	};
-
-	const child = {
-		hidden: { opacity: 0, y: 10 },
-		visible: { opacity: 1, y: 0 },
-	};
-
 	return (
 		<div className="mb-12 grid place-items-start">
-			<motion.p
-				key={pathname}
-				className={styles.title}
-				variants={container}
-				initial="hidden"
-				animate="visible"
-			>
+			<p key={pathname} className={styles.title}>
 				{letters.map((char, i) => (
-					<motion.span key={i} variants={child}>
+					<span
+						key={i}
+						className="title-letter"
+						style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
+					>
 						{char}
-					</motion.span>
+					</span>
 				))}
-			</motion.p>
+			</p>
 		</div>
 	);
 }

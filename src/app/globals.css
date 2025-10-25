@@ -4,13 +4,44 @@
 	--background: #000000;
 	--foreground: #ffffff;
 	--blue: #68a6f8;
+	--red: #e5698f;
+	--purple: #b976f3;
+	--green: #7abe7b;
+	--grey: #1f1f1f;
+	--navbar-background: rgba(0, 0, 0, 0.2);
 }
 
+/* Light mode override */
+:root[data-theme="light"] {
+	--background: #ffffff;
+	--foreground: #000000;
+	--blue: #3b82f6;
+	--red: #ef4444;
+	--purple: #a855f7;
+	--green: #22c55e;
+	--grey: #f2f2f2;
+	--navbar-background: rgba(255, 255, 255, 0.4);
+}
+
+html,
 body {
 	background: var(--background);
 	color: var(--foreground);
+}
+
+body {
 	font-family: var(--font-sans), Helvetica, sans-serif;
 	min-height: 100vh;
 	max-width: 1300px;
 	margin: 0 auto; /* centers the grid horizontally */
+}
+
+
+
+.noSelect {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none; /* prevents dragging/selecting */
 }

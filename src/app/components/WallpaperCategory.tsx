@@ -30,11 +30,19 @@ export function WallpaperCategory(props: CategoryProps) {
 						src={thumbnailSrc}
 						alt={props.title}
 						fill
-						style={{ objectFit: "cover" }}
-						className={styles.image}
+						sizes="50vw"
+						priority
+						fetchPriority="high"
+						decoding="async"
+						style={{ objectFit: "cover", objectPosition: "center" }}
+						className={`${styles.image} noSelect`}
+						draggable={false}
 					/>
 				) : (
-					<div className={styles.placeholder} />
+					<div
+						className={styles.placeholder}
+						style={{ backgroundPosition: "center" }}
+					/>
 				)}
 			</div>
 			<div className={styles.cardText}>

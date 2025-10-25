@@ -17,6 +17,7 @@ export default function Wallpapers() {
 	const [categories, setCategories] = useState<Category[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [ready, setReady] = useState(false);
 
 	useEffect(() => {
 		let cancelled = false;
@@ -48,32 +49,29 @@ export default function Wallpapers() {
 		};
 	}, []);
 
+	// Defer heavy grid render to next frame(s) so title animates smoothly
+	useEffect(() => {
+		let raf1 = 0;
+		let raf2 = 0;
+		raf1 = requestAnimationFrame(() => {
+			raf2 = requestAnimationFrame(() => setReady(true));
+		});
+		return () => {
+			cancelAnimationFrame(raf1);
+			cancelAnimationFrame(raf2);
+		};
+	}, []);
+
 	return (
 		<div>
 			<div>
-				{loading && (
-					// <div className={styles.grid}>
-					// 	{Array.from({ length: 4 }).map((_, i) => (
-					// 		<WallpaperCategory
-					// 			key={i}
-					// 			id={`placeholder-${i}`}
-					// 			title=""
-					// 			description=""
-					// 			tags={[]}
-					// 			thumbnail="t"
-					// 			path=""
-					// 		/>
-					// 	))}
-					// </div>
-					<p></p>
-				)}
+				{loading && <p></p>}
 				{!loading && error && <p style={{ color: "red" }}>{error}</p>}
 				{!loading && !error && categories.length === 0 && (
 					<p>No categories found.</p>
 				)}
 				{/*{!loading && !error && (*/}
-				{!loading && !error && (
-
+				{!loading && !error && ready && (
 					<div className={styles.grid}>
 						{categories.map((cat) => (
 							<WallpaperCategory

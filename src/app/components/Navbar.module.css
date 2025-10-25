@@ -14,24 +14,15 @@
 	align-items: center;
 	border-radius: 12px;
 
-	/* Semi-transparent background so the blur is visible on all browsers */
-	background:
-		linear-gradient(
-			to bottom,
-			rgba(255, 255, 255, 0.06),
-			rgba(255, 255, 255, 0.02)
-		),
-		rgba(0, 0, 0, 0.35);
+	background: var(--navbar-background);
 
-	/* Glass effect */
 	-webkit-backdrop-filter: saturate(180%) blur(12px);
 	backdrop-filter: saturate(180%) blur(12px);
 
-	/* Subtle border and shadow for glass look */
-	border: 1px solid rgba(255, 255, 255, 0.12);
-	box-shadow:
-		0 8px 24px rgba(0, 0, 0, 0.35),
-		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	border: 1px solid var(--grey);
+	/*box-shadow:*/
+		/*0 8px 24px rgba(0, 0, 0, 0.35),*/
+		/*inset 0 1px 0 rgba(255, 255, 255, 0.05);*/
 }
 
 .navList {
@@ -50,7 +41,7 @@
 /* Style links */
 .link {
 	text-decoration: none;
-	color: white;
+	color: var(--foreground);
 	font-weight: bold;
 	margin: 0 15px;
 
@@ -66,6 +57,8 @@
 }
 
 .navbarTitle {
+	text-decoration: none;
+	color: var(--foreground);
 	font-weight: 900;
 	font-size: 1.9rem;
 	margin: 0 30px 0 5px;
@@ -75,5 +68,14 @@
 /* Hover effect */
 .link:hover,
 .navbarTitle:hover {
+	color: var(--blue);
+}
+
+/* Active/Current page state */
+.active,
+.link.active,
+.navbarTitle.active,
+.link[aria-current="page"],
+.navbarTitle[aria-current="page"] {
 	color: var(--blue);
 }
