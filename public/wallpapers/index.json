@@ -2,22 +2,8 @@
 	{
 		"id": "fluted",
 		"title": "Fluted Noise Gradients",
-		"description": "Colorful noise-based fluted textures with gradients.",
+		"description": "Abstract gradient textures with fluted and noise effects.",
 		"thumbnail": "/wallpapers/fluted/black_white.png",
-		"path": "/wallpapers/fluted/index.json"
-	},
-	{
-		"id": "qegrvfdc",
-		"title": "Fluted Noise Gradients",
-		"description": "Colorful noise-based fluted textures with gradients.",
-		"thumbnail": "/wallpapers/fluted/red.png",
-		"path": "/wallpapers/fluted/index.json"
-	},
-	{
-		"id": "gjhtrefbcdskn",
-		"title": "Fluted Noise Gradients",
-		"description": "Colorful noise-based fluted textures with gradients.",
-		"thumbnail": "/wallpapers/fluted/blue_green.png",
 		"path": "/wallpapers/fluted/index.json"
 	}
 ]

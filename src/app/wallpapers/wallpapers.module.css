@@ -6,3 +6,17 @@
 	justify-items: center;
 	place-content: center;
 }
+
+.description {
+	max-width: 50vh;
+	display: grid;
+	place-items: center;
+
+	opacity: 0.5;
+	font-size: 1.4rem;
+	margin-bottom: 6rem;
+
+	margin-left: auto;
+	margin-right: auto; /* centers the container horizontally */
+	text-align: center; /* centers text inside if multiline */
+}

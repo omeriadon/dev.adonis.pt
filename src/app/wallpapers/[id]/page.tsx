@@ -10,19 +10,19 @@ type CategoryMeta = {
 	title: string;
 	description?: string;
 	thumbnail?: string;
-	path: string; 
+	path: string;
 };
 
 type ItemRecord =
 	| {
 			id?: string;
-			text?: string; 
+			text?: string;
 			title?: string;
 			name?: string;
 			image?: string;
 			thumbnail?: string;
 	  }
-	| string; 
+	| string;
 
 function isStringItem(v: ItemRecord): v is string {
 	return typeof v === "string";
@@ -122,7 +122,6 @@ export default function WallpaperSetPage() {
 		};
 	}, [meta?.path]);
 
-	const headerTitle = meta?.title || id;
 	const headerDescription = meta?.description || "";
 
 	const normalized = useMemo(() => {
@@ -172,7 +171,7 @@ export default function WallpaperSetPage() {
 			{/* Header */}
 			<div style={{ marginBottom: 20 }}>
 				{headerDescription ? (
-					<p style={{ opacity: 0.8, marginBottom: 12 }}>{headerDescription}</p>
+					<p className={styles.description}>{headerDescription}</p>
 				) : null}
 			</div>
 
