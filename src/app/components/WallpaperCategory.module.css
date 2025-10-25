@@ -7,10 +7,15 @@
 .card {
 	border-radius: 30px;
 	background-color: var(--grey);
-	overflow: hidden; /* ensures child doesn't overflow rounded corners */
-	width: 100%; /* fills grid cell */
+	overflow: hidden;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
+	transition: transform 0.1s ease-in-out;
+}
+
+.card:hover {
+	transform: scale(1.02);
 }
 
 .imageWrapper {
