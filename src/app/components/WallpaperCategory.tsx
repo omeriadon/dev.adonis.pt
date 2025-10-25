@@ -1,6 +1,8 @@
+"use client";
 import styles from "./WallpaperCategory.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export interface CategoryProps {
 	id: string;
@@ -23,6 +25,32 @@ export function WallpaperCategory(props: CategoryProps) {
 			: `${props.thumbnail}.png`
 		: `${baseDir}/${fileName}`;
 
+	// Load the wallpapers count from the category's index.json (client-side)
+	const [wallpapersCount, setWallpapersCount] = useState<number | null>(null);
+	useEffect(() => {
+		let active = true;
+		const indexPath = props.path?.startsWith("/")
+			? props.path
+			: `/${props.path}`;
+		fetch(indexPath, { cache: "force-cache" })
+			.then((res) => (res.ok ? res.json() : null))
+			.then((data) => {
+				if (!active) return;
+				let count = 0;
+				if (Array.isArray(data)) {
+					count = data.length;
+				} else if (data && Array.isArray((data as any).images)) {
+					count = (data as any).images.length;
+				}
+				setWallpapersCount(count);
+			})
+			.catch(() => {
+				if (active) setWallpapersCount(0);
+			});
+		return () => {
+			active = false;
+		};
+	}, [props.path]);
 	return (
 		<Link href={`/wallpapers/${props.id}`} className={styles.card}>
 			<div className={styles.imageWrapper}>
@@ -49,7 +77,9 @@ export function WallpaperCategory(props: CategoryProps) {
 			<div className={styles.cardText}>
 				<p className={styles.cardTitle}>{props.title || "\u00A0"}</p>
 				<p className={styles.amountCount}>
-					{props.description ?? ""}
+					{Number(wallpapersCount) > 0
+						? `${Number(wallpapersCount)} wallpaper${Number(wallpapersCount) === 1 ? "" : "s"}`
+						: "0 wallpapers"}
 				</p>
 			</div>
 		</Link>
