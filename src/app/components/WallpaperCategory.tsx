@@ -49,7 +49,7 @@ export function WallpaperCategory(props: CategoryProps) {
 			<div className={styles.cardText}>
 				<p className={styles.cardTitle}>{props.title || "\u00A0"}</p>
 				<p className={styles.amountCount}>
-					{props.title ? "4 wallpapers" : "\u00A0"}
+					{props.description ?? ""}
 				</p>
 			</div>
 		</Link>

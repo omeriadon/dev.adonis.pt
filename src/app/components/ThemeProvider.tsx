@@ -23,7 +23,12 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
 	useEffect(() => {
 		const initial = getPreferredTheme();
 		setTheme(initial);
-		applyThemeToDOM(initial);
+		if (typeof document !== "undefined") {
+			const current = document.documentElement.getAttribute("data-theme");
+			if (current !== initial) {
+				applyThemeToDOM(initial);
+			}
+		}
 
 		if (
 			!localStorage.getItem("theme") &&
@@ -34,7 +39,12 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
 			const handler = (e: MediaQueryListEvent) => {
 				const sysTheme: Theme = e.matches ? "dark" : "light";
 				setTheme(sysTheme);
-				applyThemeToDOM(sysTheme);
+				if (
+					typeof document !== "undefined" &&
+					document.documentElement.getAttribute("data-theme") !== sysTheme
+				) {
+					applyThemeToDOM(sysTheme);
+				}
 			};
 			if (mql.addEventListener) {
 				mql.addEventListener("change", handler);
@@ -47,7 +57,12 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
 	}, []);
 
 	useEffect(() => {
-		applyThemeToDOM(theme);
+		if (
+			typeof document !== "undefined" &&
+			document.documentElement.getAttribute("data-theme") !== theme
+		) {
+			applyThemeToDOM(theme);
+		}
 		try {
 			localStorage.setItem("theme", theme);
 		} catch {}
@@ -56,10 +71,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
 	const toggleTheme = () =>
 		setTheme((prev) => {
 			const next = prev === "dark" ? "light" : "dark";
-			applyThemeToDOM(next);
-			try {
-				localStorage.setItem("theme", next);
-			} catch {}
+			// DOM and storage updates handled in the theme effect
 			return next;
 		});
 
@@ -85,6 +97,9 @@ function applyThemeToDOM(theme: Theme) {
 
 function getPreferredTheme(): Theme {
 	if (typeof window === "undefined") return "dark";
+	// If layout script already set a theme, respect it to avoid hydration mismatch
+	const preset = document.documentElement.getAttribute("data-theme");
+	if (preset === "dark" || preset === "light") return preset as Theme;
 	const saved = localStorage.getItem("theme");
 	if (saved === "dark" || saved === "light") return saved as Theme;
 	return window.matchMedia &&

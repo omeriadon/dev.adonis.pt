@@ -29,7 +29,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html
+			lang="en"
+			suppressHydrationWarning
+			data-theme="dark"
+			style={{ backgroundColor: "#000000" }}
+		>
 			<head>
 				<script
 					dangerouslySetInnerHTML={{
@@ -42,6 +47,12 @@ export default function RootLayout({
           var theme = (ls === 'light' || ls === 'dark') ? ls : (mql && mql.matches ? 'dark' : 'light');
           d.setAttribute('data-theme', theme);
           d.style.backgroundColor = theme === 'dark' ? '#000000' : '#FFFFFF';
+          d.style.colorScheme = theme;
+          if (theme === 'dark') {
+            d.classList.add('dark');
+          } else {
+            d.classList.remove('dark');
+          }
         } catch (e) {}
       })();
     `,
