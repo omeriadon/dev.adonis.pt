@@ -29,7 +29,25 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" suppressHydrationWarning data-theme="dark">
+		<html lang="en" suppressHydrationWarning>
+			<head>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `
+      (function() {
+        try {
+          var d = document.documentElement;
+          var ls = localStorage.getItem('theme');
+          var mql = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+          var theme = (ls === 'light' || ls === 'dark') ? ls : (mql && mql.matches ? 'dark' : 'light');
+          d.setAttribute('data-theme', theme);
+          d.style.backgroundColor = theme === 'dark' ? '#000000' : '#FFFFFF';
+        } catch (e) {}
+      })();
+    `,
+					}}
+				/>
+			</head>
 			<body className={`${departureMono.variable} antialiased px-20`}>
 				<ThemeProvider>
 					<Navbar />

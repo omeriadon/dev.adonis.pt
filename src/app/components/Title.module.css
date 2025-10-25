@@ -1,5 +1,6 @@
 .title {
 	font-size: 6rem;
+	white-space: pre-wrap;
 	will-change: transform, opacity;
 	contain: paint;
 	transform: translateZ(0);

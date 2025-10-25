@@ -36,8 +36,6 @@ body {
 	margin: 0 auto; /* centers the grid horizontally */
 }
 
-
-
 .noSelect {
 	-webkit-user-select: none;
 	-moz-user-select: none;

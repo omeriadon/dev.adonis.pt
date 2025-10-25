@@ -78,11 +78,9 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
 function applyThemeToDOM(theme: Theme) {
 	if (typeof document === "undefined") return;
 	const root = document.documentElement;
-	// For CSS variables/themes
 	root.setAttribute("data-theme", theme);
-	// For native form controls and UA rendering
 	root.style.colorScheme = theme;
-	// For Tailwind's "class" dark mode strategy
+	root.style.backgroundColor = theme === "dark" ? "#000000" : "#FFFFFF";
 	if (theme === "dark") {
 		root.classList.add("dark");
 	} else {
