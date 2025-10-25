@@ -1,5 +1,5 @@
 .title {
-	font-size: 6rem;
+	font-size: 5rem;
 	white-space: pre-wrap;
 	will-change: transform, opacity;
 	contain: paint;
@@ -8,6 +8,8 @@
 	-webkit-font-smoothing: antialiased;
 	isolation: isolate;
 	padding: 1rem;
+	margin: 0 auto;
+	text-align: center;
 }
 
 :global(.title-letter) {
@@ -63,9 +65,13 @@
 /* Title wrap and layered glow */
 .titleWrap {
 	position: relative;
-	display: inline-block;
+	z-index: 0;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
 	line-height: 1;
 	padding: 0.5rem;
+	width: 100%;
 }
 
 .mainLayer {
@@ -149,4 +155,13 @@
 	.glowLetter.blinkQuestionGlow {
 		animation: none;
 	}
+}
+
+/* Faded prefix helper for main and glow layers */
+.prefix {
+	opacity: 0.5;
+}
+
+.prefixGlow {
+	opacity: 0.5;
 }

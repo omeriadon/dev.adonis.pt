@@ -175,7 +175,6 @@ export default function WallpaperSetPage() {
 		<div>
 			{/* Header */}
 			<div style={{ marginBottom: 20 }}>
-				<h1 style={{ marginBottom: 8 }}>{headerTitle}</h1>
 				{headerDescription ? (
 					<p style={{ opacity: 0.8, marginBottom: 12 }}>{headerDescription}</p>
 				) : null}

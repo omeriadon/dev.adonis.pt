@@ -32,6 +32,9 @@ body {
 body {
 	font-family: var(--font-sans), Helvetica, sans-serif;
 	min-height: 100vh;
+}
+
+.children {
 	max-width: 1300px;
 	margin: 0 auto; /* centers the grid horizontally */
 }

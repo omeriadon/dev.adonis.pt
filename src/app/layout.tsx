@@ -53,7 +53,7 @@ export default function RootLayout({
 					<Navbar />
 					<div className="h-40" />
 					<Title />
-					<div className="min-h-screen">{children}</div>
+					<div className="min-h-screen children">{children}</div>
 					<Footer />
 				</ThemeProvider>
 			</body>
