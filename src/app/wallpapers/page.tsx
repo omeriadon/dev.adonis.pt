@@ -49,7 +49,6 @@ export default function Wallpapers() {
 		};
 	}, []);
 
-	// Defer heavy grid render to next frame(s) so title animates smoothly
 	useEffect(() => {
 		let raf1 = 0;
 		let raf2 = 0;

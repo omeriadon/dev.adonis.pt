@@ -1,9 +1,10 @@
 .footer {
-	margin-top: 10rem;
-	margin-bottom: 2rem;
+	width: calc(100% - 20px);
+	margin: 10rem 0rem 2rem 0rem;
 
-	background-color: var(--grey);
-	border-radius: 20px;
+	background: var(--navbar-background);
+	border: 1px solid var(--grey);
+	border-radius: 12px;
 	overflow: hidden;
 }
 
@@ -16,14 +17,13 @@
 }
 
 .innerContent p {
-	margin: 0;
 	padding-left: 0.9rem;
 }
 
 .innerContent button {
 	cursor: pointer;
 	padding: 0.5rem 0.9rem;
-	border-radius: 10px;
+	border-radius: 7px;
 	background: transparent;
 	color: inherit;
 	transition:

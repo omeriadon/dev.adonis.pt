@@ -20,13 +20,11 @@ export function useTheme() {
 export default function ThemeProvider({ children }: { children: ReactNode }) {
 	const [theme, setTheme] = useState<Theme>("dark");
 
-	// Initialize from saved preference or system preference, and apply immediately
 	useEffect(() => {
 		const initial = getPreferredTheme();
 		setTheme(initial);
 		applyThemeToDOM(initial);
 
-		// If the user hasn't explicitly chosen a theme, react to system changes
 		if (
 			!localStorage.getItem("theme") &&
 			typeof window !== "undefined" &&
@@ -42,14 +40,12 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
 				mql.addEventListener("change", handler);
 				return () => mql.removeEventListener("change", handler);
 			} else {
-				// Safari
 				mql.addListener(handler);
 				return () => mql.removeListener(handler);
 			}
 		}
 	}, []);
 
-	// Persist and apply whenever theme changes
 	useEffect(() => {
 		applyThemeToDOM(theme);
 		try {
@@ -74,7 +70,6 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
 	);
 }
 
-// Helpers
 function applyThemeToDOM(theme: Theme) {
 	if (typeof document === "undefined") return;
 	const root = document.documentElement;

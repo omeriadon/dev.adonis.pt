@@ -1,5 +1,5 @@
 "use client";
-// Footer.tsx
+
 import { useTheme } from "./ThemeProvider";
 import styles from "./Footer.module.css";
 
@@ -34,7 +34,7 @@ export default function Footer() {
 					Switch theme: {theme}
 				</button>
 			</div>
-			<div style={{ display: "flex", gap: "0px" }}>
+			<div style={{ display: "flex", gap: "0px", margin: "0 -16px" }}>
 				{colors.map((color, i) => (
 					<div
 						key={i}

@@ -8,7 +8,7 @@
 	-webkit-font-smoothing: antialiased;
 	isolation: isolate;
 	padding: 1rem;
-	margin: 0 auto;
+	margin-bottom: 2rem;
 	text-align: center;
 }
 
@@ -58,7 +58,13 @@
 
 @media (max-width: 1000px) {
 	.title {
-		font-size: 4rem;
+		font-size: 3rem;
+	}
+}
+
+@media (max-width: 600px) {
+	.title {
+		font-size: 2rem;
 	}
 }
 

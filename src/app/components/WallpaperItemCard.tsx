@@ -2,13 +2,9 @@ import styles from "./WallpaperItemCard.module.css";
 import Image from "next/image";
 
 export interface WallpaperItemCardProps {
-	// Display name under the card (e.g., the file's human label or "text of the thing")
 	name: string;
-	// Image file (can be a filename without ext, or with ext, or an absolute path)
 	image: string;
-	// Path to the folder's index.json used to resolve relative paths (e.g. "/wallpapers/<id>/index.json")
 	path: string;
-	// Optional thumbnail image (same rules as `image`). If omitted, the main image is used.
 	thumbnail?: string;
 }
 
@@ -19,9 +15,7 @@ function toFileName(maybeFile: string): string {
 
 function joinPath(baseDir: string, file: string): string {
 	if (!file) return "";
-	// If it's an absolute path, leave it as-is (do not alter or append extensions)
 	if (file.startsWith("/")) return file;
-	// For relative paths, ensure a default extension if none is provided
 	const hasExt = /\.[a-zA-Z0-9]+$/.test(file || "");
 	const rel = hasExt ? file : `${file}.png`;
 	return `${baseDir}/${rel}`;
@@ -45,7 +39,6 @@ export function WallpaperItemCard(props: WallpaperItemCardProps) {
 
 	const isPlaceholder = !thumbSrc;
 
-	// Derive a friendly download name based on the provided name + image ext
 	const ext =
 		(toFileName(props.image).match(/\.[a-zA-Z0-9]+$/)?.[0] as
 			| string

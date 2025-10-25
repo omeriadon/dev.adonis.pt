@@ -7,12 +7,10 @@ import { useEffect, useState, type CSSProperties } from "react";
 export default function Title() {
 	const pathname = usePathname();
 
-	// Detect if we're on a wallpapers detail page: /wallpapers/[id]
 	const segments = pathname.split("/").filter(Boolean);
 	const wallpapersId =
 		segments.length >= 2 && segments[0] === "wallpapers" ? segments[1] : null;
 
-	// Title of the current category from the root index.json (id -> title mapping)
 	const [categoryTitle, setCategoryTitle] = useState<string>("");
 
 	useEffect(() => {
@@ -34,7 +32,7 @@ export default function Title() {
 					setCategoryTitle(match?.title || "");
 				}
 			} catch {
-				// ignore; keep empty so we don't show a guessed title
+				// ignore; keep empty to not show a guessed title
 			}
 		}
 		loadTitle();
@@ -43,7 +41,6 @@ export default function Title() {
 		};
 	}, [wallpapersId]);
 
-	// Build title content
 	let isDetail = Boolean(wallpapersId);
 	let text = "";
 	if (!isDetail) {
@@ -52,8 +49,7 @@ export default function Title() {
 		else text = pathname + " ?";
 	}
 
-	// For detail pages: "Wallpapers / " in half opacity + actual category title
-	const prefixText = isDetail ? "Wallpapers /" : "";
+	const prefixText = "";
 	const mainText = isDetail ? categoryTitle : text;
 
 	const prefixLetters = prefixText.split("");
@@ -65,7 +61,7 @@ export default function Title() {
 	const hasQuestion = !isDetail && text.endsWith("?");
 
 	return (
-		<div className="mb-12 grid place-items-center">
+		<div className="grid place-items-center">
 			<div className={styles.titleWrap}>
 				{/* Glow layer */}
 				<p
@@ -74,45 +70,25 @@ export default function Title() {
 					className={`${styles.title} ${styles.glowLayer}`}
 					style={{ "--glow-fade-delay": `${glowFadeDelay}s` } as CSSProperties}
 				>
-					{isDetail ? (
-						<>
-							<span style={{ opacity: 0.5 }}>
-								{prefixLetters.map((char, i) => (
-									<span
-										key={`g-pre-${i}`}
-										className={styles.glowLetter}
-										style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
-									>
-										{char}
-									</span>
-								))}
-							</span>{" "}
-							<wbr />
-							{mainLetters.map((char, i) => (
+					{isDetail
+						? mainLetters.map((char, i) => (
 								<span
 									key={`g-main-${i}`}
 									className={styles.glowLetter}
-									style={
-										{
-											"--delay": `${(prefixLetters.length + i) * 0.05}s`,
-										} as CSSProperties
-									}
+									style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
+								>
+									{char}
+								</span>
+							))
+						: mainLetters.map((char, i) => (
+								<span
+									key={`g-${i}`}
+									className={styles.glowLetter}
+									style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
 								>
 									{char}
 								</span>
 							))}
-						</>
-					) : (
-						mainLetters.map((char, i) => (
-							<span
-								key={`g-${i}`}
-								className={styles.glowLetter}
-								style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
-							>
-								{char}
-							</span>
-						))
-					)}
 				</p>
 
 				{/* Main layer */}
@@ -120,45 +96,25 @@ export default function Title() {
 					key={pathname + "-main"}
 					className={`${styles.title} ${styles.mainLayer}`}
 				>
-					{isDetail ? (
-						<>
-							<span style={{ opacity: 0.5 }}>
-								{prefixLetters.map((char, i) => (
-									<span
-										key={`m-pre-${i}`}
-										className="title-letter"
-										style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
-									>
-										{char}
-									</span>
-								))}
-							</span>{" "}
-							<wbr />
-							{mainLetters.map((char, i) => (
+					{isDetail
+						? mainLetters.map((char, i) => (
 								<span
 									key={`m-main-${i}`}
 									className="title-letter"
-									style={
-										{
-											"--delay": `${(prefixLetters.length + i) * 0.05}s`,
-										} as CSSProperties
-									}
+									style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
+								>
+									{char}
+								</span>
+							))
+						: mainLetters.map((char, i) => (
+								<span
+									key={`m-${i}`}
+									className={`title-letter ${hasQuestion && char === "?" ? styles.blinkQuestion : ""}`}
+									style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
 								>
 									{char}
 								</span>
 							))}
-						</>
-					) : (
-						mainLetters.map((char, i) => (
-							<span
-								key={`m-${i}`}
-								className={`title-letter ${hasQuestion && char === "?" ? styles.blinkQuestion : ""}`}
-								style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
-							>
-								{char}
-							</span>
-						))
-					)}
 				</p>
 			</div>
 		</div>

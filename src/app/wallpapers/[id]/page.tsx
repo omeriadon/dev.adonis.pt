@@ -10,19 +10,19 @@ type CategoryMeta = {
 	title: string;
 	description?: string;
 	thumbnail?: string;
-	path: string; // path to the folder index.json (e.g., "/wallpapers/<id>/index.json")
+	path: string; 
 };
 
 type ItemRecord =
 	| {
 			id?: string;
-			text?: string; // preferred display name
+			text?: string; 
 			title?: string;
 			name?: string;
 			image?: string;
 			thumbnail?: string;
 	  }
-	| string; // allow simple string entries (treated as image filename)
+	| string; 
 
 function isStringItem(v: ItemRecord): v is string {
 	return typeof v === "string";
@@ -43,7 +43,6 @@ export default function WallpaperSetPage() {
 	const [loadingItems, setLoadingItems] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
-	// Load root categories to find this category's metadata (description, tags, path, etc.)
 	useEffect(() => {
 		let cancelled = false;
 		async function loadMeta() {
@@ -85,7 +84,6 @@ export default function WallpaperSetPage() {
 		};
 	}, [id]);
 
-	// Load this category's items from its folder index.json
 	useEffect(() => {
 		let cancelled = false;
 		async function loadItems() {
@@ -104,7 +102,6 @@ export default function WallpaperSetPage() {
 					);
 				}
 				const data = await res.json();
-				// Support arrays of items or an object with { items: [...] }
 				const list: ItemRecord[] = Array.isArray(data)
 					? data
 					: Array.isArray(data?.items)
@@ -128,7 +125,6 @@ export default function WallpaperSetPage() {
 	const headerTitle = meta?.title || id;
 	const headerDescription = meta?.description || "";
 
-	// Normalize items into { name, image, thumbnail, path }
 	const normalized = useMemo(() => {
 		return items.map((it, idx) => {
 			if (isStringItem(it)) {
