@@ -14,6 +14,7 @@ export default function Title() {
 
 	const letters = text.split("");
 	const glowFadeDelay = (letters.length - 1) * 0.05 + 0.4 + 0.2;
+	const hasQuestion = text.endsWith("?");
 
 	return (
 		<div className="mb-12 grid place-items-start">
@@ -35,11 +36,14 @@ export default function Title() {
 					))}
 				</p>
 
-				<p key={pathname + "-main"} className={`${styles.title} ${styles.mainLayer}`}>
+				<p
+					key={pathname + "-main"}
+					className={`${styles.title} ${styles.mainLayer}`}
+				>
 					{letters.map((char, i) => (
 						<span
 							key={i}
-							className="title-letter"
+							className={`title-letter ${hasQuestion && char === "?" ? styles.blinkQuestion : ""}`}
 							style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
 						>
 							{char}

@@ -65,11 +65,12 @@
 	position: relative;
 	display: inline-block;
 	line-height: 1;
-	padding: 0rem;
+	padding: 0.5rem;
 }
 
 .mainLayer {
 	position: relative;
+	z-index: 1;
 }
 
 .glowLayer {
@@ -119,5 +120,33 @@
 		text-shadow: none;
 		opacity: 0;
 		transform: none;
+	}
+}
+
+/* Blink question mark on unknown routes */
+@keyframes blinkOpacity {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+/* When applied to the last "?" span in the main layer, preserve base animations and add a slow blink */
+.mainLayer :global(.title-letter).blinkQuestion {
+	animation:
+		fadeUp 400ms ease forwards var(--delay, 0s),
+		glowFade 1200ms ease forwards calc(var(--delay, 0s) + 500ms),
+		blinkOpacity 1000ms ease-in-out infinite alternate
+			calc(var(--delay, 0s) + 700ms);
+}
+
+/* When applied to the last "?" span in the glow layer, preserve base animations and add a slow blink */
+
+@media (prefers-reduced-motion: reduce) {
+	.mainLayer :global(.title-letter).blinkQuestion,
+	.glowLetter.blinkQuestionGlow {
+		animation: none;
 	}
 }
