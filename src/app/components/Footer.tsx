@@ -25,7 +25,7 @@ export default function Footer() {
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.innerContent}>
-				<p>Adon Omeri</p>
+				<p className="noSelect">Adon Omeri</p>
 				<button
 					type="button"
 					onClick={toggleTheme}

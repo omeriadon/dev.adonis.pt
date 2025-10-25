@@ -17,6 +17,7 @@
 
 .innerContent p {
 	margin: 0;
+	padding-left: 0.9rem;
 }
 
 .innerContent button {
@@ -34,13 +35,4 @@
 
 .innerContent button:hover {
 	background-color: rgba(127, 127, 127, 0.15);
-}
-
-.innerContent button:active {
-	transform: translateY(1px);
-}
-
-.innerContent button:focus-visible {
-	outline: 2px solid currentColor;
-	outline-offset: 2px;
 }

@@ -7,20 +7,24 @@
 	backface-visibility: hidden;
 	-webkit-font-smoothing: antialiased;
 	isolation: isolate;
+	padding: 1rem;
 }
 
 :global(.title-letter) {
 	display: inline-block;
 	opacity: 0;
 	transform: translateY(10px);
-	animation-name: fadeUp;
-	animation-duration: 400ms;
-	animation-timing-function: ease;
-	animation-fill-mode: forwards;
-	animation-delay: var(--delay, 0s);
-	will-change: transform, opacity;
+	animation-name: fadeUp, glowFade;
+	animation-duration: 400ms, 1200ms;
+	animation-timing-function: ease, ease;
+	animation-fill-mode: forwards, forwards;
+	animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 500ms);
+	will-change: transform, opacity, text-shadow;
 	backface-visibility: hidden;
 	transform: translateZ(0);
+	text-shadow:
+		0 6px 16px rgba(255, 255, 255, 0.18),
+		0 0 24px rgba(255, 255, 255, 0.12);
 }
 
 @keyframes fadeUp {
@@ -30,16 +34,90 @@
 	}
 }
 
+@keyframes glowFade {
+	from {
+		text-shadow:
+			0 6px 16px rgba(255, 255, 255, 0.18),
+			0 0 24px rgba(255, 255, 255, 0.12);
+	}
+	to {
+		text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	:global(.title-letter) {
 		animation: none;
 		opacity: 1;
 		transform: none;
+		text-shadow: none;
 	}
 }
 
 @media (max-width: 1000px) {
 	.title {
 		font-size: 4rem;
+	}
+}
+
+/* Title wrap and layered glow */
+.titleWrap {
+	position: relative;
+	display: inline-block;
+	line-height: 1;
+	padding: 0rem;
+}
+
+.mainLayer {
+	position: relative;
+}
+
+.glowLayer {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	contain: none; /* prevent clipping so glow can overflow */
+}
+
+.glowLetter {
+	display: inline-block;
+	will-change: transform, opacity;
+	filter: blur(6px);
+	text-shadow: 0 0 12px currentColor;
+	opacity: 0;
+	transform: translateY(10px);
+	animation:
+		glowIn 400ms ease forwards var(--delay, 0s),
+		glowFadeOut 900ms ease forwards var(--glow-fade-delay, 1.2s);
+}
+
+@keyframes glowIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 0.22;
+		transform: translateY(0);
+	}
+}
+
+@keyframes glowFadeOut {
+	from {
+		opacity: 0.22;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.glowLetter {
+		animation: none;
+		filter: none;
+		text-shadow: none;
+		opacity: 0;
+		transform: none;
 	}
 }

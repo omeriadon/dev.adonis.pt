@@ -13,20 +13,40 @@ export default function Title() {
 	else text = pathname + " ?";
 
 	const letters = text.split("");
+	const glowFadeDelay = (letters.length - 1) * 0.05 + 0.4 + 0.2;
 
 	return (
 		<div className="mb-12 grid place-items-start">
-			<p key={pathname} className={styles.title}>
-				{letters.map((char, i) => (
-					<span
-						key={i}
-						className="title-letter"
-						style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
-					>
-						{char}
-					</span>
-				))}
-			</p>
+			<div className={styles.titleWrap}>
+				<p
+					key={pathname + "-glow"}
+					aria-hidden="true"
+					className={`${styles.title} ${styles.glowLayer}`}
+					style={{ "--glow-fade-delay": `${glowFadeDelay}s` } as CSSProperties}
+				>
+					{letters.map((char, i) => (
+						<span
+							key={i}
+							className={styles.glowLetter}
+							style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
+						>
+							{char}
+						</span>
+					))}
+				</p>
+
+				<p key={pathname + "-main"} className={`${styles.title} ${styles.mainLayer}`}>
+					{letters.map((char, i) => (
+						<span
+							key={i}
+							className="title-letter"
+							style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
+						>
+							{char}
+						</span>
+					))}
+				</p>
+			</div>
 		</div>
 	);
 }
