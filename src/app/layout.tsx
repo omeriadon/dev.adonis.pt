@@ -48,7 +48,7 @@ export default function RootLayout({
 					}}
 				/>
 			</head>
-			<body className={`${departureMono.variable} antialiased px-20`}>
+			<body className={`${departureMono.variable} antialiased body`}>
 				<ThemeProvider>
 					<Navbar />
 					<div className="h-40" />

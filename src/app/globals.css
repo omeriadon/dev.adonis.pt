@@ -36,7 +36,7 @@ body {
 
 .children {
 	max-width: 1300px;
-	margin: 0 auto; /* centers the grid horizontally */
+	margin: 0 auto;
 }
 
 .noSelect {
@@ -44,5 +44,9 @@ body {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	pointer-events: none; /* prevents dragging/selecting */
+	pointer-events: none;
+}
+
+.body {
+	padding: 0 10px;
 }
