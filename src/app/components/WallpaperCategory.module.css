@@ -1,0 +1,26 @@
+.card {
+	border-radius: 30px;
+	background-color: #161616;
+}
+
+.image {
+	padding: 15px;
+	border-radius: 30px;
+}
+
+.cardText {
+	display: flex;
+	justify-content: space-between;
+	align-items: center; /* vertically center both title and count */
+	padding: 0 20px 15px 20px; /* equal horizontal padding and bottom space */
+}
+
+.cardTitle {
+	font-size: 1.5rem;
+}
+
+.amountCount {
+	opacity: 0.5;
+	font-size: 1rem; /* optional: match visual height with title */
+	line-height: 1; /* ensures proper vertical alignment */
+}
