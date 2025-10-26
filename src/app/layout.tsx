@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Title from "./components/Title";
-import Footer from "./components/Footer";
-import ThemeProvider from "./components/ThemeProvider";
+import Navbar from "@/components/Navbar";
+import Title from "@/components/Title";
+import Footer from "@/components/Footer";
+import ThemeProvider from "@/components/ThemeProvider";
 
 const departureMono = localFont({
 	src: [

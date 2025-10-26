@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import styles from "../wallpapers.module.css";
-import WallpaperItemCard from "../../components/WallpaperItemCard";
+import WallpaperItemCard from "@/components/WallpaperItemCard";
 
 type CategoryMeta = {
 	id: string;

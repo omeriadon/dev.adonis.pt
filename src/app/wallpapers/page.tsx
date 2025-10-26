@@ -2,7 +2,7 @@
 
 import styles from "./wallpapers.module.css";
 import { useState, useEffect } from "react";
-import { WallpaperCategory } from "../components/WallpaperCategory";
+import { WallpaperCategory } from "@/components/WallpaperCategory";
 
 export default function Wallpapers() {
 	type Category = {

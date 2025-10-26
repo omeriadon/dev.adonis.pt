@@ -4,7 +4,7 @@
 	--background: #000000;
 	--foreground: #ffffff;
 	--blue: #68a6f8;
-	--red: #e5698f;
+	--red: #f05c8d;
 	--purple: #b976f3;
 	--green: #7abe7b;
 	--grey: #1f1f1f;
@@ -56,3 +56,15 @@ body {
 		padding: 0 10px;
 	}
 }
+
+.homeParent {
+	display: flex;
+	flex-direction: column; /* stack children vertically */
+	justify-content: flex-start; /* top align */
+	align-items: center; /* horizontal center */
+	height: 100vh;
+	padding-top: 10vh; /* push down from top */
+	gap: 1rem;
+}
+
+
