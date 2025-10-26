@@ -1,16 +1,14 @@
 "use client";
-
 import styles from "./Title.module.css";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type CSSProperties } from "react";
 
 export default function Title() {
 	const pathname = usePathname();
-
+	const isHome = pathname === "/";
 	const segments = pathname.split("/").filter(Boolean);
 	const wallpapersId =
 		segments.length >= 2 && segments[0] === "wallpapers" ? segments[1] : null;
-
 	const [categoryTitle, setCategoryTitle] = useState<string>("");
 
 	useEffect(() => {
@@ -51,14 +49,14 @@ export default function Title() {
 
 	const prefixText = "";
 	const mainText = isDetail ? categoryTitle : text;
-
 	const prefixLetters = prefixText.split("");
 	const mainLetters = mainText.split("");
-
 	const totalLetters = prefixLetters.length + mainLetters.length;
-	const glowFadeDelay = (totalLetters - 1) * 0.05 + 0.4 + 0.2;
-
+	const glowFadeDelay = isHome
+		? (totalLetters - 1) * 0.08 + 0.6 + 0.2
+		: (totalLetters - 1) * 0.05 + 0.4 + 0.2;
 	const hasQuestion = !isDetail && text.endsWith("?");
+	const letterDelay = isHome ? 0.1 : 0.05;
 
 	return (
 		<div className="grid place-items-center">
@@ -67,7 +65,7 @@ export default function Title() {
 				<p
 					key={pathname + "-glow"}
 					aria-hidden="true"
-					className={`${styles.title} ${styles.glowLayer}`}
+					className={`${styles.title} ${isHome ? styles.homeTitle : ""} ${styles.glowLayer}`}
 					style={{ "--glow-fade-delay": `${glowFadeDelay}s` } as CSSProperties}
 				>
 					{isDetail
@@ -75,7 +73,7 @@ export default function Title() {
 								<span
 									key={`g-main-${i}`}
 									className={styles.glowLetter}
-									style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
+									style={{ "--delay": `${i * letterDelay}s` } as CSSProperties}
 								>
 									{char}
 								</span>
@@ -84,24 +82,23 @@ export default function Title() {
 								<span
 									key={`g-${i}`}
 									className={styles.glowLetter}
-									style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
+									style={{ "--delay": `${i * letterDelay}s` } as CSSProperties}
 								>
 									{char}
 								</span>
 							))}
 				</p>
-
 				{/* Main layer */}
 				<p
 					key={pathname + "-main"}
-					className={`${styles.title} ${styles.mainLayer}`}
+					className={`${styles.title} ${isHome ? styles.homeTitle : ""} ${styles.mainLayer}`}
 				>
 					{isDetail
 						? mainLetters.map((char, i) => (
 								<span
 									key={`m-main-${i}`}
 									className="title-letter"
-									style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
+									style={{ "--delay": `${i * letterDelay}s` } as CSSProperties}
 								>
 									{char}
 								</span>
@@ -110,7 +107,7 @@ export default function Title() {
 								<span
 									key={`m-${i}`}
 									className={`title-letter ${hasQuestion && char === "?" ? styles.blinkQuestion : ""}`}
-									style={{ "--delay": `${i * 0.05}s` } as CSSProperties}
+									style={{ "--delay": `${i * letterDelay}s` } as CSSProperties}
 								>
 									{char}
 								</span>
