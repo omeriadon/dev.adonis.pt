@@ -10,7 +10,9 @@
 	padding: 2rem;
 	margin-bottom: 2rem;
 	text-align: center;
+	white-space: pre-wrap;
 }
+
 :global(.title-letter) {
 	display: inline-block;
 	opacity: 0;

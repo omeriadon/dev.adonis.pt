@@ -37,6 +37,13 @@ body {
 .children {
 	max-width: 1300px;
 	margin: 0 auto;
+	padding: 0 50px;
+}
+
+@media (max-width: 800px) {
+	.children {
+		padding: 0 10px;
+	}
 }
 
 .noSelect {
@@ -45,16 +52,6 @@ body {
 	-ms-user-select: none;
 	user-select: none;
 	pointer-events: none;
-}
-
-.body {
-	padding: 0 50px;
-}
-
-@media (max-width: 800px) {
-	.body {
-		padding: 0 10px;
-	}
 }
 
 .homeParent {
@@ -69,17 +66,12 @@ body {
 
 .homeSubtitle {
 	font-size: 2rem;
+	text-align: center;
 }
 
 @media (max-width: 1000px) {
 	.homeSubtitle {
 		font-size: 1rem;
-	}
-}
-
-@media (max-width: 800px) {
-	.homeSubtitle {
-		font-size: 0.6rem;
 	}
 }
 

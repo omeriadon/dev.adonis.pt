@@ -29,6 +29,30 @@ export default function Navbar() {
 	const [collapseHeight, setCollapseHeight] = useState(0);
 	const collapseInnerRef = useRef<HTMLDivElement | null>(null);
 
+	const [scrolled, setScrolled] = useState(false);
+
+	useEffect(() => {
+		const getThreshold = () => {
+			const remInPx = parseFloat(
+				getComputedStyle(document.documentElement).fontSize,
+			); // usually 16px
+			return window.innerWidth > 1000 ? 10 * remInPx : 6 * remInPx;
+		};
+
+		const handleScroll = () => {
+			setScrolled(window.scrollY > getThreshold());
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		handleScroll(); // initialize on load
+		window.addEventListener("resize", handleScroll); // update threshold on resize
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("resize", handleScroll);
+		};
+	}, []);
+
 	useEffect(() => {
 		if (typeof window === "undefined") return;
 		const update = () => {
@@ -88,7 +112,7 @@ export default function Navbar() {
 	const mobileNavId = "navbar-mobile-links";
 
 	return (
-		<nav className={styles.navbar}>
+		<nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
 			<div className={styles.topRow}>
 				<Link
 					href="/"

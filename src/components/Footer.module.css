@@ -1,6 +1,6 @@
 .footer {
-	width: calc(100% - 20px);
-	margin: 10rem 0rem 2rem 0rem;
+	/*width: calc(100% - 20px);*/
+	margin: 10rem 1rem 1rem 1rem;
 
 	background: var(--navbar-background);
 	border: 1px solid var(--grey);

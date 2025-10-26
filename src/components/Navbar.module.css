@@ -20,8 +20,6 @@
 
 	-webkit-backdrop-filter: saturate(180%) blur(12px);
 	backdrop-filter: saturate(180%) blur(12px);
-
-	border: 1px solid var(--grey);
 }
 
 .topRow {
@@ -76,7 +74,6 @@
 	height: 100%;
 	padding-left: 6px;
 	transform: translateY(2px);
-
 }
 
 .toggle {
@@ -227,4 +224,13 @@
 	.collapseWrapper {
 		display: none;
 	}
+}
+
+.navbar {
+	border: 1px solid rgba(255, 255, 255, 0); /* invisible */
+	transition: border-color 0.3s ease;
+}
+
+.navbar.scrolled {
+	border-color: var(--grey); /* visible */
 }
