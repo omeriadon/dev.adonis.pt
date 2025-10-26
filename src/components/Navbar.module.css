@@ -1,136 +1,136 @@
 /* Container styling */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  z-index: 50;
-  transform: translateX(-50%);
-  width: calc(100% - 20px);
-  box-sizing: border-box;
-  margin: 10px 0;
-  padding: 0 16px;
-  min-height: 56px;
+	position: fixed;
+	top: 0;
+	left: 50%;
+	z-index: 50;
+	transform: translateX(-50%);
+	width: calc(100% - 20px);
+	box-sizing: border-box;
+	margin: 10px 0;
+	padding: 0 16px;
+	min-height: 56px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  border-radius: 12px;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	border-radius: 12px;
 
-  background: var(--navbar-background);
+	background: var(--navbar-background);
 
-  -webkit-backdrop-filter: saturate(180%) blur(12px);
-  backdrop-filter: saturate(180%) blur(12px);
+	-webkit-backdrop-filter: saturate(180%) blur(12px);
+	backdrop-filter: saturate(180%) blur(12px);
 
-  border: 1px solid var(--grey);
+	border: 1px solid var(--grey);
 }
 
 .topRow {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  gap: 16px;
-  height: 56px;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	gap: 16px;
+	height: 56px;
 }
 
 .navList {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 0;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	margin: 0;
+	padding: 0;
 }
 
 .navList > li {
-  flex: 0 0 auto;
-  min-width: max-content;
+	flex: 0 0 auto;
+	min-width: max-content;
 }
 
 .desktopNav {
-  margin-left: auto;
+	margin-left: auto;
 }
 
 .link {
-  text-decoration: none;
-  color: var(--foreground);
-  font-weight: bold;
-  margin: 0 15px;
+	text-decoration: none;
+	color: var(--foreground);
+	font-weight: bold;
+	margin: 0 15px;
 
-  padding: 14px 0;
-  display: flex;
-  align-items: center;
-  line-height: 1;
-  font-size: clamp(0.9rem, 1vw + 0.5rem, 1.05rem);
-  transition: color 0.3s ease;
-  white-space: nowrap;
+	padding: 14px 0;
+	display: flex;
+	align-items: center;
+	line-height: 1;
+	font-size: clamp(0.9rem, 1vw + 0.5rem, 1.05rem);
+	transition: color 0.3s ease;
+	white-space: nowrap;
 }
 
 .navbarTitle {
-  text-decoration: none;
-  color: var(--foreground);
-  font-weight: 900;
-  font-size: clamp(1.35rem, 2vw + 0.9rem, 2.1rem);
-  margin: 0 30px 0 5px;
-  transition: color 0.3s ease;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  padding: 0;
+	text-decoration: none;
+	color: var(--foreground);
+	font-weight: 900;
+	font-size: clamp(1.35rem, 2vw + 0.9rem, 2.1rem);
+	margin: 0 30px 0 5px;
+	transition: color 0.3s ease;
+	display: flex;
+	align-items: center;
+	height: 100%;
+	padding: 0;
 }
 
 .toggle {
-  display: none;
-  margin-left: auto;
-  border: none;
-  background: transparent;
-  color: var(--foreground);
-  font-weight: 900;
-  font-size: clamp(1.2rem, 1vw + 0.85rem, 1.6rem);
-  height: 100%;
-  padding: 0;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  align-items: center;
-  justify-content: center;
-  min-width: 66px;
+	display: none;
+	margin-left: auto;
+	border: none;
+	background: transparent;
+	color: var(--foreground);
+	font-weight: 900;
+	font-size: clamp(1.2rem, 1vw + 0.85rem, 1.6rem);
+	height: 100%;
+	padding: 0;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
+	min-width: 66px;
 }
 
 .toggle:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 2px;
+	outline: 2px solid var(--blue);
+	outline-offset: 2px;
 }
 
 .toggleLabelClosed,
 .toggleLabelOpen {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 1;
-  transition: opacity 180ms ease;
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 1;
+	transition: opacity 180ms ease;
 }
 
 .toggleLabelClosed {
-  transform: translateY(-3px);
+	transform: translateY(-3px);
 }
 
 .toggleLabelOpen {
-  opacity: 0;
+	opacity: 0;
 }
 
 .toggle[data-open="true"] .toggleLabelClosed {
-  opacity: 0;
+	opacity: 0;
 }
 
 .toggle[data-open="true"] .toggleLabelOpen {
-  opacity: 1;
+	opacity: 1;
 }
 
 .link:hover,
 .navbarTitle:hover,
 .toggle:hover {
-  color: var(--blue);
+	color: var(--blue);
 }
 
 .active,
@@ -138,89 +138,91 @@
 .navbarTitle.active,
 .link[aria-current="page"],
 .navbarTitle[aria-current="page"] {
-  color: var(--blue);
+	color: var(--blue);
 }
 
 .collapseWrapper {
-  width: 100%;
-  overflow: hidden;
-  height: 0;
-  opacity: 0;
-  transition: height 220ms ease, opacity 220ms ease;
+	width: 100%;
+	overflow: hidden;
+	height: 0;
+	opacity: 0;
+	transition:
+		height 220ms ease,
+		opacity 220ms ease;
 }
 
 .collapseInner {
-  padding: 8px 0 10px;
+	padding: 8px 0 10px;
 }
 
 .mobileNavList {
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: flex-start;
-  row-gap: 8px;
-  column-gap: 16px;
-  width: 100%;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	align-content: flex-start;
+	row-gap: 8px;
+	column-gap: 16px;
+	width: 100%;
 }
 
 .mobileNavList > li {
-  flex: 0 0 auto;
-  min-width: max-content;
+	flex: 0 0 auto;
+	min-width: max-content;
 }
 
 .mobileNavList .link {
-  margin: 0;
-  padding: 10px 0;
+	margin: 0;
+	padding: 10px 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .collapseWrapper {
-    transition: none;
-  }
+	.collapseWrapper {
+		transition: none;
+	}
 }
 
 @media (max-width: 1000px) {
-  .navbar {
-    padding: 0 12px;
-    width: calc(100% - 16px);
-    margin: 8px 0;
-  }
+	.navbar {
+		padding: 0 12px;
+		width: calc(100% - 16px);
+		margin: 8px 0;
+	}
 
-  .topRow {
-    justify-content: space-between;
-  }
+	.topRow {
+		justify-content: space-between;
+	}
 
-  .desktopNav {
-    display: none;
-  }
+	.desktopNav {
+		display: none;
+	}
 
-  .toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 60px;
-  }
+	.toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 60px;
+	}
 
-  .navbarTitle {
-    margin: 0;
-  }
+	.navbarTitle {
+		margin: 0;
+	}
 
-  .link {
-    margin: 0;
-    padding: 10px 0;
-  }
+	.link {
+		margin: 0;
+		padding: 10px 0;
+	}
 
-  .collapseWrapper {
-    margin-top: 4px;
-  }
+	.collapseWrapper {
+		margin-top: 4px;
+	}
 }
 
 @media (min-width: 1001px) {
-  .navbar {
-    flex-direction: row;
-    align-items: center;
-  }
+	.navbar {
+		flex-direction: row;
+		align-items: center;
+	}
 
-  .collapseWrapper {
-    display: none;
-  }
+	.collapseWrapper {
+		display: none;
+	}
 }
