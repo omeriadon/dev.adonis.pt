@@ -14,6 +14,16 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 1rem;
+	font-size: 1rem;
+}
+
+@media (max-width: 500px) {
+	.innerContent p {
+		font-size: 0.5rem;
+	}
+	.innerContent button {
+		font-size: 0.7rem;
+	}
 }
 
 .innerContent p {

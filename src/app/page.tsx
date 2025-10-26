@@ -12,7 +12,6 @@ const sharedProps = {
 	preset: "fade" as const,
 	delay: 0.5,
 	trigger: true,
-	style: { fontSize: "2rem" },
 	containerTransition: { duration: 1 },
 	segmentTransition: { duration: 0.2 },
 	speedReveal: 0.3,
@@ -32,9 +31,21 @@ export default function Home() {
 
 	return (
 		<div className="homeParent">
-			{show1 && <TextEffect {...sharedProps}>{text1}</TextEffect>}
-			{show2 && <TextEffect {...sharedProps}>{text2}</TextEffect>}
-			{show3 && <TextEffect {...sharedProps}>{text3}</TextEffect>}
+			{show1 && (
+				<TextEffect {...sharedProps} className="homeSubtitle">
+					{text1}
+				</TextEffect>
+			)}
+			{show2 && (
+				<TextEffect {...sharedProps} className="homeSubtitle">
+					{text2}
+				</TextEffect>
+			)}
+			{show3 && (
+				<TextEffect {...sharedProps} className="homeSubtitle">
+					{text3}
+				</TextEffect>
+			)}
 		</div>
 	);
 }

@@ -67,4 +67,18 @@ body {
 	gap: 1rem;
 }
 
+.homeSubtitle {
+	font-size: 2rem;
+}
 
+@media (max-width: 1000px) {
+	.homeSubtitle {
+		font-size: 1rem;
+	}
+}
+
+@media (max-width: 800px) {
+	.homeSubtitle {
+		font-size: 0.6rem;
+	}
+}
