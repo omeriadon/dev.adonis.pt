@@ -27,8 +27,6 @@ export type TextEffectProps = {
 	speedReveal?: number;
 	speedSegment?: number;
 	trigger?: boolean;
-	onAnimationComplete?: () => void;
-	onAnimationStart?: () => void;
 	segmentWrapperClassName?: string;
 	containerTransition?: Transition;
 	segmentTransition?: Transition;
@@ -212,8 +210,6 @@ export function TextEffect({
 	speedReveal = 1,
 	speedSegment = 1,
 	trigger = true,
-	onAnimationComplete,
-	onAnimationStart,
 	segmentWrapperClassName,
 	containerTransition,
 	segmentTransition,
@@ -268,8 +264,6 @@ export function TextEffect({
 					exit="exit"
 					variants={computedVariants.container}
 					className={className}
-					onAnimationComplete={onAnimationComplete}
-					onAnimationStart={onAnimationStart}
 					style={style}
 				>
 					{per !== "line" ? <span className="sr-only">{children}</span> : null}
