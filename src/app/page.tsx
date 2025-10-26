@@ -1,5 +1,4 @@
 "use client";
-import "./globals.css";
 import { TextEffect } from "@/components/motion-primitives/text-effect";
 import { useState, useEffect } from "react";
 

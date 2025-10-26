@@ -82,3 +82,13 @@ body {
 		font-size: 0.6rem;
 	}
 }
+
+.spacer {
+	height: 10rem;
+}
+
+@media (max-width: 1000px) {
+	.spacer {
+		height: 7rem;
+	}
+}

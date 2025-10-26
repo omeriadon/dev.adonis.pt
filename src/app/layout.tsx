@@ -62,7 +62,7 @@ export default function RootLayout({
 			<body className={`${departureMono.variable} antialiased body`}>
 				<ThemeProvider>
 					<Navbar />
-					<div className="h-40" />
+					<div className="spacer" />
 					<Title />
 					<div className="min-h-screen children">{children}</div>
 					<Footer />
