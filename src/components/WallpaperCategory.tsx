@@ -10,6 +10,7 @@ export interface CategoryProps {
 	description: string;
 	tags: string[];
 	thumbnail: string;
+	preview: string;
 	path: string;
 }
 
@@ -22,10 +23,9 @@ export function WallpaperCategory(props: CategoryProps) {
 	const thumbnailSrc = isAbsolute
 		? hasExt
 			? props.thumbnail
-			: `${props.thumbnail}.png`
+			: `${props.thumbnail}.avif`
 		: `${baseDir}/${fileName}`;
 
-	// Load the wallpapers count from the category's index.json (client-side)
 	const [wallpapersCount, setWallpapersCount] = useState<number | null>(null);
 	useEffect(() => {
 		let active = true;

@@ -1,18 +1,22 @@
 [
 	{
 		"id": "black_white",
+		"preview": "/wallpapers/fluted/black_white.avif",
 		"file": "/wallpapers/fluted/black_white.png"
 	},
 	{
 		"id": "blue_green",
+		"preview": "/wallpapers/fluted/blue_green.avif",
 		"file": "/wallpapers/fluted/blue_green.png"
 	},
 	{
 		"id": "neon",
+		"preview": "/wallpapers/fluted/neon.avif",
 		"file": "/wallpapers/fluted/neon.png"
 	},
 	{
 		"id": "red",
+		"preview": "/wallpapers/fluted/red.avif",
 		"file": "/wallpapers/fluted/red.png"
 	}
 ]
