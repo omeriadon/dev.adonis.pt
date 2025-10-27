@@ -43,6 +43,7 @@ export default function Title() {
 	let text = "";
 	if (!isDetail) {
 		if (pathname.startsWith("/wallpapers")) text = "Wallpapers";
+		else if (pathname.startsWith("/certificates")) text = "Certificates";
 		else if (pathname === "/") text = "Adon Omeri";
 		else text = pathname + " ?";
 	}

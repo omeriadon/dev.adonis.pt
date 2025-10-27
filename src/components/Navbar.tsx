@@ -10,12 +10,12 @@ const MOBILE_BREAKPOINT = 1000;
 type NavLink = {
 	href: string;
 	label: string;
-	external?: boolean;
 };
 
 const navLinks: NavLink[] = [
 	{ href: "/wallpapers", label: "Wallpapers" },
-	{ href: "/contact", label: "Contact", external: true },
+	{ href: "/certificates", label: "Certificates" },
+	{ href: "/contact", label: "Contact" },
 ];
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -129,23 +129,13 @@ export default function Navbar() {
 
 						return (
 							<li key={`desktop-${item.href}`}>
-								{item.external ? (
-									<a
-										href={item.href}
-										className={className}
-										aria-current={ariaCurrent}
-									>
-										{item.label}
-									</a>
-								) : (
-									<Link
-										href={item.href}
-										className={className}
-										aria-current={ariaCurrent}
-									>
-										{item.label}
-									</Link>
-								)}
+								<Link
+									href={item.href}
+									className={className}
+									aria-current={ariaCurrent}
+								>
+									{item.label}
+								</Link>
 							</li>
 						);
 					})}
@@ -182,23 +172,13 @@ export default function Navbar() {
 
 							return (
 								<li key={`mobile-${item.href}`}>
-									{item.external ? (
-										<a
-											href={item.href}
-											className={className}
-											aria-current={ariaCurrent}
-										>
-											{item.label}
-										</a>
-									) : (
-										<Link
-											href={item.href}
-											className={className}
-											aria-current={ariaCurrent}
-										>
-											{item.label}
-										</Link>
-									)}
+									<Link
+										href={item.href}
+										className={className}
+										aria-current={ariaCurrent}
+									>
+										{item.label}
+									</Link>
 								</li>
 							);
 						})}

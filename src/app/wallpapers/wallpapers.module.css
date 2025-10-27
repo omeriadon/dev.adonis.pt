@@ -1,22 +1,21 @@
 .grid {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 20px;
-	align-items: center;
-	justify-items: center;
-	place-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+  justify-items: stretch;
 }
 
 .description {
-	max-width: 50vh;
-	display: grid;
-	place-items: center;
+  max-width: 50vh;
+  display: grid;
+  place-items: center;
 
-	opacity: 0.5;
-	font-size: 1.4rem;
-	margin-bottom: 6rem;
+  opacity: 0.5;
+  font-size: 1.4rem;
+  margin-bottom: 6rem;
 
-	margin-left: auto;
-	margin-right: auto; /* centers the container horizontally */
-	text-align: center; /* centers text inside if multiline */
+  margin-left: auto;
+  margin-right: auto; /* centers the container horizontally */
+  text-align: center; /* centers text inside if multiline */
 }

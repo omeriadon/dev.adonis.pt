@@ -8,7 +8,7 @@
 	--purple: #b976f3;
 	--green: #7abe7b;
 	--grey: #1f1f1f;
-	--navbar-background: rgba(0, 0, 0, 0.2);
+	--navbar-background: rgba(0, 0, 0, 0.4);
 }
 
 /* Light mode override */
@@ -20,7 +20,7 @@
 	--purple: #a855f7;
 	--green: #22c55e;
 	--grey: #f2f2f2;
-	--navbar-background: rgba(255, 255, 255, 0.4);
+	--navbar-background: rgba(255, 255, 255, 0.6);
 }
 
 html,
