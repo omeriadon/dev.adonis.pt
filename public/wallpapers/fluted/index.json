@@ -5,6 +5,11 @@
 		"file": "/wallpapers/fluted/black_white.png"
 	},
 	{
+		"id": "black_white_liquid",
+		"preview": "/wallpapers/fluted/black_white_liquid.avif",
+		"file": "/wallpapers/fluted/black_white_liquid.png"
+	},
+	{
 		"id": "blue_green",
 		"preview": "/wallpapers/fluted/blue_green.avif",
 		"file": "/wallpapers/fluted/blue_green.png"
