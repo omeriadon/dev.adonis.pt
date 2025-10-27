@@ -11,7 +11,6 @@ export type WallpaperCardProps = {
 	cardSubtitle: string;
 	imageAlt?: string;
 	sizes?: string;
-	priority?: boolean;
 	className?: string;
 	style?: CSSProperties;
 	imageClassName?: string;
@@ -26,7 +25,6 @@ export function WallpaperCard({
 	cardSubtitle,
 	imageAlt,
 	sizes = "50vw",
-	priority = false,
 	className,
 	style,
 	imageClassName,
@@ -42,21 +40,26 @@ export function WallpaperCard({
 			<div className={clsx(styles.imageWrapper, imageWrapperClassName)}>
 				{imageSlot ? (
 					imageSlot
-				) : showPlaceholder ? (
-					<div className={styles.placeholder} aria-hidden="true" />
 				) : (
-					<Image
-						src={image as string}
-						alt={imageAlt || cardTitle}
-						fill
-						sizes={sizes}
-						priority={priority}
-						fetchPriority={priority ? "high" : undefined}
-						decoding="async"
-						style={{ objectFit: imageFit, objectPosition: "center" }}
-						className={clsx(styles.image, "noSelect", imageClassName)}
-						draggable={false}
-					/>
+					<div className={styles.imageContainer}>
+						{showPlaceholder ? (
+							<div className={styles.placeholder} aria-hidden="true" />
+						) : (
+							<Image
+								src={image as string}
+								alt={imageAlt || cardTitle}
+								fill
+								sizes={sizes}
+								priority={true}
+								loading="eager"
+								fetchPriority="high"
+								decoding="async"
+								style={{ objectFit: imageFit, objectPosition: "center" }}
+								className={clsx(styles.image, "noSelect", imageClassName)}
+								draggable={false}
+							/>
+						)}
+					</div>
 				)}
 			</div>
 			<div className={styles.cardText}>

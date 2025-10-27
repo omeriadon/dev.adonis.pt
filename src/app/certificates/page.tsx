@@ -82,7 +82,6 @@ export default async function Certificates() {
 
 	return (
 		<div className={styles.container}>
-			<h1 className={styles.heading}>Certificates</h1>
 			{error && <p style={{ color: "red" }}>{error}</p>}
 			{!error && !hasCertificates && (
 				<p className={styles.status}>No certificates available right now.</p>
@@ -101,7 +100,6 @@ export default async function Certificates() {
 								cardTitle={cert.title}
 								cardSubtitle={subtitle}
 								imageAlt={cert.title}
-								sizes="33vw"
 								imageFit="contain"
 							/>
 						);
