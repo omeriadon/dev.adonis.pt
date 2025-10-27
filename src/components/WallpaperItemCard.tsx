@@ -8,12 +8,12 @@ export interface WallpaperItemCardProps {
 	thumbnail?: string;
 }
 
-function toFileName(maybeFile: string): string {
+export function toFileName(maybeFile: string): string {
 	const hasExt = /\.[a-zA-Z0-9]+$/.test(maybeFile || "");
 	return hasExt ? maybeFile : `${maybeFile}.png`;
 }
 
-function joinPath(baseDir: string, file: string): string {
+export function joinPath(baseDir: string, file: string): string {
 	if (!file) return "";
 	if (file.startsWith("/")) return file;
 	const hasExt = /\.[a-zA-Z0-9]+$/.test(file || "");
@@ -21,12 +21,30 @@ function joinPath(baseDir: string, file: string): string {
 	return `${baseDir}/${rel}`;
 }
 
-function slugify(value: string): string {
+export function slugify(value: string): string {
 	return value
 		.trim()
 		.toLowerCase()
 		.replace(/[^a-z0-9]+/g, "-")
 		.replace(/^-+|-+$/g, "");
+}
+
+export function buildDownloadName(
+	name: string | undefined,
+	image: string,
+): string {
+	const ext =
+		(toFileName(image).match(/\.[a-zA-Z0-9]+$/)?.[0] as string | undefined) ||
+		".png";
+	const fallbackBase =
+		toFileName(image)
+			.split("/")
+			.pop()
+			?.replace(/\.[^.]+$/, "") || "wallpaper";
+	const downloadBase =
+		name && name.trim().length ? slugify(name) : slugify(fallbackBase);
+	const safeBase = downloadBase || "wallpaper";
+	return `${safeBase}${ext}`;
 }
 
 export function WallpaperItemCard(props: WallpaperItemCardProps) {
@@ -39,17 +57,7 @@ export function WallpaperItemCard(props: WallpaperItemCardProps) {
 
 	const isPlaceholder = !thumbSrc;
 
-	const ext =
-		(toFileName(props.image).match(/\.[a-zA-Z0-9]+$/)?.[0] as
-			| string
-			| undefined) || ".png";
-	const fallbackBase =
-		toFileName(props.image)
-			.split("/")
-			.pop()
-			?.replace(/\.[^.]+$/, "") || "wallpaper";
-	const downloadBase = props.name ? slugify(props.name) : slugify(fallbackBase);
-	const downloadName = `${downloadBase || "wallpaper"}${ext}`;
+	const downloadName = buildDownloadName(props.name, props.image);
 
 	return (
 		<a href={fullSrc} download={downloadName} className={styles.card}>
