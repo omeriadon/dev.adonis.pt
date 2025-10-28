@@ -125,7 +125,9 @@ export default function RootLayout({
 					<div className="spacer" />
 					<Title />
 					<ScrollBlur footerId="footer">
-						<ViewTransition>{children}</ViewTransition>
+						<ViewTransition>
+							{<div className="min-h-screen children">{children}</div>}
+						</ViewTransition>
 					</ScrollBlur>
 					<Footer id="footer" />
 				</ThemeProvider>
