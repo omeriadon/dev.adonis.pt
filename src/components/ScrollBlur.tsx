@@ -31,7 +31,9 @@ export default function ScrollBlur({
 			let newBlur = 0;
 			let newOpacity = 1;
 
-			if (distanceFromBottom > startBlurDistance) {
+			const adjustedStart = window.innerWidth < 1000 ? 25 : startBlurDistance;
+
+			if (distanceFromBottom > adjustedStart) {
 				newBlur = 0;
 				newOpacity = 1;
 			} else if (distanceFromBottom < endBlurDistance) {
@@ -39,8 +41,8 @@ export default function ScrollBlur({
 				newOpacity = 0.5;
 			} else {
 				const ratio =
-					(startBlurDistance - distanceFromBottom) /
-					(startBlurDistance - endBlurDistance);
+					(adjustedStart - distanceFromBottom) /
+					(adjustedStart - endBlurDistance);
 				newBlur = ratio * 10;
 				newOpacity = 1 - ratio * 0.5;
 			}

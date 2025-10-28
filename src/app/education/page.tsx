@@ -14,30 +14,6 @@ const educationPlaces: EducationPlace[] = [
 		subtitle: "High School",
 		description: "Selective academic high school in WA",
 	},
-	{
-		date: "2020 - now",
-		title: "Perth Modern School",
-		subtitle: "High School",
-		description: "Selective academic high school in WA",
-	},
-	{
-		date: "2020 - now",
-		title: "Perth Modern School",
-		subtitle: "High School",
-		description: "Selective academic high school in WA",
-	},
-	{
-		date: "2020 - now",
-		title: "Perth Modern School",
-		subtitle: "High School",
-		description: "Selective academic high school in WA",
-	},
-	{
-		date: "2020 - now",
-		title: "Perth Modern School",
-		subtitle: "High School",
-		description: "Selective academic high school in WA",
-	},
 ];
 
 export default async function Education() {
