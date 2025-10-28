@@ -1,8 +1,62 @@
 [
-  {
-    "id": "first_aid",
-    "title": "Introductory First Aid Course",
-    "year": 2025,
-    "image": "/certificates/first_aid.avif"
-  }
+	{
+		"id": "first_aid",
+		"title": "Introductory First Aid Course",
+		"year": 2025,
+		"image": "/certificates/first_aid.avif"
+	},
+	{
+		"id": "computer_hardware_basics",
+		"title": "Computer Hardware Basics",
+		"year": 2025,
+		"image": "/certificates/computer_hardware_basics.avif"
+	},
+	{
+		"id": "introduction_to_cybersecurity",
+		"title": "Introduction to Cybersecurity",
+		"year": 2025,
+		"image": "/certificates/introduction_to_cybersecurity.avif"
+	},
+	{
+		"id": "introduction_to_data_science",
+		"title": "Introduction to Data Science",
+		"year": 2025,
+		"image": "/certificates/introduction_to_data_science.avif"
+	},
+	{
+		"id": "introduction_to_iot",
+		"title": "Introduction to IoT",
+		"year": 2025,
+		"image": "/certificates/introduction_to_iot.avif"
+	},
+	{
+		"id": "introduction_to_packet_tracer",
+		"title": "Introduction to Packet Tracer",
+		"year": 2025,
+		"image": "/certificates/introduction_to_packet_tracer.avif"
+	},
+	{
+		"id": "network_addressing_basic_troubleshooting",
+		"title": "Network Addressing & Basic Troubleshooting",
+		"year": 2025,
+		"image": "/certificates/network_addressing_basic_troubleshooting.avif"
+	},
+	{
+		"id": "networking_basics",
+		"title": "Networking Basics",
+		"year": 2025,
+		"image": "/certificates/networking_basics.avif"
+	},
+	{
+		"id": "networking_devices_initial_configuration",
+		"title": "Networking Devices & Initial Configuration",
+		"year": 2025,
+		"image": "/certificates/networking_devices_initial_configuration.avif"
+	},
+	{
+		"id": "foundational_c#_microsoft",
+		"title": "Foundational C# with Microsoft",
+		"year": 2025,
+		"image": "/certificates/foundational_c#_microsoft.avif"
+	}
 ]
