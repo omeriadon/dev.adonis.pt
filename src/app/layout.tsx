@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Title from "@/components/Title";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
+import { ViewTransition } from "react";
 
 const departureMono = localFont({
 	src: [
@@ -119,7 +120,9 @@ export default function RootLayout({
 					<Navbar />
 					<div className="spacer" />
 					<Title />
-					<div className="min-h-screen children">{children}</div>
+					<div className="min-h-screen children">
+						<ViewTransition>{children}</ViewTransition>
+					</div>
 					<Footer />
 				</ThemeProvider>
 			</body>
