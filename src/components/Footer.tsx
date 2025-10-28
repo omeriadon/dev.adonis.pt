@@ -2,8 +2,11 @@
 
 import { useTheme } from "./ThemeProvider";
 import styles from "./Footer.module.css";
+import { forwardRef, HTMLAttributes } from "react";
 
-export default function Footer() {
+interface FooterProps extends HTMLAttributes<HTMLElement> {}
+
+const Footer = forwardRef<HTMLElement, FooterProps>(({ ...props }, ref) => {
 	const { theme, toggleTheme } = useTheme();
 
 	const colors = [
@@ -23,7 +26,7 @@ export default function Footer() {
 	];
 
 	return (
-		<footer className={styles.footer} role="contentinfo">
+		<footer ref={ref} className={styles.footer} role="contentinfo" {...props}>
 			<div className={styles.innerContent}>
 				<p className="noSelect">Adon Omeri</p>
 				<button
@@ -44,4 +47,8 @@ export default function Footer() {
 			</div>
 		</footer>
 	);
-}
+});
+
+Footer.displayName = "Footer";
+
+export default Footer;

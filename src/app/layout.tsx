@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
 import { ViewTransition } from "react";
 import ScrollToTop from "@/components/ScrollToTop";
+import ScrollBlur from "@/components/ScrollBlur";
 
 const departureMono = localFont({
 	src: [
@@ -119,13 +120,14 @@ export default function RootLayout({
 			<body className={`${departureMono.variable} antialiased body`}>
 				<ThemeProvider>
 					<ScrollToTop />
+
 					<Navbar />
 					<div className="spacer" />
 					<Title />
-					<div className="min-h-screen children z-0">
+					<ScrollBlur footerId="footer">
 						<ViewTransition>{children}</ViewTransition>
-					</div>
-					<Footer />
+					</ScrollBlur>
+					<Footer id="footer" />
 				</ThemeProvider>
 			</body>
 		</html>
