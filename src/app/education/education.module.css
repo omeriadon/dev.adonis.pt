@@ -1,0 +1,68 @@
+.container {
+	display: flexbox;
+	grid-template-columns: 1fr 1fr; /* two equal columns */
+}
+
+.itemCommon {
+	width: 60%;
+	margin: 50 0px;
+}
+
+.innerItemCommon {
+	padding: 10px 15px;
+	border-radius: 30px;
+	background-color: var(--grey);
+}
+
+@media (max-width: 1000px) {
+	.itemCommon {
+		width: 100%;
+	}
+}
+
+.itemLeft {
+	justify-self: start;
+}
+
+.itemRight {
+	justify-self: end;
+}
+
+.dateWrapper {
+	display: flex;
+	grid-template-columns: 1fr;
+	padding-bottom: 5px;
+}
+
+.date {
+	opacity: 0.5;
+}
+
+.dateLeft {
+	margin-right: auto;
+	padding-left: 15px;
+}
+
+.dateRight {
+	margin-left: auto;
+	padding-right: 15px;
+}
+
+.title {
+	font-size: 2rem;
+	color: var(--blue);
+}
+.subtitle {
+	opacity: 0.5;
+}
+.description {
+	opacity: 0.8;
+	padding-bottom: 0.8rem;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 1rem;
+}
