@@ -355,14 +355,12 @@ export default function WallpaperSetPage() {
 
 	return (
 		<div>
-			{/* Header */}
 			<div style={{ marginBottom: 20 }}>
 				{headerDescription ? (
 					<p className={styles.description}>{headerDescription}</p>
 				) : null}
 			</div>
 
-			{/* Loading / error states */}
 			{(loadingMeta || loadingItems) && <p></p>}
 			{!loadingMeta && !loadingItems && error && (
 				<p style={{ color: "red" }}>{error}</p>
@@ -371,7 +369,6 @@ export default function WallpaperSetPage() {
 				<p>No wallpapers found.</p>
 			)}
 
-			{/* Grid of downloadable items */}
 			{!loadingMeta && !loadingItems && !error && normalized.length > 0 && (
 				<div className={styles.grid}>
 					{normalized.map((n) => (

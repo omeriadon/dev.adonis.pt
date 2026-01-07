@@ -31,7 +31,7 @@ export default function Wallpapers() {
 				});
 				if (!res.ok) {
 					throw new Error(
-						`Failed to load categories: ${res.status} ${res.statusText}`,
+						`Failed to load categories: ${res.status} ${res.statusText}`
 					);
 				}
 				const data = await res.json();
@@ -60,8 +60,8 @@ export default function Wallpapers() {
 							const tags = Array.isArray(raw?.tags)
 								? raw.tags.filter(
 										(tag: unknown): tag is string =>
-											typeof tag === "string" && tag.trim().length > 0,
-									)
+											typeof tag === "string" && tag.trim().length > 0
+								  )
 								: [];
 							const path =
 								typeof raw?.path === "string" && raw.path.trim().length
@@ -76,7 +76,7 @@ export default function Wallpapers() {
 								preview,
 								path,
 							};
-						},
+						}
 					);
 					setCategories(normalized);
 				}
@@ -112,7 +112,6 @@ export default function Wallpapers() {
 				{!loading && !error && categories.length === 0 && (
 					<p>No categories found.</p>
 				)}
-				{/*{!loading && !error && (*/}
 				{!loading && !error && ready && (
 					<div className={styles.grid}>
 						{categories.map((cat) => (

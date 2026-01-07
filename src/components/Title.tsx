@@ -63,7 +63,6 @@ export default function Title() {
 	return (
 		<div className="grid place-items-center">
 			<div className={styles.titleWrap}>
-				{/* Glow layer */}
 				<p
 					key={pathname + "-glow"}
 					aria-hidden="true"
@@ -90,7 +89,6 @@ export default function Title() {
 								</span>
 							))}
 				</p>
-				{/* Main layer */}
 				<p
 					key={pathname + "-main"}
 					className={`${styles.title} ${isHome ? styles.homeTitle : ""} ${styles.mainLayer}`}
