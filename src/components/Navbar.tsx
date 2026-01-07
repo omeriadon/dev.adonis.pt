@@ -36,7 +36,7 @@ export default function Navbar() {
 		const getThreshold = () => {
 			const remInPx = parseFloat(
 				getComputedStyle(document.documentElement).fontSize,
-			); // usually 16px
+			);
 			return window.innerWidth > 1000 ? 10 * remInPx : 6 * remInPx;
 		};
 
@@ -45,8 +45,8 @@ export default function Navbar() {
 		};
 
 		window.addEventListener("scroll", handleScroll);
-		handleScroll(); // initialize on load
-		window.addEventListener("resize", handleScroll); // update threshold on resize
+		handleScroll();
+		window.addEventListener("resize", handleScroll);
 
 		return () => {
 			window.removeEventListener("scroll", handleScroll);
@@ -84,7 +84,6 @@ export default function Navbar() {
 			setCollapseHeight(inner.offsetHeight);
 		};
 
-		// Keep the animated height in sync with wrapped items.
 		updateHeight();
 
 		let observer: ResizeObserver | undefined;

@@ -71,7 +71,6 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
 	const toggleTheme = () =>
 		setTheme((prev) => {
 			const next = prev === "dark" ? "light" : "dark";
-			// DOM and storage updates handled in the theme effect
 			return next;
 		});
 
@@ -97,7 +96,6 @@ function applyThemeToDOM(theme: Theme) {
 
 function getPreferredTheme(): Theme {
 	if (typeof window === "undefined") return "dark";
-	// If layout script already set a theme, respect it to avoid hydration mismatch
 	const preset = document.documentElement.getAttribute("data-theme");
 	if (preset === "dark" || preset === "light") return preset as Theme;
 	const saved = localStorage.getItem("theme");

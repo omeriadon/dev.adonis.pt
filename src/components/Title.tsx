@@ -30,7 +30,7 @@ export default function Title() {
 					setCategoryTitle(match?.title || "");
 				}
 			} catch {
-				// ignore; keep empty to not show a guessed title
+				// just do nothing
 			}
 		}
 		loadTitle();

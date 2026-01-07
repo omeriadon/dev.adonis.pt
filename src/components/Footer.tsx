@@ -2,11 +2,9 @@
 
 import { useTheme } from "./ThemeProvider";
 import styles from "./Footer.module.css";
-import { forwardRef, HTMLAttributes } from "react";
+import { forwardRef } from "react";
 
-interface FooterProps extends HTMLAttributes<HTMLElement> {}
-
-const Footer = forwardRef<HTMLElement, FooterProps>(({ ...props }, ref) => {
+const Footer = forwardRef<HTMLElement>(({ ...props }, ref) => {
 	const { theme, toggleTheme } = useTheme();
 
 	const colors = [
