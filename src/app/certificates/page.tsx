@@ -34,8 +34,8 @@ function normalizeCertificates(data: unknown): CertificateRecord[] {
 				typeof raw?.year === "number"
 					? raw.year
 					: typeof raw?.year === "string" && raw.year.trim().length
-						? Number.parseInt(raw.year, 10)
-						: Number.NaN;
+					? Number.parseInt(raw.year, 10)
+					: Number.NaN;
 			const year = Number.isFinite(yearValue) ? String(yearValue) : "";
 			const imageName =
 				typeof raw?.image === "string" && raw.image.trim().length
@@ -60,7 +60,7 @@ async function loadCertificatesFromDisk(): Promise<{
 			process.cwd(),
 			"public",
 			"certificates",
-			"index.json",
+			"index.json"
 		);
 		const file = await fs.readFile(filePath, "utf-8");
 		const parsed = JSON.parse(file) as unknown;
@@ -70,8 +70,8 @@ async function loadCertificatesFromDisk(): Promise<{
 			err instanceof Error
 				? err.message
 				: typeof err === "string"
-					? err
-					: "Failed to read certificates.";
+				? err
+				: "Failed to read certificates.";
 		return { certificates: [], error: message };
 	}
 }

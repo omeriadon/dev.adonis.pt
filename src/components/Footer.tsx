@@ -40,6 +40,7 @@ const Footer = forwardRef<HTMLElement>(({ ...props }, ref) => {
 					<div
 						key={i}
 						style={{ backgroundColor: color, flex: 1, height: "5px" }}
+						suppressHydrationWarning
 					/>
 				))}
 			</div>
