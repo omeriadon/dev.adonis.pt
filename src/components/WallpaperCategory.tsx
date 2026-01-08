@@ -55,7 +55,7 @@ export function WallpaperCategory(props: CategoryProps) {
 		Number(wallpapersCount) > 0
 			? `${Number(wallpapersCount)} wallpaper${
 					Number(wallpapersCount) === 1 ? "" : "s"
-				}`
+			  }`
 			: "0 wallpapers";
 
 	return (

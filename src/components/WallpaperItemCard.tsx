@@ -31,7 +31,7 @@ export function slugify(value: string): string {
 
 export function buildDownloadName(
 	name: string | undefined,
-	image: string,
+	image: string
 ): string {
 	const ext =
 		(toFileName(image).match(/\.[a-zA-Z0-9]+$/)?.[0] as string | undefined) ||

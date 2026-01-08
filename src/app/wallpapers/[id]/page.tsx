@@ -139,8 +139,8 @@ function DownloadAllCard({
 				err instanceof Error
 					? err.message
 					: typeof err === "string"
-						? err
-						: "Failed to download wallpapers.";
+					? err
+					: "Failed to download wallpapers.";
 			setError(message);
 		} finally {
 			setDownloading(false);
@@ -153,7 +153,7 @@ function DownloadAllCard({
 			if (downloading) return;
 			void handleDownloadAll();
 		},
-		[downloading, handleDownloadAll],
+		[downloading, handleDownloadAll]
 	);
 
 	const pointerStyle: CSSProperties | undefined = downloading
@@ -166,8 +166,8 @@ function DownloadAllCard({
 	const statusLabel = downloading
 		? `Preparing download of ${countLabel}`
 		: error
-			? `Last error: ${error}`
-			: `Download all ${countLabel}`;
+		? `Last error: ${error}`
+		: `Download all ${countLabel}`;
 
 	if (!hasContent) {
 		return null;
@@ -231,7 +231,7 @@ export default function WallpaperSetPage() {
 				});
 				if (!res.ok) {
 					throw new Error(
-						`Failed to load root index: ${res.status} ${res.statusText}`,
+						`Failed to load root index: ${res.status} ${res.statusText}`
 					);
 				}
 				const data = await res.json();
@@ -275,15 +275,15 @@ export default function WallpaperSetPage() {
 				const res = await fetch(meta.path, { cache: "no-cache" });
 				if (!res.ok) {
 					throw new Error(
-						`Failed to load items: ${res.status} ${res.statusText}`,
+						`Failed to load items: ${res.status} ${res.statusText}`
 					);
 				}
 				const data = await res.json();
 				const list: ItemRecord[] = Array.isArray(data)
 					? data
 					: Array.isArray(data?.items)
-						? data.items
-						: [];
+					? data.items
+					: [];
 				if (!cancelled) setItems(list);
 			} catch (e: any) {
 				if (!cancelled) setError(e?.message || "Failed to load items");

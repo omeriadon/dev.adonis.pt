@@ -49,7 +49,7 @@ export default function Navbar() {
 	useEffect(() => {
 		const getThreshold = () => {
 			const remInPx = parseFloat(
-				getComputedStyle(document.documentElement).fontSize,
+				getComputedStyle(document.documentElement).fontSize
 			);
 			return window.innerWidth > 1000 ? 10 * remInPx : 6 * remInPx;
 		};
@@ -99,7 +99,7 @@ export default function Navbar() {
 		? {
 				height: open ? collapseHeight : 0,
 				opacity: open ? 1 : 0,
-			}
+		  }
 		: undefined;
 
 	const mobileNavId = "navbar-mobile-links";
