@@ -10,7 +10,6 @@
 	padding: 2rem;
 	margin-bottom: 2rem;
 	text-align: center;
-	white-space: pre-wrap;
 }
 
 :global(.title-letter) {
@@ -24,27 +23,27 @@
 	animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 500ms);
 	will-change: transform, opacity, text-shadow;
 	backface-visibility: hidden;
-	transform: translateZ(0);
-	text-shadow:
-		0 6px 16px rgba(255, 255, 255, 0.18),
+	text-shadow: 0 6px 16px rgba(255, 255, 255, 0.18),
 		0 0 24px rgba(255, 255, 255, 0.12);
 }
+
 @keyframes fadeUp {
 	to {
 		opacity: 1;
 		transform: translateY(0);
 	}
 }
+
 @keyframes glowFade {
 	from {
-		text-shadow:
-			0 6px 16px rgba(255, 255, 255, 0.18),
+		text-shadow: 0 6px 16px rgba(255, 255, 255, 0.18),
 			0 0 24px rgba(255, 255, 255, 0.12);
 	}
 	to {
 		text-shadow: 0 0 0 rgba(0, 0, 0, 0);
 	}
 }
+
 @media (prefers-reduced-motion: reduce) {
 	:global(.title-letter) {
 		animation: none;
@@ -53,17 +52,19 @@
 		text-shadow: none;
 	}
 }
+
 @media (max-width: 1000px) {
 	.title {
 		font-size: 3rem;
 	}
 }
+
 @media (max-width: 600px) {
 	.title {
 		font-size: 2rem;
 	}
 }
-/* Title wrap and layered glow */
+
 .titleWrap {
 	position: relative;
 	z-index: 0;
@@ -74,10 +75,12 @@
 	padding: 0.5rem;
 	width: 100%;
 }
+
 .mainLayer {
 	position: relative;
 	z-index: 1;
 }
+
 .glowLayer {
 	position: absolute;
 	inset: 0;
@@ -85,6 +88,7 @@
 	pointer-events: none;
 	contain: none;
 }
+
 .glowLetter {
 	display: inline-block;
 	will-change: transform, opacity;
@@ -92,10 +96,10 @@
 	text-shadow: 0 0 12px currentColor;
 	opacity: 0;
 	transform: translateY(10px);
-	animation:
-		glowIn 400ms ease forwards var(--delay, 0s),
+	animation: glowIn 400ms ease forwards var(--delay, 0s),
 		glowFadeOut 900ms ease forwards var(--glow-fade-delay, 1.2s);
 }
+
 @keyframes glowIn {
 	from {
 		opacity: 0;
@@ -106,6 +110,7 @@
 		transform: translateY(0);
 	}
 }
+
 @keyframes glowFadeOut {
 	from {
 		opacity: 0.22;
@@ -114,6 +119,7 @@
 		opacity: 0;
 	}
 }
+
 @media (prefers-reduced-motion: reduce) {
 	.glowLetter {
 		animation: none;
@@ -123,7 +129,7 @@
 		transform: none;
 	}
 }
-/* Blink question mark on unknown routes */
+
 @keyframes blinkOpacity {
 	from {
 		opacity: 1;
@@ -132,27 +138,29 @@
 		opacity: 0;
 	}
 }
+
 .mainLayer :global(.title-letter).blinkQuestion {
-	animation:
-		fadeUp 400ms ease forwards var(--delay, 0s),
+	animation: fadeUp 400ms ease forwards var(--delay, 0s),
 		glowFade 1200ms ease forwards calc(var(--delay, 0s) + 500ms),
 		blinkOpacity 1000ms ease-in-out infinite alternate
 			calc(var(--delay, 0s) + 700ms);
 }
+
 @media (prefers-reduced-motion: reduce) {
 	.mainLayer :global(.title-letter).blinkQuestion,
 	.glowLetter.blinkQuestionGlow {
 		animation: none;
 	}
 }
+
 .prefix {
 	opacity: 0.5;
 }
+
 .prefixGlow {
 	opacity: 0.5;
 }
 
-/* Home page specific styles */
 .homeTitle {
 	font-size: 6rem;
 }
@@ -163,20 +171,17 @@
 	animation-timing-function: ease, ease;
 	animation-fill-mode: forwards, forwards;
 	animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 500ms);
-	text-shadow:
-		0 8px 24px rgba(255, 255, 255, 0.28),
+	text-shadow: 0 8px 24px rgba(255, 255, 255, 0.28),
 		0 0 36px rgba(255, 255, 255, 0.22);
 }
 
 @keyframes glowFadeHome {
 	from {
-		text-shadow:
-			0 8px 24px rgba(255, 255, 255, 0.28),
+		text-shadow: 0 8px 24px rgba(255, 255, 255, 0.28),
 			0 0 36px rgba(255, 255, 255, 0.22);
 	}
 	to {
-		text-shadow:
-			0 4px 12px rgba(255, 255, 255, 0.14),
+		text-shadow: 0 4px 12px rgba(255, 255, 255, 0.14),
 			0 0 18px rgba(255, 255, 255, 0.11);
 	}
 }
@@ -184,8 +189,7 @@
 .homeTitle .glowLetter {
 	filter: blur(12px);
 	text-shadow: 0 0 28px rgba(100, 150, 255, 0.9);
-	animation:
-		glowInHome 1000ms ease forwards var(--delay, 0s),
+	animation: glowInHome 1000ms ease forwards var(--delay, 0s),
 		glowFadeOutHome 2400ms ease forwards var(--glow-fade-delay, 1.2s);
 }
 

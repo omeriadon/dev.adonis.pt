@@ -15,14 +15,9 @@
 	background-color: var(--grey);
 	overflow: hidden;
 	width: 100%;
-	transition: transform 0.1s ease-in-out;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-}
-
-.card:hover {
-	transform: scale(1.02);
 }
 
 .imageWrapper {

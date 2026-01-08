@@ -26,11 +26,6 @@
 	background-color: var(--grey);
 	text-decoration: none;
 	color: inherit;
-	transition: transform 0.1s ease-in-out;
-}
-
-.card:hover {
-	transform: scale(1.02);
 }
 
 .content {

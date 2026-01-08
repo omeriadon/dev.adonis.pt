@@ -61,57 +61,38 @@ export default function RootLayout({
     `,
 					}}
 				/>
-				<script
-					dangerouslySetInnerHTML={{
-						__html: `
-      (function () {
-        try {
-          var KEY = 'session-intro-shown';
-          var isHome = (location && location.pathname === '/');
-          var seen = sessionStorage.getItem(KEY);
-          if (!seen) {
-            if (isHome) {
-              document.documentElement.setAttribute('data-intro', 'true');
-              try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
-              // Remove the attribute after the animation window passes.
-              // Start delay: 15000ms, duration: 2000ms -> 17000ms total.
-              setTimeout(function () {
-                document.documentElement.removeAttribute('data-intro');
-              }, 17500);
-            } else {
-              // First page of the session is not home; lock out intro for this session.
-              try { sessionStorage.setItem(KEY, 'locked'); } catch (e) {}
-            }
-          }
-        } catch (e) {}
-      })();
-    `,
-					}}
-				/>
 				<style
 					dangerouslySetInnerHTML={{
 						__html: `
-      /* Session intro fade styles:
-         - Only affect chrome (nav, footer, title, spacer), not the page content (.children)
-         - Only runs when html[data-intro="true"] is present (first page of the session AND home page)
-         - Start 15s after load, take 2s, ease-in-out
-         - Respect reduced motion
-      */
-      @media (prefers-reduced-motion: no-preference) {
-        html[data-intro="true"] body nav,
-        html[data-intro="true"] body footer,
-        html[data-intro="true"] body .spacer,
-        html[data-intro="true"] body .title-fade {
-          opacity: 0;
-          pointer-events: none;
-          will-change: opacity;
-          animation: firstVisitFadeIn 2s ease-in-out 15s forwards;
-        }
+      /* Page transition animations */
+      @keyframes fade-out {
+        from { opacity: 1; }
+        to { opacity: 0; }
       }
-
-      @keyframes firstVisitFadeIn {
-        from { opacity: 0; pointer-events: none; }
-        to { opacity: 1; pointer-events: auto; }
+      @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      ::view-transition-old(page-content) {
+        animation: fade-out 0.2s ease-out forwards;
+      }
+      
+      ::view-transition-new(page-content) {
+        animation: fade-in 0.25s ease-in 0.15s forwards;
+        opacity: 0;
+      }
+      
+      /* Prevent any elements from creating their own view transition names */
+      a, img, button {
+        view-transition-name: none !important;
+      }
+      
+      @media (prefers-reduced-motion: reduce) {
+        ::view-transition-old(page-content),
+        ::view-transition-new(page-content) {
+          animation: none;
+        }
       }
     `,
 					}}
@@ -126,7 +107,12 @@ export default function RootLayout({
 					<Title />
 					<ScrollBlur footerId="footer">
 						<ViewTransition>
-							{<div className="min-h-screen children">{children}</div>}
+							<div
+								className="min-h-screen children"
+								style={{ viewTransitionName: "page-content" }}
+							>
+								{children}
+							</div>
 						</ViewTransition>
 					</ScrollBlur>
 					<Footer id="footer" />
