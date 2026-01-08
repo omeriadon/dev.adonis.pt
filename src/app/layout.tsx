@@ -101,7 +101,6 @@ export default function RootLayout({
 			<body className={`${departureMono.variable} antialiased body`}>
 				<ThemeProvider>
 					<ScrollToTop />
-
 					<Navbar />
 					<div className="spacer" />
 					<Title />
