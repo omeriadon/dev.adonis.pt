@@ -25,12 +25,26 @@ function cx(...classes: Array<string | false | null | undefined>) {
 
 export default function Navbar() {
 	const pathname = usePathname();
+
 	const [isMobile, setIsMobile] = useState(false);
-	const [isOpen, setIsOpen] = useState(false);
+
+	const [menuOpen, setMenuOpen] = useState(false);
+
+	const [openForPath, setOpenForPath] = useState<string | null>(null);
+
+	const [scrolled, setScrolled] = useState(false);
+
 	const [collapseHeight, setCollapseHeight] = useState(0);
 	const collapseInnerRef = useRef<HTMLDivElement | null>(null);
 
-	const [scrolled, setScrolled] = useState(false);
+	const open = isMobile && menuOpen && openForPath === pathname;
+
+	useEffect(() => {
+		const update = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+		update();
+		window.addEventListener("resize", update);
+		return () => window.removeEventListener("resize", update);
+	}, []);
 
 	useEffect(() => {
 		const getThreshold = () => {
@@ -45,35 +59,14 @@ export default function Navbar() {
 		};
 
 		window.addEventListener("scroll", handleScroll);
-		handleScroll();
 		window.addEventListener("resize", handleScroll);
+		handleScroll();
 
 		return () => {
 			window.removeEventListener("scroll", handleScroll);
 			window.removeEventListener("resize", handleScroll);
 		};
 	}, []);
-
-	useEffect(() => {
-		if (typeof window === "undefined") return;
-		const update = () => {
-			setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
-		};
-		update();
-		window.addEventListener("resize", update);
-		return () => window.removeEventListener("resize", update);
-	}, []);
-
-	useEffect(() => {
-		if (!isMobile) {
-			setIsOpen(false);
-		}
-	}, [isMobile]);
-
-	useEffect(() => {
-		if (!isMobile) return;
-		setIsOpen(false);
-	}, [pathname, isMobile]);
 
 	useEffect(() => {
 		if (!isMobile) return;
@@ -97,19 +90,31 @@ export default function Navbar() {
 			if (observer) observer.disconnect();
 			window.removeEventListener("resize", updateHeight);
 		};
-	}, [isMobile, isOpen, pathname]);
+	}, [isMobile, open, pathname]);
 
 	const isActive = (href: string) =>
 		pathname === href || (href !== "/" && pathname.startsWith(href));
 
 	const collapseStyle = isMobile
 		? {
-				height: isOpen ? collapseHeight : 0,
-				opacity: isOpen ? 1 : 0,
+				height: open ? collapseHeight : 0,
+				opacity: open ? 1 : 0,
 			}
 		: undefined;
 
 	const mobileNavId = "navbar-mobile-links";
+
+	const closeMenu = () => {
+		setMenuOpen(false);
+	};
+
+	const toggleMenu = () => {
+		setMenuOpen((prev) => {
+			if (prev) return false;
+			setOpenForPath(pathname);
+			return true;
+		});
+	};
 
 	return (
 		<nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
@@ -118,21 +123,22 @@ export default function Navbar() {
 					href="/"
 					className={cx(styles.navbarTitle, isActive("/") && styles.active)}
 					aria-current={isActive("/") ? "page" : undefined}
+					onClick={() => {
+						if (isMobile) closeMenu();
+					}}
 				>
 					Adon Omeri
 				</Link>
+
 				<ul className={cx(styles.navList, styles.desktopNav)}>
 					{navLinks.map((item) => {
 						const active = isActive(item.href);
-						const className = cx(styles.link, active && styles.active);
-						const ariaCurrent = active ? "page" : undefined;
-
 						return (
 							<li key={`desktop-${item.href}`}>
 								<Link
 									href={item.href}
-									className={className}
-									aria-current={ariaCurrent}
+									className={cx(styles.link, active && styles.active)}
+									aria-current={active ? "page" : undefined}
 								>
 									{item.label}
 								</Link>
@@ -140,14 +146,15 @@ export default function Navbar() {
 						);
 					})}
 				</ul>
+
 				<button
 					type="button"
 					className={styles.toggle}
-					onClick={() => setIsOpen((prev) => !prev)}
-					aria-expanded={isOpen}
+					onClick={toggleMenu}
+					aria-expanded={open}
 					aria-controls={mobileNavId}
 					aria-label="Toggle navigation"
-					data-open={isOpen}
+					data-open={open}
 				>
 					<span className={styles.toggleLabelClosed} aria-hidden="true">
 						...
@@ -157,25 +164,26 @@ export default function Navbar() {
 					</span>
 				</button>
 			</div>
+
 			<div
 				id={mobileNavId}
 				className={styles.collapseWrapper}
 				style={collapseStyle}
-				aria-hidden={isMobile ? !isOpen : true}
+				aria-hidden={isMobile ? !open : true}
 			>
 				<div ref={collapseInnerRef} className={styles.collapseInner}>
 					<ul className={cx(styles.navList, styles.mobileNavList)}>
 						{navLinks.map((item) => {
 							const active = isActive(item.href);
-							const className = cx(styles.link, active && styles.active);
-							const ariaCurrent = active ? "page" : undefined;
-
 							return (
 								<li key={`mobile-${item.href}`}>
 									<Link
 										href={item.href}
-										className={className}
-										aria-current={ariaCurrent}
+										className={cx(styles.link, active && styles.active)}
+										aria-current={active ? "page" : undefined}
+										onClick={() => {
+											if (isMobile) closeMenu();
+										}}
 									>
 										{item.label}
 									</Link>

@@ -3,6 +3,14 @@ import styles from "./Title.module.css";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type CSSProperties } from "react";
 
+type WallpaperCategory = {
+	id: string;
+	title: string;
+	description: string;
+	preview: string;
+	path: string;
+};
+
 export default function Title() {
 	const pathname = usePathname();
 	const isHome = pathname === "/";
@@ -13,38 +21,47 @@ export default function Title() {
 
 	useEffect(() => {
 		let cancelled = false;
+
 		async function loadTitle() {
 			if (!wallpapersId) {
 				setCategoryTitle("");
 				return;
 			}
+
 			try {
 				const res = await fetch("/wallpapers/index.json", {
 					cache: "no-cache",
 				});
 				if (!res.ok) return;
-				const data = await res.json();
-				const list = Array.isArray(data) ? data : [];
-				const match = list.find((c: any) => c?.id === wallpapersId);
+
+				const data: unknown = await res.json();
+				const list: WallpaperCategory[] = Array.isArray(data)
+					? (data as WallpaperCategory[])
+					: [];
+
+				const match = list.find((c) => c.id === wallpapersId);
+
 				if (!cancelled) {
-					setCategoryTitle(match?.title || "");
+					setCategoryTitle(match?.title ?? "");
 				}
 			} catch {
-				// just do nothing
+				// do nothing
 			}
 		}
+
 		loadTitle();
 		return () => {
 			cancelled = true;
 		};
 	}, [wallpapersId]);
 
-	let isDetail = Boolean(wallpapersId);
+	const isDetail = Boolean(wallpapersId);
 	let text = "";
 	if (!isDetail) {
 		if (pathname.startsWith("/wallpapers")) text = "Wallpapers";
 		else if (pathname.startsWith("/certificates")) text = "Certificates";
 		else if (pathname.startsWith("/education")) text = "Education";
+		else if (pathname.startsWith("/contact")) text = "Contact";
 		else if (pathname === "/") text = "Adon Omeri";
 		else text = pathname + " ?";
 	}
@@ -66,7 +83,9 @@ export default function Title() {
 				<p
 					key={pathname + "-glow"}
 					aria-hidden="true"
-					className={`${styles.title} ${isHome ? styles.homeTitle : ""} ${styles.glowLayer}`}
+					className={`${styles.title} ${isHome ? styles.homeTitle : ""} ${
+						styles.glowLayer
+					}`}
 					style={{ "--glow-fade-delay": `${glowFadeDelay}s` } as CSSProperties}
 				>
 					{isDetail
@@ -78,7 +97,7 @@ export default function Title() {
 								>
 									{char}
 								</span>
-							))
+						  ))
 						: mainLetters.map((char, i) => (
 								<span
 									key={`g-${i}`}
@@ -87,11 +106,13 @@ export default function Title() {
 								>
 									{char}
 								</span>
-							))}
+						  ))}
 				</p>
 				<p
 					key={pathname + "-main"}
-					className={`${styles.title} ${isHome ? styles.homeTitle : ""} ${styles.mainLayer}`}
+					className={`${styles.title} ${isHome ? styles.homeTitle : ""} ${
+						styles.mainLayer
+					}`}
 				>
 					{isDetail
 						? mainLetters.map((char, i) => (
@@ -102,16 +123,18 @@ export default function Title() {
 								>
 									{char}
 								</span>
-							))
+						  ))
 						: mainLetters.map((char, i) => (
 								<span
 									key={`m-${i}`}
-									className={`title-letter ${hasQuestion && char === "?" ? styles.blinkQuestion : ""}`}
+									className={`title-letter ${
+										hasQuestion && char === "?" ? styles.blinkQuestion : ""
+									}`}
 									style={{ "--delay": `${i * letterDelay}s` } as CSSProperties}
 								>
 									{char}
 								</span>
-							))}
+						  ))}
 				</p>
 			</div>
 		</div>
