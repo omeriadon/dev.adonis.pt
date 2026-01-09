@@ -25,7 +25,13 @@
 	gap: 20px;
 	margin-top: 3rem;
 	opacity: 0;
-	animation: fade-in 1s ease forwards;
+	animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+	to {
+		opacity: 1;
+	}
 }
 
 .homeButton {

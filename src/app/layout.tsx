@@ -146,9 +146,9 @@ export default function RootLayout({
 					<Title />
 					<ScrollBlur>
 						<ViewTransition default="fade-page">
-							<div className="min-h-screen children">
+							<main className="min-h-screen children">
 								{children}
-							</div>
+							</main>
 						</ViewTransition>
 					</ScrollBlur>
 					<Footer />

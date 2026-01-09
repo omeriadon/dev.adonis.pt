@@ -29,7 +29,7 @@ export default function Title() {
 
 	const mainLetters = text.split("");
 	const totalLetters = mainLetters.length;
-	const letterDelay = isHome ? 0.1 : 0.05;
+	const letterDelay = isHome ? 0.05 : 0.03;
 	const glowFadeDelay = (totalLetters - 1) * letterDelay + 0.4 + 0.2;
 	const hasQuestion = text.endsWith("?");
 

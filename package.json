@@ -8,6 +8,11 @@
 		"start": "next start",
 		"lint": "eslint"
 	},
+	"browserslist": [
+		"defaults",
+		"not ie 11",
+		"not dead"
+	],
 	"dependencies": {
 		"clsx": "^2.1.1",
 		"jszip": "^3.10.1",

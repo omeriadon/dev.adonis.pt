@@ -151,9 +151,19 @@
 	overflow: hidden;
 	height: 0;
 	opacity: 0;
+	visibility: hidden;
 	transition:
 		height 220ms ease,
-		opacity 220ms ease;
+		opacity 220ms ease,
+		visibility 0s 220ms;
+}
+
+.collapseWrapper[aria-hidden="false"] {
+	visibility: visible;
+	transition:
+		height 220ms ease,
+		opacity 220ms ease,
+		visibility 0s 0s;
 }
 
 .collapseInner {

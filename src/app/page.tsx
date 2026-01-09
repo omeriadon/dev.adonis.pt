@@ -26,10 +26,17 @@ export default function Home() {
 	const [show4, setShow4] = useState(false);
 
 	useEffect(() => {
-		setTimeout(() => setShow1(true), 2000);
-		setTimeout(() => setShow2(true), 5000);
-		setTimeout(() => setShow3(true), 10000);
-		setTimeout(() => setShow4(true), 17000);
+		const t1 = setTimeout(() => setShow1(true), 2000);
+		const t2 = setTimeout(() => setShow2(true), 5000);
+		const t3 = setTimeout(() => setShow3(true), 10000);
+		const t4 = setTimeout(() => setShow4(true), 17000);
+
+		return () => {
+			clearTimeout(t1);
+			clearTimeout(t2);
+			clearTimeout(t3);
+			clearTimeout(t4);
+		};
 	}, []);
 
 	return (

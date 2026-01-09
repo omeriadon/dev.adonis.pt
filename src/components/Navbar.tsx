@@ -23,7 +23,22 @@ export default function Navbar() {
 	const [collapseHeight, setCollapseHeight] = useState(0);
 	const collapseInnerRef = useRef<HTMLDivElement | null>(null);
 
+	const [isVisible, setIsVisible] = useState(false);
+
 	const open = isMobile && menuOpen && openForPath === pathname;
+
+	useEffect(() => {
+		const visited = sessionStorage.getItem("intro-shown");
+		if (visited) {
+			setIsVisible(true);
+		} else {
+			const timer = setTimeout(() => {
+				setIsVisible(true);
+				sessionStorage.setItem("intro-shown", "true");
+			}, 17000);
+			return () => clearTimeout(timer);
+		}
+	}, []);
 
 	useEffect(() => {
 		const update = () =>
@@ -104,7 +119,14 @@ export default function Navbar() {
 	};
 
 	return (
-		<nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
+		<nav
+			className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}
+			style={{
+				opacity: isVisible ? 1 : 0,
+				transition: "opacity 0.8s ease, border-color 0.3s ease",
+				pointerEvents: isVisible ? "auto" : "none",
+			}}
+		>
 			<div className={styles.topRow}>
 				<Link
 					href="/"
