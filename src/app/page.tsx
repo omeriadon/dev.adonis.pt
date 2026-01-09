@@ -62,7 +62,7 @@ export default function Home() {
 						View Projects
 					</Link>
 					<Link href="/contact" className={styles.homeButton}>
-						Get in Touch
+						Contact
 					</Link>
 				</div>
 			)}
