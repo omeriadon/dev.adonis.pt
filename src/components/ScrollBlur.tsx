@@ -10,7 +10,7 @@ interface ScrollBlurProps {
 
 export default function ScrollBlur({
 	children,
-	startBlurDistance = 100,
+	startBlurDistance = 20,
 	endBlurDistance = -50,
 }: ScrollBlurProps) {
 	const [blur, setBlur] = useState(0);
