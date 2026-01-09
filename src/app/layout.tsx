@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 	metadataBase: new URL("https://dev.adonis.pt"),
 	openGraph: {
 		type: "website",
-		locale: "en_US",
+		locale: "en_AU",
 		siteName: "Adon Omeri",
 		title: "Adon Omeri",
 		description:
