@@ -1,14 +1,22 @@
-.navbar {
+.header {
 	position: fixed;
 	top: 0;
-	left: 50%;
+	left: 0;
+	width: 100%;
 	z-index: 9999;
-	transform: translateX(-50%);
+	display: flex;
+	justify-content: center;
+	pointer-events: none;
+}
+
+.navbar {
+	position: relative;
 	width: calc(100% - 20px);
 	box-sizing: border-box;
 	margin: 10px 0;
 	min-height: 56px;
 	padding-left: 2px;
+	pointer-events: auto;
 
 	display: flex;
 	flex-direction: column;
@@ -17,8 +25,8 @@
 
 	background: var(--navbar-background);
 
-	-webkit-backdrop-filter: saturate(180%) blur(12px);
-	backdrop-filter: saturate(180%) blur(12px);
+	-webkit-backdrop-filter: saturate(120%) blur(6px) brightness(1.1);
+	backdrop-filter: saturate(120%) blur(6px) brightness(1.1);
 }
 
 .topRow {
@@ -76,6 +84,16 @@
 	padding-left: 6px;
 	transform: translateY(2px);
 	transition: all 0.3s ease;
+}
+
+.blur {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 7.5rem; /* h-30 equivalent */
+	z-index: -1;
+	pointer-events: none;
 }
 
 .navbarTitle:hover {

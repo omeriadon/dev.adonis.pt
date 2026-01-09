@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import styles from "./Navbar.module.css";
 import { navLinks } from "@/data/navigation";
+import { ProgressiveBlur } from "./ProgressiveBlur";
 
 const MOBILE_BREAKPOINT = 1000;
 
@@ -119,82 +120,40 @@ export default function Navbar() {
 	};
 
 	return (
-		<nav
-			className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}
-			style={{
-				opacity: isVisible ? 1 : 0,
-				transition: "opacity 0.8s ease, border-color 0.3s ease",
-				pointerEvents: isVisible ? "auto" : "none",
-			}}
-		>
-			<div className={styles.topRow}>
-				<Link
-					href="/"
-					className={clsx(
-						styles.navbarTitle,
-						isActive("/") && styles.active,
-					)}
-					aria-current={isActive("/") ? "page" : undefined}
-					onClick={() => {
-						if (isMobile) closeMenu();
-					}}
-				>
-					Adon Omeri
-				</Link>
-
-				<ul className={clsx(styles.navList, styles.desktopNav)}>
-					{navLinks.map((item) => {
-						const active = isActive(item.href);
-						return (
-							<li key={`desktop-${item.href}`}>
-								<Link
-									href={item.href}
-									className={clsx(
-										styles.link,
-										active && styles.active,
-									)}
-									aria-current={active ? "page" : undefined}
-								>
-									{item.label}
-								</Link>
-							</li>
-						);
-					})}
-				</ul>
-
-				<button
-					type="button"
-					className={styles.toggle}
-					onClick={toggleMenu}
-					aria-expanded={open}
-					aria-controls={mobileNavId}
-					aria-label="Toggle navigation"
-					data-open={open}
-				>
-					<span
-						className={styles.toggleLabelClosed}
-						aria-hidden="true"
-					>
-						...
-					</span>
-					<span className={styles.toggleLabelOpen} aria-hidden="true">
-						×
-					</span>
-				</button>
-			</div>
-
-			<div
-				id={mobileNavId}
-				className={styles.collapseWrapper}
-				style={collapseStyle}
-				aria-hidden={isMobile ? !open : true}
+		<header className={styles.header}>
+			<ProgressiveBlur
+				className={styles.blur}
+				blurIntensity={4.0}
+				blurLayers={7}
+			/>
+			<nav
+				className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}
+				style={{
+					opacity: isVisible ? 1 : 0,
+					transition: "opacity 0.8s ease, border-color 0.3s ease",
+					pointerEvents: isVisible ? "auto" : "none",
+				}}
 			>
-				<div ref={collapseInnerRef} className={styles.collapseInner}>
-					<ul className={clsx(styles.navList, styles.mobileNavList)}>
+				<div className={styles.topRow}>
+					<Link
+						href="/"
+						className={clsx(
+							styles.navbarTitle,
+							isActive("/") && styles.active,
+						)}
+						aria-current={isActive("/") ? "page" : undefined}
+						onClick={() => {
+							if (isMobile) closeMenu();
+						}}
+					>
+						Adon Omeri
+					</Link>
+
+					<ul className={clsx(styles.navList, styles.desktopNav)}>
 						{navLinks.map((item) => {
 							const active = isActive(item.href);
 							return (
-								<li key={`mobile-${item.href}`}>
+								<li key={`desktop-${item.href}`}>
 									<Link
 										href={item.href}
 										className={clsx(
@@ -204,9 +163,6 @@ export default function Navbar() {
 										aria-current={
 											active ? "page" : undefined
 										}
-										onClick={() => {
-											if (isMobile) closeMenu();
-										}}
 									>
 										{item.label}
 									</Link>
@@ -214,8 +170,73 @@ export default function Navbar() {
 							);
 						})}
 					</ul>
+
+					<button
+						type="button"
+						className={styles.toggle}
+						onClick={toggleMenu}
+						aria-expanded={open}
+						aria-controls={mobileNavId}
+						aria-label="Toggle navigation"
+						data-open={open}
+					>
+						<span
+							className={styles.toggleLabelClosed}
+							aria-hidden="true"
+						>
+							...
+						</span>
+						<span
+							className={styles.toggleLabelOpen}
+							aria-hidden="true"
+						>
+							×
+						</span>
+					</button>
 				</div>
-			</div>
-		</nav>
+
+				<div
+					id={mobileNavId}
+					className={styles.collapseWrapper}
+					style={collapseStyle}
+					aria-hidden={isMobile ? !open : true}
+				>
+					<div
+						ref={collapseInnerRef}
+						className={styles.collapseInner}
+					>
+						<ul
+							className={clsx(
+								styles.navList,
+								styles.mobileNavList,
+							)}
+						>
+							{navLinks.map((item) => {
+								const active = isActive(item.href);
+								return (
+									<li key={`mobile-${item.href}`}>
+										<Link
+											href={item.href}
+											className={clsx(
+												styles.link,
+												active && styles.active,
+											)}
+											aria-current={
+												active ? "page" : undefined
+											}
+											onClick={() => {
+												if (isMobile) closeMenu();
+											}}
+										>
+											{item.label}
+										</Link>
+									</li>
+								);
+							})}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
 	);
 }
