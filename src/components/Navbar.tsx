@@ -9,6 +9,7 @@ import { navLinks } from "@/data/navigation";
 import { ProgressiveBlur } from "./ProgressiveBlur";
 
 const MOBILE_BREAKPOINT = 1000;
+const NAV_VISIBILITY_DELAY = 1200;
 
 export default function Navbar() {
 	const pathname = usePathname();
@@ -25,21 +26,39 @@ export default function Navbar() {
 	const collapseInnerRef = useRef<HTMLDivElement | null>(null);
 
 	const [isVisible, setIsVisible] = useState(false);
+	const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
 	const open = isMobile && menuOpen && openForPath === pathname;
 
 	useEffect(() => {
-		const visited = sessionStorage.getItem("intro-shown");
-		if (visited) {
-			setIsVisible(true);
-		} else {
-			const timer = setTimeout(() => {
-				setIsVisible(true);
-				sessionStorage.setItem("intro-shown", "true");
-			}, 17000);
-			return () => clearTimeout(timer);
-		}
+		const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+		const update = () => setPrefersReducedMotion(media.matches);
+		update();
+		media.addEventListener("change", update);
+		return () => media.removeEventListener("change", update);
 	}, []);
+
+	useEffect(() => {
+		const visited = sessionStorage.getItem("intro-shown");
+		const markVisited = () => {
+			setIsVisible(true);
+			if (!visited) {
+				sessionStorage.setItem("intro-shown", "true");
+			}
+		};
+
+		if (visited || prefersReducedMotion) {
+			const immediate = window.setTimeout(markVisited, 0);
+			return () => window.clearTimeout(immediate);
+		}
+
+		const timer = window.setTimeout(() => {
+			markVisited();
+		}, NAV_VISIBILITY_DELAY);
+		return () => {
+			window.clearTimeout(timer);
+		};
+	}, [prefersReducedMotion]);
 
 	useEffect(() => {
 		const update = () =>

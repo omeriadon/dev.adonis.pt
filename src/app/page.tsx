@@ -24,20 +24,32 @@ export default function Home() {
 	const [show2, setShow2] = useState(false);
 	const [show3, setShow3] = useState(false);
 	const [show4, setShow4] = useState(false);
+	const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
 	useEffect(() => {
-		const t1 = setTimeout(() => setShow1(true), 2000);
-		const t2 = setTimeout(() => setShow2(true), 4000);
-		const t3 = setTimeout(() => setShow3(true), 7000);
-		const t4 = setTimeout(() => setShow4(true), 12000);
-
-		return () => {
-			clearTimeout(t1);
-			clearTimeout(t2);
-			clearTimeout(t3);
-			clearTimeout(t4);
-		};
+		const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+		const update = () => setPrefersReducedMotion(media.matches);
+		update();
+		media.addEventListener("change", update);
+		return () => media.removeEventListener("change", update);
 	}, []);
+
+	useEffect(() => {
+		const setters = [setShow1, setShow2, setShow3, setShow4];
+		const delays = [2000, 4000, 7000, 12000];
+		if (prefersReducedMotion) {
+			setters.forEach((setter) => setter(true));
+			return;
+		}
+
+		setters.forEach((setter) => setter(false));
+
+		const timers = delays.map((delay, index) =>
+			setTimeout(() => setters[index](true), delay),
+		);
+
+		return () => timers.forEach((timer) => clearTimeout(timer));
+	}, [prefersReducedMotion]);
 
 	return (
 		<div className={styles.homeParent}>

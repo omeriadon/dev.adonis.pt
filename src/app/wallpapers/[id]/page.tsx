@@ -8,46 +8,80 @@ import { DownloadAllCard } from "@/components/DownloadAllCard";
 import {
 	normalizeWallpaperCategories,
 	normalizeWallpaperItems,
+	type NormalizedWallpaperItem,
 	type WallpaperItemRecord,
 } from "@/lib/utils";
 import type { WallpaperCategory } from "@/types";
 
 type PageParams = Promise<{ id: string }>;
 
-async function loadCategory(
-	categoryId: string,
-): Promise<WallpaperCategory | null> {
+type CacheEntry<T> = { value: T; timestamp: number };
+
+const CATEGORY_CACHE_TTL = 60 * 1000;
+const ITEM_CACHE_TTL = 60 * 1000;
+
+let categoryCache: CacheEntry<WallpaperCategory[]> | null = null;
+const wallpaperItemsCache = new Map<
+	string,
+	CacheEntry<NormalizedWallpaperItem[]>
+>();
+
+export const revalidate = 60;
+
+async function readPublicJson(relativePath: string) {
+	const normalizedPath = relativePath.startsWith("/")
+		? relativePath.slice(1)
+		: relativePath;
+	const filePath = path.join(process.cwd(), "public", normalizedPath);
+	const file = await fs.readFile(filePath, "utf-8");
+	return JSON.parse(file) as unknown;
+}
+
+async function loadCategories(): Promise<WallpaperCategory[]> {
+	const now = Date.now();
+	if (categoryCache && now - categoryCache.timestamp < CATEGORY_CACHE_TTL) {
+		return categoryCache.value;
+	}
+
 	try {
-		const filePath = path.join(
-			process.cwd(),
-			"public",
-			"wallpapers",
-			"index.json",
-		);
-		const file = await fs.readFile(filePath, "utf-8");
-		const parsed = JSON.parse(file) as unknown;
-		const categories = normalizeWallpaperCategories(parsed);
-		return categories.find((c) => c.id === categoryId) ?? null;
+		const data = await readPublicJson("wallpapers/index.json");
+		const categories = normalizeWallpaperCategories(data);
+		categoryCache = { value: categories, timestamp: now };
+		return categories;
 	} catch {
-		return null;
+		return [];
 	}
 }
 
+async function loadCategory(
+	categoryId: string,
+): Promise<WallpaperCategory | null> {
+	const categories = await loadCategories();
+	return categories.find((c) => c.id === categoryId) ?? null;
+}
+
 async function loadWallpaperItems(categoryPath: string) {
+	const now = Date.now();
+	const cacheKey = categoryPath;
+	const cached = wallpaperItemsCache.get(cacheKey);
+	if (cached && now - cached.timestamp < ITEM_CACHE_TTL) {
+		return cached.value;
+	}
+
 	try {
-		const relativePath = categoryPath.startsWith("/")
-			? categoryPath.slice(1)
-			: categoryPath;
-		const filePath = path.join(process.cwd(), "public", relativePath);
-		const file = await fs.readFile(filePath, "utf-8");
-		const data = JSON.parse(file) as unknown;
+		const data = await readPublicJson(categoryPath);
 		const list: WallpaperItemRecord[] = Array.isArray(data)
 			? data
 			: Array.isArray((data as Record<string, unknown>)?.items)
 				? ((data as Record<string, unknown>)
 						.items as WallpaperItemRecord[])
 				: [];
-		return normalizeWallpaperItems(list, categoryPath);
+		const normalized = normalizeWallpaperItems(list, categoryPath);
+		wallpaperItemsCache.set(cacheKey, {
+			value: normalized,
+			timestamp: now,
+		});
+		return normalized;
 	} catch {
 		return [];
 	}

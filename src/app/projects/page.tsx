@@ -22,7 +22,6 @@ export default async function Projects() {
 						<p className={styles.description}>
 							{project.description}
 						</p>
-
 						<div className={styles.footer}>
 							<div className={styles.tags}>
 								{project.technologies.map((tech) => (
@@ -31,7 +30,6 @@ export default async function Projects() {
 									</span>
 								))}
 							</div>
-
 							<div className={styles.links}>
 								{project.githubUrl && (
 									<a
