@@ -1,22 +1,29 @@
 .container {
-	display: flexbox;
-	grid-template-columns: 1fr 1fr; /* two equal columns */
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	padding-top: 0;
 }
 
 .itemCommon {
-	width: 60%;
-	margin: 50 0px;
+	width: 100%;
+	margin: 0;
+	display: flex;
 }
 
 .innerItemCommon {
-	padding: 10px 15px;
-	border-radius: 30px;
+	width: 100%;
 	background-color: var(--grey);
+	border-radius: 30px;
+
+	display: flex;
+	flex-direction: column;
+	padding: 0;
 }
 
 @media (max-width: 1000px) {
-	.itemCommon {
-		width: 100%;
+	.container {
+		grid-template-columns: 1fr;
 	}
 }
 
@@ -28,41 +35,39 @@
 	justify-self: end;
 }
 
-.dateWrapper {
+.header {
 	display: flex;
-	grid-template-columns: 1fr;
-	padding-bottom: 5px;
-}
-
-.date {
-	opacity: 0.5;
-}
-
-.dateLeft {
-	margin-right: auto;
-	padding-left: 15px;
-}
-
-.dateRight {
-	margin-left: auto;
-	padding-right: 15px;
+	justify-content: space-between;
+	align-items: start;
+	padding: 10px 20px;
 }
 
 .title {
 	font-size: 2rem;
 	color: var(--blue);
-}
-.subtitle {
-	opacity: 0.5;
-}
-.description {
-	opacity: 0.8;
-	padding-bottom: 0.8rem;
+	align-self: start;
 }
 
-.header {
+.meta {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
 	align-items: center;
-	padding-bottom: 1rem;
+	justify-content: center;
+	text-align: center;
+}
+
+.date {
+	opacity: 0.5;
+	font-size: 0.9rem;
+	white-space: nowrap;
+}
+
+.subtitle {
+	opacity: 0.5;
+	font-size: 0.85rem;
+}
+
+.description {
+	opacity: 0.8;
+	padding: 0 30px 20px 30px;
 }

@@ -27,19 +27,14 @@ export default async function Education() {
 							index % 2 === 0 ? styles.itemLeft : styles.itemRight
 						}`}
 					>
-						<div className={styles.dateWrapper}>
-							<p
-								className={`${styles.date} ${
-									index % 2 === 0 ? styles.dateLeft : styles.dateRight
-								}`}
-							>
-								{item.date}
-							</p>
-						</div>
 						<div className={styles.innerItemCommon}>
 							<div className={styles.header}>
 								<p className={styles.title}>{item.title}</p>
-								<p className={styles.subtitle}>{item.subtitle}</p>
+
+								<div className={styles.meta}>
+									<span className={styles.date}>{item.date}</span>
+									<p className={styles.subtitle}>{item.subtitle}</p>
+								</div>
 							</div>
 							<p className={styles.description}>{item.description}</p>
 						</div>

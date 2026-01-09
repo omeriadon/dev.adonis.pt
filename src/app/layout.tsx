@@ -74,13 +74,18 @@ export default function RootLayout({
         to { opacity: 1; }
       }
       
-      ::view-transition-old(page-content) {
+      ::view-transition-group(.fade-page) {
+        animation-duration: 0s;
+      }
+
+      ::view-transition-old(.fade-page) {
         animation: fade-out 0.2s ease-out forwards;
+        mix-blend-mode: normal;
       }
       
-      ::view-transition-new(page-content) {
-        animation: fade-in 0.25s ease-in 0.15s forwards;
-        opacity: 0;
+      ::view-transition-new(.fade-page) {
+        animation: fade-in 0.25s ease-in forwards;
+        mix-blend-mode: normal;
       }
       
       /* Prevent any elements from creating their own view transition names */
@@ -89,8 +94,8 @@ export default function RootLayout({
       }
       
       @media (prefers-reduced-motion: reduce) {
-        ::view-transition-old(page-content),
-        ::view-transition-new(page-content) {
+        ::view-transition-old(.fade-page),
+        ::view-transition-new(.fade-page) {
           animation: none;
         }
       }
@@ -104,17 +109,12 @@ export default function RootLayout({
 					<Navbar />
 					<div className="spacer" />
 					<Title />
-					<ScrollBlur footerId="footer">
-						<ViewTransition>
-							<div
-								className="min-h-screen children"
-								style={{ viewTransitionName: "page-content" }}
-							>
-								{children}
-							</div>
+					<ScrollBlur>
+						<ViewTransition default="fade-page">
+							<div className="min-h-screen children">{children}</div>
 						</ViewTransition>
 					</ScrollBlur>
-					<Footer id="footer" />
+					<Footer />
 				</ThemeProvider>
 			</body>
 		</html>

@@ -62,6 +62,7 @@ export default function Title() {
 		else if (pathname.startsWith("/certificates")) text = "Certificates";
 		else if (pathname.startsWith("/education")) text = "Education";
 		else if (pathname.startsWith("/contact")) text = "Contact";
+		else if (pathname.startsWith("/projects")) text = "Projects";
 		else if (pathname === "/") text = "Adon Omeri";
 		else text = pathname + " ?";
 	}

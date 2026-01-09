@@ -4,14 +4,12 @@ import { useState, useEffect, useRef, ReactNode } from "react";
 
 interface ScrollBlurProps {
 	children: ReactNode;
-	footerId: string;
 	startBlurDistance?: number;
 	endBlurDistance?: number;
 }
 
 export default function ScrollBlur({
 	children,
-	footerId,
 	startBlurDistance = 100,
 	endBlurDistance = -50,
 }: ScrollBlurProps) {
@@ -21,7 +19,7 @@ export default function ScrollBlur({
 
 	useEffect(() => {
 		function handleScroll() {
-			const footer = document.getElementById(footerId);
+			const footer = document.getElementById("footerId");
 			if (!footer || !containerRef.current) return;
 
 			const footerTop = footer.getBoundingClientRect().top;
@@ -49,14 +47,12 @@ export default function ScrollBlur({
 
 			setBlur(newBlur);
 			setOpacity(newOpacity);
-
-			console.log("blur:", newBlur, "opacity:", newOpacity);
 		}
 
 		window.addEventListener("scroll", handleScroll, { passive: true });
 		handleScroll();
 		return () => window.removeEventListener("scroll", handleScroll);
-	}, [footerId, startBlurDistance, endBlurDistance]);
+	}, [startBlurDistance, endBlurDistance]);
 
 	return (
 		<div
