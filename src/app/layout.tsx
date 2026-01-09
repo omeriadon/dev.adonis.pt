@@ -80,6 +80,10 @@ export default function RootLayout({
 			style={{ backgroundColor: "#000000" }}
 		>
 			<head>
+				<meta
+					name="google-site-verification"
+					content="X2bAXHgbZf-Kk2SSxeGgnruHFQCXB0dtTOvct-mve-A"
+				/>
 				<script
 					dangerouslySetInnerHTML={{
 						__html: `
