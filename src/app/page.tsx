@@ -36,7 +36,7 @@ export default function Home() {
 
 	useEffect(() => {
 		const setters = [setShow1, setShow2, setShow3, setShow4];
-		const delays = [2000, 4000, 7000, 12000];
+		const delays = [2000, 4000, 7000, 10000];
 		if (prefersReducedMotion) {
 			setters.forEach((setter) => setter(true));
 			return;

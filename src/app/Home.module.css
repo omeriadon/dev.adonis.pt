@@ -3,8 +3,7 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	height: 100vh;
-	padding-top: 10vh;
+	margin-top: 3rem;
 	gap: 1rem;
 }
 
@@ -22,10 +21,10 @@
 .homeButtonsGrid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 20px;
-	margin-top: 3rem;
+	gap: 7rem;
+	margin-top: 6rem;
 	opacity: 0;
-	animation: fadeIn 1s ease forwards;
+	animation: fadeIn 5.5s ease forwards;
 }
 
 @keyframes fadeIn {
