@@ -143,27 +143,34 @@ export function DownloadAllCard({
 				cardSubtitle={countLabel}
 				imageWrapperClassName={mediaStyles.collageWrapper}
 				imageSlot={
-					<div className={mediaStyles.collageGrid}>
-						{previewSources.map((src, idx) => (
-							<div
-								className={mediaStyles.collageTile}
-								key={`${src}-${idx}`}
-							>
-								<Image
-									src={src}
-									alt={previewContext}
-									fill
-									sizes="25vw"
-									style={{
-										objectFit: "cover",
-										objectPosition: "center",
-									}}
-									priority={idx < 2}
-									draggable={false}
-								/>
+					<>
+						<div className={mediaStyles.collageGrid}>
+							{previewSources.map((src, idx) => (
+								<div
+									className={mediaStyles.collageTile}
+									key={`${src}-${idx}`}
+								>
+									<Image
+										src={src}
+										alt={previewContext}
+										fill
+										sizes="25vw"
+										style={{
+											objectFit: "cover",
+											objectPosition: "center",
+										}}
+										priority={idx < 2}
+										draggable={false}
+									/>
+								</div>
+							))}
+						</div>
+						{downloading && (
+							<div className={styles.loadingOverlay}>
+								<div className={styles.spinner} />
 							</div>
-						))}
-					</div>
+						)}
+					</>
 				}
 			/>
 		</a>
