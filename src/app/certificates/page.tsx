@@ -1,58 +1,19 @@
+import type { Metadata } from "next";
 import styles from "./certificates.module.css";
-import { WallpaperCard } from "@/components/WallpaperCard";
+import { MediaCard } from "@/components/MediaCard";
 import path from "node:path";
 import { promises as fs } from "node:fs";
+import { normalizeCertificates } from "@/lib/utils";
+import type { Certificate } from "@/types";
 
-type CertificateRecord = {
-	id: string;
-	title: string;
-	year: string;
-	image: string;
+export const metadata: Metadata = {
+	title: "Certificates",
+	description:
+		"Professional certifications and course completions in networking, cybersecurity, and programming.",
 };
-
-type RawCertificate = {
-	id?: unknown;
-	title?: unknown;
-	year?: unknown;
-	image?: unknown;
-};
-
-function normalizeCertificates(data: unknown): CertificateRecord[] {
-	if (!Array.isArray(data)) return [];
-	return data
-		.map((raw: RawCertificate, index) => {
-			const fallbackId = `certificate-${index + 1}`;
-			const id =
-				typeof raw?.id === "string" && raw.id.trim().length
-					? raw.id.trim()
-					: fallbackId;
-			const title =
-				typeof raw?.title === "string" && raw.title.trim().length
-					? raw.title.trim()
-					: id;
-			const yearValue =
-				typeof raw?.year === "number"
-					? raw.year
-					: typeof raw?.year === "string" && raw.year.trim().length
-					? Number.parseInt(raw.year, 10)
-					: Number.NaN;
-			const year = Number.isFinite(yearValue) ? String(yearValue) : "";
-			const imageName =
-				typeof raw?.image === "string" && raw.image.trim().length
-					? raw.image.trim()
-					: `${id}.avif`;
-			return {
-				id,
-				title,
-				year,
-				image: imageName,
-			};
-		})
-		.filter((item) => Boolean(item.id));
-}
 
 async function loadCertificatesFromDisk(): Promise<{
-	certificates: CertificateRecord[];
+	certificates: Certificate[];
 	error: string | null;
 }> {
 	try {
@@ -60,7 +21,7 @@ async function loadCertificatesFromDisk(): Promise<{
 			process.cwd(),
 			"public",
 			"certificates",
-			"index.json"
+			"index.json",
 		);
 		const file = await fs.readFile(filePath, "utf-8");
 		const parsed = JSON.parse(file) as unknown;
@@ -70,8 +31,8 @@ async function loadCertificatesFromDisk(): Promise<{
 			err instanceof Error
 				? err.message
 				: typeof err === "string"
-				? err
-				: "Failed to read certificates.";
+					? err
+					: "Failed to read certificates.";
 		return { certificates: [], error: message };
 	}
 }
@@ -82,9 +43,15 @@ export default async function Certificates() {
 
 	return (
 		<div className={styles.container}>
-			{error && <p style={{ color: "red" }}>{error}</p>}
+			{error && (
+				<p className={styles.errorState} role="alert">
+					{error}
+				</p>
+			)}
 			{!error && !hasCertificates && (
-				<p className={styles.status}>No certificates available right now.</p>
+				<p className={styles.status}>
+					No certificates available right now.
+				</p>
 			)}
 			{!error && hasCertificates && (
 				<div className={styles.grid}>
@@ -94,7 +61,7 @@ export default async function Certificates() {
 							: `/certificates/${cert.image}`;
 						const subtitle = cert.year ? `${cert.year}` : "";
 						return (
-							<WallpaperCard
+							<MediaCard
 								key={cert.id}
 								image={imagePath}
 								cardTitle={cert.title}

@@ -1,11 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import { type CSSProperties, type ReactNode } from "react";
 import clsx from "clsx";
-import styles from "./WallpaperCategory.module.css";
+import styles from "./MediaCard.module.css";
 
-export type WallpaperCardProps = {
+export type MediaCardProps = {
 	image?: string | null;
 	cardTitle: string;
 	cardSubtitle: string;
@@ -19,7 +17,7 @@ export type WallpaperCardProps = {
 	imageFit?: CSSProperties["objectFit"];
 };
 
-export function WallpaperCard({
+export function MediaCard({
 	image,
 	cardTitle,
 	cardSubtitle,
@@ -31,7 +29,7 @@ export function WallpaperCard({
 	imageWrapperClassName,
 	imageSlot,
 	imageFit = "cover",
-}: WallpaperCardProps) {
+}: MediaCardProps) {
 	const hasCustomImage = Boolean(imageSlot);
 	const showPlaceholder = !hasCustomImage && !image;
 
@@ -43,7 +41,10 @@ export function WallpaperCard({
 				) : (
 					<div className={styles.imageContainer}>
 						{showPlaceholder ? (
-							<div className={styles.placeholder} aria-hidden="true" />
+							<div
+								className={styles.placeholder}
+								aria-hidden="true"
+							/>
 						) : (
 							<Image
 								src={image as string}
@@ -54,8 +55,11 @@ export function WallpaperCard({
 								loading="eager"
 								fetchPriority="high"
 								decoding="async"
-								style={{ objectFit: imageFit, objectPosition: "center" }}
-								className={clsx(styles.image, "noSelect", imageClassName)}
+								style={{
+									objectFit: imageFit,
+									objectPosition: "center",
+								}}
+								className={clsx(styles.image, imageClassName)}
 								draggable={false}
 							/>
 						)}

@@ -1,20 +1,38 @@
-"use client";
 import styles from "./WallpaperCategory.module.css";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { WallpaperCard } from "./WallpaperCard";
+import path from "node:path";
+import { promises as fs } from "node:fs";
+import { MediaCard } from "./MediaCard";
+import type { WallpaperCategory as WallpaperCategoryType } from "@/types";
 
-export interface CategoryProps {
-	id: string;
-	title: string;
-	description: string;
-	tags: string[];
-	thumbnail: string;
-	preview: string;
-	path: string;
+export type CategoryProps = WallpaperCategoryType;
+
+async function getWallpaperCount(categoryPath: string): Promise<number> {
+	try {
+		const relativePath = categoryPath.startsWith("/")
+			? categoryPath.slice(1)
+			: categoryPath;
+		const filePath = path.join(process.cwd(), "public", relativePath);
+		const file = await fs.readFile(filePath, "utf-8");
+		const data = JSON.parse(file) as unknown;
+		if (Array.isArray(data)) {
+			return data.length;
+		}
+		if (
+			data &&
+			typeof data === "object" &&
+			Array.isArray((data as Record<string, unknown>).images)
+		) {
+			return ((data as Record<string, unknown>).images as unknown[])
+				.length;
+		}
+		return 0;
+	} catch {
+		return 0;
+	}
 }
 
-export function WallpaperCategory(props: CategoryProps) {
+export async function WallpaperCategory(props: CategoryProps) {
 	const isPlaceholder = !props.thumbnail;
 	const isAbsolute = props.thumbnail?.startsWith("/");
 	const hasExt = /\.[a-zA-Z0-9]+$/.test(props.thumbnail || "");
@@ -26,41 +44,15 @@ export function WallpaperCategory(props: CategoryProps) {
 			: `${props.thumbnail}.avif`
 		: `${baseDir}/${fileName}`;
 
-	const [wallpapersCount, setWallpapersCount] = useState<number | null>(null);
-	useEffect(() => {
-		let active = true;
-		const indexPath = props.path?.startsWith("/")
-			? props.path
-			: `/${props.path}`;
-		fetch(indexPath, { cache: "force-cache" })
-			.then((res) => (res.ok ? res.json() : null))
-			.then((data) => {
-				if (!active) return;
-				let count = 0;
-				if (Array.isArray(data)) {
-					count = data.length;
-				} else if (data && Array.isArray((data as any).images)) {
-					count = (data as any).images.length;
-				}
-				setWallpapersCount(count);
-			})
-			.catch(() => {
-				if (active) setWallpapersCount(0);
-			});
-		return () => {
-			active = false;
-		};
-	}, [props.path]);
+	const wallpapersCount = await getWallpaperCount(props.path);
 	const cardSubtitle =
-		Number(wallpapersCount) > 0
-			? `${Number(wallpapersCount)} wallpaper${
-					Number(wallpapersCount) === 1 ? "" : "s"
-			  }`
+		wallpapersCount > 0
+			? `${wallpapersCount} wallpaper${wallpapersCount === 1 ? "" : "s"}`
 			: "0 wallpapers";
 
 	return (
 		<Link href={`/wallpapers/${props.id}`} className={styles.cardLink}>
-			<WallpaperCard
+			<MediaCard
 				image={isPlaceholder ? null : thumbnailSrc}
 				cardTitle={props.title || "\u00A0"}
 				cardSubtitle={cardSubtitle}

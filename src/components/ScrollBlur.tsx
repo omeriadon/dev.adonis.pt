@@ -29,7 +29,8 @@ export default function ScrollBlur({
 			let newBlur = 0;
 			let newOpacity = 1;
 
-			const adjustedStart = window.innerWidth < 1000 ? 25 : startBlurDistance;
+			const adjustedStart =
+				window.innerWidth < 1000 ? 25 : startBlurDistance;
 
 			if (distanceFromBottom > adjustedStart) {
 				newBlur = 0;

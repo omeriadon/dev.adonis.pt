@@ -9,6 +9,13 @@
 	--green: #7abe7b;
 	--grey: #1f1f1f;
 	--navbar-background: rgba(0, 0, 0, 0.4);
+	--color-muted: #a1a1aa;
+	--color-error: #f87171;
+
+	--breakpoint-mobile: 600px;
+	--breakpoint-tablet: 800px;
+	--breakpoint-desktop: 1000px;
+	--breakpoint-wide: 1200px;
 }
 
 /* Light mode override */
@@ -21,6 +28,8 @@
 	--green: #22c55e;
 	--grey: #f2f2f2;
 	--navbar-background: rgba(255, 255, 255, 0.6);
+	--color-muted: #71717a;
+	--color-error: #dc2626;
 }
 
 html,
@@ -46,35 +55,6 @@ body {
 	}
 }
 
-.noSelect {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	pointer-events: none;
-}
-
-.homeParent {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-	height: 100vh;
-	padding-top: 10vh;
-	gap: 1rem;
-}
-
-.homeSubtitle {
-	font-size: 2rem;
-	text-align: center;
-}
-
-@media (max-width: 1000px) {
-	.homeSubtitle {
-		font-size: 1rem;
-	}
-}
-
 .spacer {
 	height: 10rem;
 }
@@ -85,29 +65,14 @@ body {
 	}
 }
 
-.homeButtonsGrid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 20px;
-	margin-top: 3rem;
-	opacity: 0;
-	animation: fade-in 1s ease forwards;
-}
-
-.homeButton {
-	background-color: var(--blue);
-	color: var(--background);
-	padding: 15px 30px;
-	border-radius: 20px;
-	text-decoration: none;
-	font-weight: 600;
-	transition: transform 0.2s ease, opacity 0.2s ease;
-	text-align: center;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.homeButton:hover {
-	transform: scale(1.05);
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
 }

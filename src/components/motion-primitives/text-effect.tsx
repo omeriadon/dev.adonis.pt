@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/../lib/utils";
+import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 import type {
 	TargetAndTransition,
@@ -161,7 +161,7 @@ const splitText = (text: string, per: PerType) => {
 };
 
 const hasTransition = (
-	variant?: Variant
+	variant?: Variant,
 ): variant is TargetAndTransition & { transition?: Transition } => {
 	if (!variant) return false;
 	return typeof variant === "object" && "transition" in variant;
@@ -169,11 +169,12 @@ const hasTransition = (
 
 const createVariantsWithTransition = (
 	baseVariants: Variants,
-	transition?: Transition & { exit?: Transition }
+	transition?: Transition & { exit?: Transition },
 ): Variants => {
 	if (!transition) return baseVariants;
 
-	const { exit: _, ...mainTransition } = transition;
+	const { exit: _exit, ...mainTransition } = transition;
+	void _exit;
 
 	return {
 		...baseVariants,
@@ -247,12 +248,15 @@ export function TextEffect({
 					staggerChildren: customStagger ?? stagger,
 					staggerDirection: -1,
 				},
-			}
+			},
 		),
-		item: createVariantsWithTransition(variants?.item || baseVariants.item, {
-			duration: baseDuration,
-			...segmentTransition,
-		}),
+		item: createVariantsWithTransition(
+			variants?.item || baseVariants.item,
+			{
+				duration: baseDuration,
+				...segmentTransition,
+			},
+		),
 	};
 
 	return (
@@ -266,7 +270,9 @@ export function TextEffect({
 					className={className}
 					style={style}
 				>
-					{per !== "line" ? <span className="sr-only">{children}</span> : null}
+					{per !== "line" ? (
+						<span className="sr-only">{children}</span>
+					) : null}
 					{segments.map((segment, index) => (
 						<AnimationComponent
 							key={`${per}-${index}-${segment}`}

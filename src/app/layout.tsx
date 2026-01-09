@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -22,8 +22,49 @@ const departureMono = localFont({
 });
 
 export const metadata: Metadata = {
-	title: "Adon Omeri",
-	description: "",
+	title: {
+		default: "Adon Omeri",
+		template: "%s | Adon Omeri",
+	},
+	description:
+		"Personal portfolio showcasing projects, certificates, education, and wallpapers.",
+	keywords: [
+		"portfolio",
+		"developer",
+		"projects",
+		"certificates",
+		"wallpapers",
+	],
+	authors: [{ name: "Adon Omeri" }],
+	creator: "Adon Omeri",
+	metadataBase: new URL("https://dev.adonis.pt"),
+	openGraph: {
+		type: "website",
+		locale: "en_US",
+		siteName: "Adon Omeri",
+		title: "Adon Omeri",
+		description:
+			"Personal portfolio showcasing projects, certificates, education, and wallpapers.",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Adon Omeri",
+		description:
+			"Personal portfolio showcasing projects, certificates, education, and wallpapers.",
+	},
+	robots: {
+		index: true,
+		follow: true,
+	},
+};
+
+export const viewport: Viewport = {
+	themeColor: [
+		{ media: "(prefers-color-scheme: light)", color: "#ffffff" },
+		{ media: "(prefers-color-scheme: dark)", color: "#000000" },
+	],
+	width: "device-width",
+	initialScale: 1,
 };
 
 export default function RootLayout({
@@ -111,7 +152,9 @@ export default function RootLayout({
 					<Title />
 					<ScrollBlur>
 						<ViewTransition default="fade-page">
-							<div className="min-h-screen children">{children}</div>
+							<div className="min-h-screen children">
+								{children}
+							</div>
 						</ViewTransition>
 					</ScrollBlur>
 					<Footer />

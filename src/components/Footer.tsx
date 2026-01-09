@@ -44,7 +44,11 @@ export default function Footer(props: HTMLAttributes<HTMLElement>) {
 				{colors.map((color, i) => (
 					<div
 						key={i}
-						style={{ backgroundColor: color, flex: 1, height: "5px" }}
+						style={{
+							backgroundColor: color,
+							flex: 1,
+							height: "5px",
+						}}
 						suppressHydrationWarning
 					/>
 				))}

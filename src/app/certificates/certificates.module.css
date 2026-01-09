@@ -4,15 +4,22 @@
 	gap: 20px;
 }
 
-.heading {
-	font-size: 2rem;
-	font-weight: 600;
-}
-
 .grid {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 20px;
+}
+
+.status {
+	text-align: center;
+	color: var(--color-muted);
+	padding: 2rem;
+}
+
+.errorState {
+	text-align: center;
+	color: var(--color-error, #ef4444);
+	padding: 2rem;
 }
 
 @media (max-width: 1000px) {

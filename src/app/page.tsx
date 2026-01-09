@@ -2,6 +2,7 @@
 import { TextEffect } from "@/components/motion-primitives/text-effect";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import styles from "./Home.module.css";
 
 const text1 = "Student developer.";
 const text2 = "Specializing in Swift, SwiftUI, and React.";
@@ -32,28 +33,28 @@ export default function Home() {
 	}, []);
 
 	return (
-		<div className="homeParent">
+		<div className={styles.homeParent}>
 			{show1 && (
-				<TextEffect {...sharedProps} className="homeSubtitle">
+				<TextEffect {...sharedProps} className={styles.homeSubtitle}>
 					{text1}
 				</TextEffect>
 			)}
 			{show2 && (
-				<TextEffect {...sharedProps} className="homeSubtitle">
+				<TextEffect {...sharedProps} className={styles.homeSubtitle}>
 					{text2}
 				</TextEffect>
 			)}
 			{show3 && (
-				<TextEffect {...sharedProps} className="homeSubtitle">
+				<TextEffect {...sharedProps} className={styles.homeSubtitle}>
 					{text3}
 				</TextEffect>
 			)}
 			{show4 && (
-				<div className="homeButtonsGrid">
-					<Link href="/projects" className="homeButton">
+				<div className={styles.homeButtonsGrid}>
+					<Link href="/projects" className={styles.homeButton}>
 						View Projects
 					</Link>
-					<Link href="/contact" className="homeButton">
+					<Link href="/contact" className={styles.homeButton}>
 						Get in Touch
 					</Link>
 				</div>

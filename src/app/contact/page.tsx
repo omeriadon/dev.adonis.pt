@@ -1,28 +1,11 @@
+import type { Metadata } from "next";
 import styles from "./contact.module.css";
+import { contactItems } from "@/data/contacts";
 
-type ContactItem = {
-	label: string;
-	value: string;
-	href: string;
+export const metadata: Metadata = {
+	title: "Contact",
+	description: "Get in touch via email, phone, or GitHub.",
 };
-
-const contactItems: ContactItem[] = [
-	{
-		label: "Email",
-		value: "omeriadon@outlook.com",
-		href: "mailto:omeriadon@outlook.com",
-	},
-	{
-		label: "Phone",
-		value: "0450 935 531",
-		href: "tel:+61450935531",
-	},
-	{
-		label: "GitHub",
-		value: "github.com/omeriadon",
-		href: "https://github.com/omeriadon",
-	},
-];
 
 export default async function Contact() {
 	return (
@@ -32,11 +15,16 @@ export default async function Contact() {
 					<a
 						key={index}
 						href={item.href}
-						target={item.href.startsWith("http") ? "_blank" : undefined}
+						target={
+							item.href.startsWith("http") ? "_blank" : undefined
+						}
 						rel={
-							item.href.startsWith("http") ? "noopener noreferrer" : undefined
+							item.href.startsWith("http")
+								? "noopener noreferrer"
+								: undefined
 						}
 						className={styles.card}
+						aria-label={`${item.label}: ${item.value}`}
 					>
 						<div className={styles.content}>
 							<p className={styles.label}>{item.label}</p>

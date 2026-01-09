@@ -1,50 +1,12 @@
 import styles from "./WallpaperItemCard.module.css";
 import Image from "next/image";
+import { joinPath, buildDownloadName } from "@/lib/utils";
 
 export interface WallpaperItemCardProps {
 	name: string;
 	image: string;
 	path: string;
 	thumbnail?: string;
-}
-
-export function toFileName(maybeFile: string): string {
-	const hasExt = /\.[a-zA-Z0-9]+$/.test(maybeFile || "");
-	return hasExt ? maybeFile : `${maybeFile}.png`;
-}
-
-export function joinPath(baseDir: string, file: string): string {
-	if (!file) return "";
-	if (file.startsWith("/")) return file;
-	const hasExt = /\.[a-zA-Z0-9]+$/.test(file || "");
-	const rel = hasExt ? file : `${file}.png`;
-	return `${baseDir}/${rel}`;
-}
-
-export function slugify(value: string): string {
-	return value
-		.trim()
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-+|-+$/g, "");
-}
-
-export function buildDownloadName(
-	name: string | undefined,
-	image: string
-): string {
-	const ext =
-		(toFileName(image).match(/\.[a-zA-Z0-9]+$/)?.[0] as string | undefined) ||
-		".png";
-	const fallbackBase =
-		toFileName(image)
-			.split("/")
-			.pop()
-			?.replace(/\.[^.]+$/, "") || "wallpaper";
-	const downloadBase =
-		name && name.trim().length ? slugify(name) : slugify(fallbackBase);
-	const safeBase = downloadBase || "wallpaper";
-	return `${safeBase}${ext}`;
 }
 
 export function WallpaperItemCard(props: WallpaperItemCardProps) {

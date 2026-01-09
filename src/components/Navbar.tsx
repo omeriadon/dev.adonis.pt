@@ -3,26 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
 import styles from "./Navbar.module.css";
+import { navLinks } from "@/data/navigation";
 
 const MOBILE_BREAKPOINT = 1000;
-
-type NavLink = {
-	href: string;
-	label: string;
-};
-
-const navLinks: NavLink[] = [
-	{ href: "/projects", label: "Projects" },
-	{ href: "/wallpapers", label: "Wallpapers" },
-	{ href: "/education", label: "Education" },
-	{ href: "/certificates", label: "Certificates" },
-	{ href: "/contact", label: "Contact" },
-];
-
-function cx(...classes: Array<string | false | null | undefined>) {
-	return classes.filter(Boolean).join(" ");
-}
 
 export default function Navbar() {
 	const pathname = usePathname();
@@ -41,7 +26,8 @@ export default function Navbar() {
 	const open = isMobile && menuOpen && openForPath === pathname;
 
 	useEffect(() => {
-		const update = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+		const update = () =>
+			setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
 		update();
 		window.addEventListener("resize", update);
 		return () => window.removeEventListener("resize", update);
@@ -50,7 +36,7 @@ export default function Navbar() {
 	useEffect(() => {
 		const getThreshold = () => {
 			const remInPx = parseFloat(
-				getComputedStyle(document.documentElement).fontSize
+				getComputedStyle(document.documentElement).fontSize,
 			);
 			return window.innerWidth > 1000 ? 10 * remInPx : 6 * remInPx;
 		};
@@ -100,7 +86,7 @@ export default function Navbar() {
 		? {
 				height: open ? collapseHeight : 0,
 				opacity: open ? 1 : 0,
-		  }
+			}
 		: undefined;
 
 	const mobileNavId = "navbar-mobile-links";
@@ -122,7 +108,10 @@ export default function Navbar() {
 			<div className={styles.topRow}>
 				<Link
 					href="/"
-					className={cx(styles.navbarTitle, isActive("/") && styles.active)}
+					className={clsx(
+						styles.navbarTitle,
+						isActive("/") && styles.active,
+					)}
 					aria-current={isActive("/") ? "page" : undefined}
 					onClick={() => {
 						if (isMobile) closeMenu();
@@ -131,14 +120,17 @@ export default function Navbar() {
 					Adon Omeri
 				</Link>
 
-				<ul className={cx(styles.navList, styles.desktopNav)}>
+				<ul className={clsx(styles.navList, styles.desktopNav)}>
 					{navLinks.map((item) => {
 						const active = isActive(item.href);
 						return (
 							<li key={`desktop-${item.href}`}>
 								<Link
 									href={item.href}
-									className={cx(styles.link, active && styles.active)}
+									className={clsx(
+										styles.link,
+										active && styles.active,
+									)}
 									aria-current={active ? "page" : undefined}
 								>
 									{item.label}
@@ -157,7 +149,10 @@ export default function Navbar() {
 					aria-label="Toggle navigation"
 					data-open={open}
 				>
-					<span className={styles.toggleLabelClosed} aria-hidden="true">
+					<span
+						className={styles.toggleLabelClosed}
+						aria-hidden="true"
+					>
 						...
 					</span>
 					<span className={styles.toggleLabelOpen} aria-hidden="true">
@@ -173,15 +168,20 @@ export default function Navbar() {
 				aria-hidden={isMobile ? !open : true}
 			>
 				<div ref={collapseInnerRef} className={styles.collapseInner}>
-					<ul className={cx(styles.navList, styles.mobileNavList)}>
+					<ul className={clsx(styles.navList, styles.mobileNavList)}>
 						{navLinks.map((item) => {
 							const active = isActive(item.href);
 							return (
 								<li key={`mobile-${item.href}`}>
 									<Link
 										href={item.href}
-										className={cx(styles.link, active && styles.active)}
-										aria-current={active ? "page" : undefined}
+										className={clsx(
+											styles.link,
+											active && styles.active,
+										)}
+										aria-current={
+											active ? "page" : undefined
+										}
 										onClick={() => {
 											if (isMobile) closeMenu();
 										}}

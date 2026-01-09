@@ -23,7 +23,8 @@
 	animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 500ms);
 	will-change: transform, opacity, text-shadow;
 	backface-visibility: hidden;
-	text-shadow: 0 6px 16px rgba(255, 255, 255, 0.18),
+	text-shadow:
+		0 6px 16px rgba(255, 255, 255, 0.18),
 		0 0 24px rgba(255, 255, 255, 0.12);
 }
 
@@ -36,7 +37,8 @@
 
 @keyframes glowFade {
 	from {
-		text-shadow: 0 6px 16px rgba(255, 255, 255, 0.18),
+		text-shadow:
+			0 6px 16px rgba(255, 255, 255, 0.18),
 			0 0 24px rgba(255, 255, 255, 0.12);
 	}
 	to {
@@ -96,7 +98,8 @@
 	text-shadow: 0 0 12px currentColor;
 	opacity: 0;
 	transform: translateY(10px);
-	animation: glowIn 400ms ease forwards var(--delay, 0s),
+	animation:
+		glowIn 400ms ease forwards var(--delay, 0s),
 		glowFadeOut 900ms ease forwards var(--glow-fade-delay, 1.2s);
 }
 
@@ -140,7 +143,8 @@
 }
 
 .mainLayer :global(.title-letter).blinkQuestion {
-	animation: fadeUp 400ms ease forwards var(--delay, 0s),
+	animation:
+		fadeUp 400ms ease forwards var(--delay, 0s),
 		glowFade 1200ms ease forwards calc(var(--delay, 0s) + 500ms),
 		blinkOpacity 1000ms ease-in-out infinite alternate
 			calc(var(--delay, 0s) + 700ms);
@@ -171,17 +175,20 @@
 	animation-timing-function: ease, ease;
 	animation-fill-mode: forwards, forwards;
 	animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 500ms);
-	text-shadow: 0 8px 24px rgba(255, 255, 255, 0.28),
+	text-shadow:
+		0 8px 24px rgba(255, 255, 255, 0.28),
 		0 0 36px rgba(255, 255, 255, 0.22);
 }
 
 @keyframes glowFadeHome {
 	from {
-		text-shadow: 0 8px 24px rgba(255, 255, 255, 0.28),
+		text-shadow:
+			0 8px 24px rgba(255, 255, 255, 0.28),
 			0 0 36px rgba(255, 255, 255, 0.22);
 	}
 	to {
-		text-shadow: 0 4px 12px rgba(255, 255, 255, 0.14),
+		text-shadow:
+			0 4px 12px rgba(255, 255, 255, 0.14),
 			0 0 18px rgba(255, 255, 255, 0.11);
 	}
 }
@@ -189,7 +196,8 @@
 .homeTitle .glowLetter {
 	filter: blur(12px);
 	text-shadow: 0 0 28px rgba(100, 150, 255, 0.9);
-	animation: glowInHome 1000ms ease forwards var(--delay, 0s),
+	animation:
+		glowInHome 1000ms ease forwards var(--delay, 0s),
 		glowFadeOutHome 2400ms ease forwards var(--glow-fade-delay, 1.2s);
 }
 

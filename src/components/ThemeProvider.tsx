@@ -1,10 +1,10 @@
 "use client";
 import {
-	useState,
 	useEffect,
 	ReactNode,
 	createContext,
 	useContext,
+	useSyncExternalStore,
 } from "react";
 
 type Theme = "dark" | "light";
@@ -17,62 +17,61 @@ export function useTheme() {
 	return ctx;
 }
 
+function getServerSnapshot(): Theme {
+	return "dark";
+}
+
+function subscribe(callback: () => void) {
+	if (typeof window === "undefined") return () => {};
+
+	const storageHandler = (e: StorageEvent) => {
+		if (e.key === "theme") callback();
+	};
+	window.addEventListener("storage", storageHandler);
+
+	const mql = window.matchMedia?.("(prefers-color-scheme: dark)");
+	if (mql?.addEventListener) {
+		mql.addEventListener("change", callback);
+	}
+
+	return () => {
+		window.removeEventListener("storage", storageHandler);
+		if (mql?.removeEventListener) {
+			mql.removeEventListener("change", callback);
+		}
+	};
+}
+
+function getSnapshot(): Theme {
+	if (typeof window === "undefined") return "dark";
+	const preset = document.documentElement.getAttribute("data-theme");
+	if (preset === "dark" || preset === "light") return preset as Theme;
+	const saved = localStorage.getItem("theme");
+	if (saved === "dark" || saved === "light") return saved as Theme;
+	return window.matchMedia?.("(prefers-color-scheme: dark)").matches
+		? "dark"
+		: "light";
+}
+
 export default function ThemeProvider({ children }: { children: ReactNode }) {
-	const [theme, setTheme] = useState<Theme>("dark");
+	const theme = useSyncExternalStore(
+		subscribe,
+		getSnapshot,
+		getServerSnapshot,
+	);
 
 	useEffect(() => {
-		const initial = getPreferredTheme();
-		setTheme(initial);
-		if (typeof document !== "undefined") {
-			const current = document.documentElement.getAttribute("data-theme");
-			if (current !== initial) {
-				applyThemeToDOM(initial);
-			}
-		}
-
-		if (
-			!localStorage.getItem("theme") &&
-			typeof window !== "undefined" &&
-			window.matchMedia
-		) {
-			const mql = window.matchMedia("(prefers-color-scheme: dark)");
-			const handler = (e: MediaQueryListEvent) => {
-				const sysTheme: Theme = e.matches ? "dark" : "light";
-				setTheme(sysTheme);
-				if (
-					typeof document !== "undefined" &&
-					document.documentElement.getAttribute("data-theme") !== sysTheme
-				) {
-					applyThemeToDOM(sysTheme);
-				}
-			};
-			if (mql.addEventListener) {
-				mql.addEventListener("change", handler);
-				return () => mql.removeEventListener("change", handler);
-			} else {
-				mql.addListener(handler);
-				return () => mql.removeListener(handler);
-			}
-		}
-	}, []);
-
-	useEffect(() => {
-		if (
-			typeof document !== "undefined" &&
-			document.documentElement.getAttribute("data-theme") !== theme
-		) {
-			applyThemeToDOM(theme);
-		}
-		try {
-			localStorage.setItem("theme", theme);
-		} catch {}
+		applyThemeToDOM(theme);
 	}, [theme]);
 
-	const toggleTheme = () =>
-		setTheme((prev) => {
-			const next = prev === "dark" ? "light" : "dark";
-			return next;
-		});
+	const toggleTheme = () => {
+		const next = theme === "dark" ? "light" : "dark";
+		try {
+			localStorage.setItem("theme", next);
+		} catch {}
+		applyThemeToDOM(next);
+		window.dispatchEvent(new StorageEvent("storage", { key: "theme" }));
+	};
 
 	return (
 		<ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -92,16 +91,4 @@ function applyThemeToDOM(theme: Theme) {
 	} else {
 		root.classList.remove("dark");
 	}
-}
-
-function getPreferredTheme(): Theme {
-	if (typeof window === "undefined") return "dark";
-	const preset = document.documentElement.getAttribute("data-theme");
-	if (preset === "dark" || preset === "light") return preset as Theme;
-	const saved = localStorage.getItem("theme");
-	if (saved === "dark" || saved === "light") return saved as Theme;
-	return window.matchMedia &&
-		window.matchMedia("(prefers-color-scheme: dark)").matches
-		? "dark"
-		: "light";
 }

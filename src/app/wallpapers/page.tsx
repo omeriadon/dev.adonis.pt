@@ -1,134 +1,74 @@
-"use client";
-
+import type { Metadata } from "next";
 import styles from "./wallpapers.module.css";
-import { useState, useEffect } from "react";
+import path from "node:path";
+import { promises as fs } from "node:fs";
 import { WallpaperCategory } from "@/components/WallpaperCategory";
+import { normalizeWallpaperCategories } from "@/lib/utils";
+import type { WallpaperCategory as WallpaperCategoryType } from "@/types";
 
-export default function Wallpapers() {
-	type Category = {
-		id: string;
-		title: string;
-		description: string;
-		tags: string[];
-		thumbnail: string;
-		preview: string;
-		path: string;
-	};
+export const metadata: Metadata = {
+	title: "Wallpapers",
+	description: "Browse and download curated wallpaper collections.",
+};
 
-	const [categories, setCategories] = useState<Category[]>([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
-	const [ready, setReady] = useState(false);
-
-	useEffect(() => {
-		let cancelled = false;
-		async function load() {
-			try {
-				setLoading(true);
-				setError(null);
-				const res = await fetch("/wallpapers/index.json", {
-					cache: "no-cache",
-				});
-				if (!res.ok) {
-					throw new Error(
-						`Failed to load categories: ${res.status} ${res.statusText}`
-					);
-				}
-				const data = await res.json();
-				if (!cancelled) {
-					const normalized: Category[] = (Array.isArray(data) ? data : []).map(
-						(raw: any, index: number) => {
-							const id =
-								typeof raw?.id === "string" && raw.id.trim().length
-									? raw.id
-									: `category-${index + 1}`;
-							const title =
-								typeof raw?.title === "string" && raw.title.trim().length
-									? raw.title
-									: id;
-							const description =
-								typeof raw?.description === "string" ? raw.description : "";
-							const preview =
-								typeof raw?.preview === "string" && raw.preview.trim().length
-									? raw.preview
-									: "";
-							const thumbnail =
-								typeof raw?.thumbnail === "string" &&
-								raw.thumbnail.trim().length
-									? raw.thumbnail
-									: preview;
-							const tags = Array.isArray(raw?.tags)
-								? raw.tags.filter(
-										(tag: unknown): tag is string =>
-											typeof tag === "string" && tag.trim().length > 0
-								  )
-								: [];
-							const path =
-								typeof raw?.path === "string" && raw.path.trim().length
-									? raw.path
-									: "";
-							return {
-								id,
-								title,
-								description,
-								tags,
-								thumbnail,
-								preview,
-								path,
-							};
-						}
-					);
-					setCategories(normalized);
-				}
-			} catch (e: any) {
-				if (!cancelled) setError(e?.message || "Failed to load categories");
-			} finally {
-				if (!cancelled) setLoading(false);
-			}
-		}
-		load();
-		return () => {
-			cancelled = true;
+async function loadWallpaperCategories(): Promise<{
+	categories: WallpaperCategoryType[];
+	error: string | null;
+}> {
+	try {
+		const filePath = path.join(
+			process.cwd(),
+			"public",
+			"wallpapers",
+			"index.json",
+		);
+		const file = await fs.readFile(filePath, "utf-8");
+		const parsed = JSON.parse(file) as unknown;
+		return {
+			categories: normalizeWallpaperCategories(parsed),
+			error: null,
 		};
-	}, []);
+	} catch (err: unknown) {
+		const message =
+			err instanceof Error
+				? err.message
+				: typeof err === "string"
+					? err
+					: "Failed to read wallpaper categories.";
+		return { categories: [], error: message };
+	}
+}
 
-	useEffect(() => {
-		let raf1 = 0;
-		let raf2 = 0;
-		raf1 = requestAnimationFrame(() => {
-			raf2 = requestAnimationFrame(() => setReady(true));
-		});
-		return () => {
-			cancelAnimationFrame(raf1);
-			cancelAnimationFrame(raf2);
-		};
-	}, []);
+export default async function WallpapersPage() {
+	const { categories, error } = await loadWallpaperCategories();
+	const hasCategories = categories.length > 0;
 
 	return (
 		<div>
-			<div>
-				{loading && <p></p>}
-				{!loading && error && <p style={{ color: "red" }}>{error}</p>}
-				{!loading && !error && categories.length === 0 && (
-					<p>No categories found.</p>
-				)}
-				{!loading && !error && ready && (
-					<div className={styles.grid}>
-						{categories.map((cat) => (
-							<WallpaperCategory
-								key={cat.id}
-								id={cat.id}
-								title={cat.title}
-								description={cat.description}
-								tags={cat.tags}
-								thumbnail={cat.thumbnail || cat.preview}
-								preview={cat.preview || cat.thumbnail}
-								path={cat.path}
-							/>
-						))}
-					</div>
-				)}
-			</div>
+			{error && (
+				<p className={styles.errorState} role="alert">
+					{error}
+				</p>
+			)}
+			{!error && !hasCategories && (
+				<p className={styles.emptyState}>No categories found.</p>
+			)}
+			{!error && hasCategories && (
+				<div className={styles.grid}>
+					{categories.map((cat) => (
+						<WallpaperCategory
+							key={cat.id}
+							id={cat.id}
+							title={cat.title}
+							description={cat.description}
+							tags={cat.tags}
+							thumbnail={cat.thumbnail}
+							preview={cat.preview}
+							path={cat.path}
+						/>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }

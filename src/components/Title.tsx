@@ -1,82 +1,37 @@
 "use client";
 import styles from "./Title.module.css";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type CSSProperties } from "react";
+import type { CSSProperties } from "react";
+import { routeTitles } from "@/data/navigation";
 
-type WallpaperCategory = {
-	id: string;
-	title: string;
-	description: string;
-	preview: string;
-	path: string;
-};
+function slugToTitle(slug: string): string {
+	return slug
+		.split(/[-_]/)
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join(" ");
+}
 
 export default function Title() {
 	const pathname = usePathname();
 	const isHome = pathname === "/";
 	const segments = pathname.split("/").filter(Boolean);
-	const wallpapersId =
-		segments.length >= 2 && segments[0] === "wallpapers" ? segments[1] : null;
-	const [categoryTitle, setCategoryTitle] = useState<string>("");
 
-	useEffect(() => {
-		let cancelled = false;
+	const isDetailPage = segments.length >= 2;
+	const detailId = isDetailPage ? segments[segments.length - 1] : null;
 
-		async function loadTitle() {
-			if (!wallpapersId) {
-				setCategoryTitle("");
-				return;
-			}
-
-			try {
-				const res = await fetch("/wallpapers/index.json", {
-					cache: "no-cache",
-				});
-				if (!res.ok) return;
-
-				const data: unknown = await res.json();
-				const list: WallpaperCategory[] = Array.isArray(data)
-					? (data as WallpaperCategory[])
-					: [];
-
-				const match = list.find((c) => c.id === wallpapersId);
-
-				if (!cancelled) {
-					setCategoryTitle(match?.title ?? "");
-				}
-			} catch {
-				// do nothing
-			}
-		}
-
-		loadTitle();
-		return () => {
-			cancelled = true;
-		};
-	}, [wallpapersId]);
-
-	const isDetail = Boolean(wallpapersId);
 	let text = "";
-	if (!isDetail) {
-		if (pathname.startsWith("/wallpapers")) text = "Wallpapers";
-		else if (pathname.startsWith("/certificates")) text = "Certificates";
-		else if (pathname.startsWith("/education")) text = "Education";
-		else if (pathname.startsWith("/contact")) text = "Contact";
-		else if (pathname.startsWith("/projects")) text = "Projects";
-		else if (pathname === "/") text = "Adon Omeri";
-		else text = pathname + " ?";
+	if (isDetailPage && detailId) {
+		text = slugToTitle(detailId);
+	} else {
+		const basePath = `/${segments[0] ?? ""}`.replace(/\/$/, "") || "/";
+		text = routeTitles[basePath] ?? `${pathname} ?`;
 	}
 
-	const prefixText = "";
-	const mainText = isDetail ? categoryTitle : text;
-	const prefixLetters = prefixText.split("");
-	const mainLetters = mainText.split("");
-	const totalLetters = prefixLetters.length + mainLetters.length;
-	const glowFadeDelay = isHome
-		? (totalLetters - 1) * 0.08 + 0.6 + 0.2
-		: (totalLetters - 1) * 0.05 + 0.4 + 0.2;
-	const hasQuestion = !isDetail && text.endsWith("?");
+	const mainLetters = text.split("");
+	const totalLetters = mainLetters.length;
 	const letterDelay = isHome ? 0.1 : 0.05;
+	const glowFadeDelay = (totalLetters - 1) * letterDelay + 0.4 + 0.2;
+	const hasQuestion = text.endsWith("?");
 
 	return (
 		<div className="grid place-items-center">
@@ -87,27 +42,25 @@ export default function Title() {
 					className={`${styles.title} ${isHome ? styles.homeTitle : ""} ${
 						styles.glowLayer
 					}`}
-					style={{ "--glow-fade-delay": `${glowFadeDelay}s` } as CSSProperties}
+					style={
+						{
+							"--glow-fade-delay": `${glowFadeDelay}s`,
+						} as CSSProperties
+					}
 				>
-					{isDetail
-						? mainLetters.map((char, i) => (
-								<span
-									key={`g-main-${i}`}
-									className={styles.glowLetter}
-									style={{ "--delay": `${i * letterDelay}s` } as CSSProperties}
-								>
-									{char}
-								</span>
-						  ))
-						: mainLetters.map((char, i) => (
-								<span
-									key={`g-${i}`}
-									className={styles.glowLetter}
-									style={{ "--delay": `${i * letterDelay}s` } as CSSProperties}
-								>
-									{char}
-								</span>
-						  ))}
+					{mainLetters.map((char, i) => (
+						<span
+							key={`g-${i}`}
+							className={styles.glowLetter}
+							style={
+								{
+									"--delay": `${i * letterDelay}s`,
+								} as CSSProperties
+							}
+						>
+							{char}
+						</span>
+					))}
 				</p>
 				<p
 					key={pathname + "-main"}
@@ -115,27 +68,23 @@ export default function Title() {
 						styles.mainLayer
 					}`}
 				>
-					{isDetail
-						? mainLetters.map((char, i) => (
-								<span
-									key={`m-main-${i}`}
-									className="title-letter"
-									style={{ "--delay": `${i * letterDelay}s` } as CSSProperties}
-								>
-									{char}
-								</span>
-						  ))
-						: mainLetters.map((char, i) => (
-								<span
-									key={`m-${i}`}
-									className={`title-letter ${
-										hasQuestion && char === "?" ? styles.blinkQuestion : ""
-									}`}
-									style={{ "--delay": `${i * letterDelay}s` } as CSSProperties}
-								>
-									{char}
-								</span>
-						  ))}
+					{mainLetters.map((char, i) => (
+						<span
+							key={`m-${i}`}
+							className={`title-letter ${
+								hasQuestion && char === "?"
+									? styles.blinkQuestion
+									: ""
+							}`}
+							style={
+								{
+									"--delay": `${i * letterDelay}s`,
+								} as CSSProperties
+							}
+						>
+							{char}
+						</span>
+					))}
 				</p>
 			</div>
 		</div>
