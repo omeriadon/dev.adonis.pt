@@ -105,16 +105,6 @@ export default function RootLayout({
 				<style
 					dangerouslySetInnerHTML={{
 						__html: `
-      /* Page transition animations */
-      @keyframes fade-out {
-        from { opacity: 1; }
-        to { opacity: 0; }
-      }
-      @keyframes fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      
       ::view-transition-group(.fade-page) {
         animation-duration: 0s;
       }
