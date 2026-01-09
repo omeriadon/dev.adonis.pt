@@ -22,11 +22,6 @@
 	flex-direction: column;
 	align-items: stretch;
 	border-radius: 12px;
-
-	background: var(--navbar-background);
-
-	-webkit-backdrop-filter: saturate(120%) blur(6px) brightness(1.1);
-	backdrop-filter: saturate(120%) blur(6px) brightness(1.1);
 }
 
 .topRow {
@@ -91,7 +86,7 @@
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 7.5rem; /* h-30 equivalent */
+	height: 7.5rem;
 	z-index: -1;
 	pointer-events: none;
 }
@@ -258,13 +253,4 @@
 	.collapseWrapper {
 		display: none;
 	}
-}
-
-.navbar {
-	border: 1px solid rgba(255, 255, 255, 0); /* invisible */
-	transition: border-color 0.3s ease;
-}
-
-.navbar.scrolled {
-	border-color: var(--grey); /* visible */
 }

@@ -123,8 +123,8 @@ export default function Navbar() {
 		<header className={styles.header}>
 			<ProgressiveBlur
 				className={styles.blur}
-				blurIntensity={4.0}
-				blurLayers={7}
+				blurIntensity={8.0}
+				blurLayers={10}
 			/>
 			<nav
 				className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}
