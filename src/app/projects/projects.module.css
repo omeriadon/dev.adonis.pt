@@ -11,7 +11,7 @@
 .card {
 	background: var(--grey);
 	border-radius: 30px;
-	padding: 30px;
+	padding: 10px 20px 20px;
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -23,20 +23,21 @@
 }
 
 .title {
-	font-size: 1.25rem;
+	font-size: 2rem;
 	font-weight: 600;
 	margin: 0;
+	color: var(--blue);
 }
 
 .date {
-	font-size: 0.875rem;
+	font-size: 1rem;
 	opacity: 0.5;
 	white-space: nowrap;
 }
 
 .description {
 	opacity: 0.7;
-	margin: 0 0 20px 0;
+	margin: 0 0 10px 0;
 	line-height: 1.5;
 	flex-grow: 1;
 }

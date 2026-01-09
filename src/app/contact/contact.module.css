@@ -36,9 +36,8 @@
 }
 
 .label {
-	font-size: 1.2rem;
+	font-size: 2rem;
 	color: var(--blue);
-	font-weight: 600;
 }
 
 .value {
