@@ -18,7 +18,7 @@
 
 	display: flex;
 	flex-direction: column;
-	padding: 10px 20px 20px;
+	padding: 10px 20px 15px;
 	transition: transform 0.1s ease-in-out;
 }
 
@@ -43,7 +43,7 @@
 .header {
 	display: flex;
 	justify-content: space-between;
-	align-items: start;
+	align-items: baseline;
 }
 
 .title {
@@ -55,9 +55,10 @@
 .meta {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
+	align-items: flex-start;
+	justify-content: flex-start;
+	margin-top: 0.2rem;
+	justify-content: space-between;
 }
 
 .date {
@@ -73,5 +74,5 @@
 
 .description {
 	opacity: 0.8;
-	padding: 0 30px 20px 00px;
+	padding: 0 30px 0px 00px;
 }

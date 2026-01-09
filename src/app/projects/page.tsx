@@ -17,7 +17,7 @@ export default async function Projects() {
 					<div key={index} className={styles.card}>
 						<div className={styles.header}>
 							<h2 className={styles.title}>{project.title}</h2>
-							<span className={styles.date}>{project.date}</span>
+							<div className={styles.date}>{project.date}</div>
 						</div>
 						<p className={styles.description}>
 							{project.description}

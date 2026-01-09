@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
 import { ViewTransition } from "react";
 import ScrollToTop from "@/components/ScrollToTop";
-import ScrollBlur from "@/components/ScrollBlur";
 
 const departureMono = localFont({
 	src: [
@@ -144,13 +143,11 @@ export default function RootLayout({
 					<Navbar />
 					<div className="spacer" />
 					<Title />
-					<ScrollBlur>
-						<ViewTransition default="fade-page">
-							<main className="min-h-screen children">
-								{children}
-							</main>
-						</ViewTransition>
-					</ScrollBlur>
+					<ViewTransition default="fade-page">
+						<main className="min-h-screen children">
+							{children}
+						</main>
+					</ViewTransition>
 					<Footer />
 				</ThemeProvider>
 			</body>

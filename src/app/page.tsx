@@ -15,7 +15,7 @@ const sharedProps = {
 	trigger: true,
 	containerTransition: { duration: 1 },
 	segmentTransition: { duration: 0.2 },
-	speedReveal: 0.3,
+	speedReveal: 0.5,
 	speedSegment: 0.6,
 };
 
@@ -27,9 +27,9 @@ export default function Home() {
 
 	useEffect(() => {
 		const t1 = setTimeout(() => setShow1(true), 2000);
-		const t2 = setTimeout(() => setShow2(true), 5000);
-		const t3 = setTimeout(() => setShow3(true), 10000);
-		const t4 = setTimeout(() => setShow4(true), 17000);
+		const t2 = setTimeout(() => setShow2(true), 4000);
+		const t3 = setTimeout(() => setShow3(true), 7000);
+		const t4 = setTimeout(() => setShow4(true), 12000);
 
 		return () => {
 			clearTimeout(t1);
