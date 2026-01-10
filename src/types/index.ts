@@ -97,12 +97,11 @@ export type ThemeContextType = {
 	toggleTheme: () => void;
 };
 
-export const JourneyItemSchema = z.object({
-	date: z.string(),
+export const ExpertiseItemSchema = z.object({
 	animID: z.string(),
 	title: z.string(),
 	description: z.string(),
 	icon: z.custom<ReactNode>(),
 });
 
-export type JourneyItem = z.infer<typeof JourneyItemSchema>;
+export type ExpertiseItem = z.infer<typeof ExpertiseItemSchema>;

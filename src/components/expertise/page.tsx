@@ -1,14 +1,14 @@
-import styles from "./journey.module.css";
-import { journeyItems } from "@/data/journeys";
+import styles from "./expertise.module.css";
+import { expertise } from "@/data/expertise";
 import clsx from "clsx";
 
-export default function Journey() {
+export default function Expertise() {
 	return (
 		<div>
-			<h1 className={styles.journeyTitle}>My journey so far</h1>
-			{journeyItems.map((item, index) => {
+			<h1 className={styles.expertiseTitle}>Expertise</h1>
+			{expertise.map((item, index) => {
 				return (
-					<article key={index} className={styles.journeyItem}>
+					<article key={index} className={styles.expertiseItem}>
 						<div className={clsx(styles.icon, styles[item.animID])}>
 							{item.icon}
 						</div>
@@ -16,7 +16,6 @@ export default function Journey() {
 						<div className={styles.contentWrapper}>
 							<header className={styles.header}>
 								<h2 className={styles.title}>{item.title}</h2>
-								<time className={styles.date}>{item.date}</time>
 							</header>
 							<p className={styles.description}>
 								{item.description}

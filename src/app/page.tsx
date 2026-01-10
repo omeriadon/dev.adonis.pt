@@ -3,7 +3,7 @@ import { TextEffect } from "@/components/motion-primitives/text-effect";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "./Home.module.css";
-import Journey from "@/components/journey/page";
+import Journey from "@/components/expertise/page";
 
 const text1 = "Student developer.";
 const text2 = "Specializing in Swift, SwiftUI, and React.";

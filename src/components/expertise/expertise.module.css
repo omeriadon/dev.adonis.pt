@@ -1,21 +1,22 @@
-.journeyTitle {
+.expertiseTitle {
 	font-size: 1.6rem;
 	margin-bottom: 2rem;
 	margin-left: 2rem;
+	font-weight: 600;
 }
 
-.journeyItem {
+.expertiseItem {
 	display: flex;
 	gap: 1.5rem;
 	margin-bottom: 2rem;
 	position: relative;
 	padding: 1.5rem;
-	background: color-mix(in srgb, var(--grey) 50%, transparent);
+	background: var(--grey);
 	border-radius: 30px;
 	transition: transform 0.1s ease-in-out;
 }
 
-.journeyItem:hover {
+.expertiseItem:hover {
 	transform: scale(1.02);
 }
 
@@ -26,7 +27,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 	color: var(--blue);
 	margin-left: 5px;
 }
@@ -52,11 +52,6 @@
 	margin: 0;
 }
 
-.date {
-	opacity: 0.5;
-	margin-bottom: 5px;
-}
-
 .description {
 	margin: 0;
 	opacity: 0.5;
@@ -76,4 +71,31 @@
 
 .react {
 	animation: spin 12s linear infinite;
+}
+
+@keyframes birdOscillate {
+	0% {
+		transform: rotate(0deg);
+	}
+	20% {
+		transform: rotate(14deg);
+	}
+	40% {
+		transform: rotate(-10deg);
+	}
+	60% {
+		transform: rotate(12deg);
+	}
+	80% {
+		transform: rotate(-6deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+.swiftui-bird {
+	transform-origin: 100% 100%;
+	animation: birdOscillate 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	will-change: transform;
 }
