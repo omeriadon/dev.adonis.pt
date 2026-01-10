@@ -1,8 +1,13 @@
-.expertiseTitle {
+.bigTitle {
 	font-size: 1.6rem;
 	margin-bottom: 2rem;
 	margin-left: 2rem;
 	font-weight: 600;
+}
+
+.parent {
+	display: grid;
+	gap: 2rem;
 }
 
 .expertiseItem {
@@ -60,6 +65,37 @@
 	justify-content: flex-start;
 }
 
+.otherExpertiseContainer {
+	display: table;
+	border-spacing: 1rem 0rem;
+	margin: 0 auto;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
+}
+
+.otherExpertiseItem {
+	display: table-cell;
+	padding: 8px 14px;
+	text-align: center;
+	border-radius: 10px;
+	background: var(--grey);
+}
+
+.toolsContainer {
+	display: table;
+	border-spacing: 2rem 0rem;
+	margin: 0 auto;
+}
+
+.toolsItem {
+	font-size: 1.5rem;
+	display: table-cell;
+	padding: 2rem 3rem;
+	text-align: center;
+	border-radius: 10px;
+	background: var(--grey);
+}
+
 @keyframes spin {
 	from {
 		transform: rotate(0deg);
@@ -98,4 +134,17 @@
 	transform-origin: 100% 100%;
 	animation: birdOscillate 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 	will-change: transform;
+}
+
+.tailwind {
+	animation: sway 2s ease-in-out infinite alternate;
+}
+
+@keyframes sway {
+	0% {
+		transform: translateX(-10px);
+	}
+	100% {
+		transform: translateX(10px);
+	}
 }
