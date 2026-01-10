@@ -19,13 +19,8 @@
 }
 
 .leftBlock,
-.centerBlock,
 .rightBlock {
 	flex: 1 1 auto;
-}
-
-.centerBlock {
-	text-align: center;
 }
 
 .rightBlock {
@@ -63,13 +58,6 @@
 
 .innerContent button:hover {
 	background-color: rgba(127, 127, 127, 0.15);
-}
-
-.lastUpdated {
-	font-size: 0.8rem;
-	color: var(--color-muted);
-	margin: 0.2rem 0;
-	line-height: 1.2;
 }
 
 .colorBand {

@@ -118,12 +118,6 @@ export default function Footer(props: HTMLAttributes<HTMLElement>) {
 				<div className={styles.leftBlock}>
 					<p className="noSelect">Adon Omeri</p>
 				</div>
-				<div className={styles.centerBlock}>
-					<p className={styles.lastUpdated}>
-						Last updated: {lastUpdatedLabel}
-						{lastUpdatedDate ? ` (${lastUpdatedDate})` : ""}
-					</p>
-				</div>
 				<div className={styles.rightBlock}>
 					<button
 						type="button"
