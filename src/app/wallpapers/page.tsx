@@ -44,7 +44,7 @@ export default async function WallpapersPage() {
 	const hasCategories = categories.length > 0;
 
 	return (
-		<div>
+		<main>
 			{error && (
 				<p className={styles.errorState} role="alert">
 					{error}
@@ -69,6 +69,6 @@ export default async function WallpapersPage() {
 					))}
 				</div>
 			)}
-		</div>
+		</main>
 	);
 }

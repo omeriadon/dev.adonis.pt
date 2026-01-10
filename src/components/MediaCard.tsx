@@ -34,7 +34,7 @@ export function MediaCard({
 	const showPlaceholder = !hasCustomImage && !image;
 
 	return (
-		<div className={clsx(styles.card, className)} style={style}>
+		<figure className={clsx(styles.card, className)} style={style}>
 			<div className={clsx(styles.imageWrapper, imageWrapperClassName)}>
 				{imageSlot ? (
 					imageSlot
@@ -66,10 +66,10 @@ export function MediaCard({
 					</div>
 				)}
 			</div>
-			<div className={styles.cardText}>
+			<figcaption className={styles.cardText}>
 				<p className={styles.cardTitle}>{cardTitle || "\u00A0"}</p>
 				<p className={styles.amountCount}>{cardSubtitle}</p>
-			</div>
-		</div>
+			</figcaption>
+		</figure>
 	);
 }

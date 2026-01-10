@@ -51,7 +51,11 @@ export async function WallpaperCategory(props: CategoryProps) {
 			: "0 wallpapers";
 
 	return (
-		<Link href={`/wallpapers/${props.id}`} className={styles.cardLink}>
+		<Link
+			href={`/wallpapers/${props.id}`}
+			className={styles.cardLink}
+			aria-label={`Open ${props.title}. ${cardSubtitle}.`}
+		>
 			<MediaCard
 				image={isPlaceholder ? null : thumbnailSrc}
 				cardTitle={props.title || "\u00A0"}

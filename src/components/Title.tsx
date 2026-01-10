@@ -34,8 +34,9 @@ export default function Title() {
 	const hasQuestion = text.endsWith("?");
 
 	return (
-		<div className="grid place-items-center">
+		<header className="grid place-items-center">
 			<div className={styles.titleWrap}>
+				<h1 className="sr-only">{text}</h1>
 				<p
 					key={pathname + "-glow"}
 					aria-hidden="true"
@@ -52,6 +53,7 @@ export default function Title() {
 						<span
 							key={`g-${i}`}
 							className={styles.glowLetter}
+							aria-hidden="true"
 							style={
 								{
 									"--delay": `${i * letterDelay}s`,
@@ -87,6 +89,6 @@ export default function Title() {
 					))}
 				</p>
 			</div>
-		</div>
+		</header>
 	);
 }

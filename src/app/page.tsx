@@ -61,8 +61,8 @@ export default function Home() {
 	}, [prefersReducedMotion]);
 
 	return (
-		<div className={styles.homeParent}>
-			<div className={styles.homeIntroLines}>
+		<main className={styles.homeParent}>
+			<header className={styles.homeIntroLines}>
 				{show1 && (
 					<TextEffect
 						{...sharedProps}
@@ -87,13 +87,14 @@ export default function Home() {
 						{text3}
 					</TextEffect>
 				)}
-			</div>
-			<div className={styles.homeJourney} aria-hidden={!showJourney}>
+			</header>
+			<section className={styles.homeJourney} aria-hidden={!showJourney}>
 				{showJourney && <Journey />}
-			</div>
-			<div
+			</section>
+			<nav
 				className={styles.homeButtonsWrapper}
 				aria-hidden={!showButtons}
+				aria-label="Primary actions"
 			>
 				{showButtons && (
 					<div className={styles.homeButtonsGrid}>
@@ -105,7 +106,7 @@ export default function Home() {
 						</Link>
 					</div>
 				)}
-			</div>
-		</div>
+			</nav>
+		</main>
 	);
 }

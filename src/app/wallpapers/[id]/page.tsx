@@ -116,11 +116,11 @@ export default async function WallpaperSetPage({
 	const items = await loadWallpaperItems(category.path);
 
 	return (
-		<div>
+		<main>
 			{category.description && (
-				<div style={{ marginBottom: 20 }}>
+				<section style={{ marginBottom: 20 }}>
 					<p className={styles.description}>{category.description}</p>
-				</div>
+				</section>
 			)}
 
 			{items.length === 0 && (
@@ -145,6 +145,6 @@ export default async function WallpaperSetPage({
 					/>
 				</div>
 			)}
-		</div>
+		</main>
 	);
 }

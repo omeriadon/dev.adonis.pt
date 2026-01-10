@@ -22,7 +22,12 @@ export function WallpaperItemCard(props: WallpaperItemCardProps) {
 	const downloadName = buildDownloadName(props.name, props.image);
 
 	return (
-		<a href={fullSrc} download={downloadName} className={styles.card}>
+		<a
+			href={fullSrc}
+			download={downloadName}
+			className={styles.card}
+			aria-label={`Download ${props.name}`}
+		>
 			<div className={styles.imageWrapper}>
 				{!isPlaceholder ? (
 					<Image
@@ -41,6 +46,7 @@ export function WallpaperItemCard(props: WallpaperItemCardProps) {
 					<div
 						className={styles.placeholder}
 						style={{ backgroundPosition: "center" }}
+						aria-hidden="true"
 					/>
 				)}
 			</div>

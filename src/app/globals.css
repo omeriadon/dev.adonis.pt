@@ -36,6 +36,11 @@ html,
 body {
 	background: var(--background);
 	color: var(--foreground);
+}
+
+.noSelect {
+	-webkit-user-select: none;
+	-moz-user-select: none;
 	user-select: none;
 }
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default async function Education() {
 	return (
-		<div className={styles.container}>
+		<main className={styles.container}>
 			{educationEntries.map((item, index) => {
 				return (
 					<article
@@ -38,6 +38,6 @@ export default async function Education() {
 					</article>
 				);
 			})}
-		</div>
+		</main>
 	);
 }

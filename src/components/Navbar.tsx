@@ -147,6 +147,7 @@ export default function Navbar() {
 			/>
 			<nav
 				className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}
+				aria-label="Primary navigation"
 				style={{
 					opacity: isVisible ? 1 : 0,
 					transition: "opacity 0.8s ease, border-color 0.3s ease",
@@ -196,7 +197,7 @@ export default function Navbar() {
 						onClick={toggleMenu}
 						aria-expanded={open}
 						aria-controls={mobileNavId}
-						aria-label="Toggle navigation"
+						aria-label="Toggle navigation menu"
 						data-open={open}
 					>
 						<span

@@ -4,8 +4,8 @@ import clsx from "clsx";
 
 export default function Expertise() {
 	return (
-		<div className={styles.parent}>
-			<div>
+		<section className={styles.parent}>
+			<section>
 				<h1 className={styles.bigTitle}>Expertise</h1>
 				{expertise.map((item, index) => {
 					return (
@@ -31,8 +31,8 @@ export default function Expertise() {
 						</article>
 					);
 				})}
-			</div>
-			<div>
+			</section>
+			<section>
 				<h1 className={styles.bigTitle}>Other Expertise</h1>
 				<div className={styles.otherExpertiseContainer}>
 					{otherExpertise.map((item, i) => (
@@ -41,8 +41,8 @@ export default function Expertise() {
 						</div>
 					))}
 				</div>
-			</div>
-			<div>
+			</section>
+			<section>
 				<h1 className={styles.bigTitle}>Tools</h1>
 				<div className={styles.toolsContainer}>
 					{tools.map((item, i) => (
@@ -51,7 +51,7 @@ export default function Expertise() {
 						</div>
 					))}
 				</div>
-			</div>
-		</div>
+			</section>
+		</section>
 	);
 }

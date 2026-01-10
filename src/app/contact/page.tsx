@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default async function Contact() {
 	return (
-		<div className={styles.container}>
+		<main className={styles.container}>
 			<div className={styles.grid}>
 				{contactItems.map((item, index) => (
 					<a
@@ -33,6 +33,6 @@ export default async function Contact() {
 					</a>
 				))}
 			</div>
-		</div>
+		</main>
 	);
 }

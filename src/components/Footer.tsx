@@ -129,17 +129,24 @@ export default function Footer(props: HTMLAttributes<HTMLElement>) {
 						type="button"
 						onClick={toggleTheme}
 						title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+						aria-pressed={theme === "dark"}
+						aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
 					>
 						Switch theme: {theme}
 					</button>
 				</div>
 			</div>
-			<div className={styles.colorBand}>
+			<div
+				className={styles.colorBand}
+				aria-hidden="true"
+				role="presentation"
+			>
 				{colors.map((color, i) => (
 					<div
 						key={i}
 						className={styles.colorStripe}
 						style={{ backgroundColor: color }}
+						aria-hidden="true"
 						suppressHydrationWarning
 					/>
 				))}

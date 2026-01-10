@@ -42,7 +42,7 @@ export default async function Certificates() {
 	const hasCertificates = certificates.length > 0;
 
 	return (
-		<div className={styles.container}>
+		<main className={styles.container}>
 			{error && (
 				<p className={styles.errorState} role="alert">
 					{error}
@@ -73,6 +73,6 @@ export default async function Certificates() {
 					})}
 				</div>
 			)}
-		</div>
+		</main>
 	);
 }
