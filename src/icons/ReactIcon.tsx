@@ -1,0 +1,21 @@
+export default function ReactIcon({
+	className,
+	...props
+}: React.SVGProps<SVGSVGElement>) {
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="-11.5 -10.23174 23 20.46348"
+			className={className}
+			{...props}
+		>
+			<title>React Logo</title>
+			<circle cx="0" cy="0" r="2.05" fill="currentColor" />
+			<g fill="none" stroke="currentColor" strokeWidth="1">
+				<ellipse rx="11" ry="4.2" />
+				<ellipse rx="11" ry="4.2" transform="rotate(60)" />
+				<ellipse rx="11" ry="4.2" transform="rotate(120)" />
+			</g>
+		</svg>
+	);
+}

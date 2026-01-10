@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { ReactNode } from "react";
 
 export const ProjectSchema = z.object({
 	title: z.string(),
@@ -95,3 +96,13 @@ export type ThemeContextType = {
 	theme: Theme;
 	toggleTheme: () => void;
 };
+
+export const JourneyItemSchema = z.object({
+	date: z.string(),
+	animID: z.string(),
+	title: z.string(),
+	description: z.string(),
+	icon: z.custom<ReactNode>(),
+});
+
+export type JourneyItem = z.infer<typeof JourneyItemSchema>;

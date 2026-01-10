@@ -3,6 +3,7 @@ import { TextEffect } from "@/components/motion-primitives/text-effect";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "./Home.module.css";
+import Journey from "@/components/journey/page";
 
 const text1 = "Student developer.";
 const text2 = "Specializing in Swift, SwiftUI, and React.";
@@ -15,7 +16,7 @@ const sharedProps = {
 	trigger: true,
 	containerTransition: { duration: 1 },
 	segmentTransition: { duration: 0.2 },
-	speedReveal: 0.5,
+	speedReveal: 0.9,
 	speedSegment: 0.6,
 };
 
@@ -23,7 +24,8 @@ export default function Home() {
 	const [show1, setShow1] = useState(false);
 	const [show2, setShow2] = useState(false);
 	const [show3, setShow3] = useState(false);
-	const [show4, setShow4] = useState(false);
+	const [showJourney, setShowJourney] = useState(false);
+	const [showButtons, setShowButtons] = useState(false);
 	const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
 	useEffect(() => {
@@ -35,8 +37,15 @@ export default function Home() {
 	}, []);
 
 	useEffect(() => {
-		const setters = [setShow1, setShow2, setShow3, setShow4];
-		const delays = [2000, 4000, 7000, 10000];
+		const setters = [
+			setShow1,
+			setShow2,
+			setShow3,
+			setShowJourney,
+			setShowButtons,
+		];
+		const delays = [2000, 4000, 7000, 10000, 13000];
+
 		if (prefersReducedMotion) {
 			setters.forEach((setter) => setter(true));
 			return;
@@ -53,31 +62,50 @@ export default function Home() {
 
 	return (
 		<div className={styles.homeParent}>
-			{show1 && (
-				<TextEffect {...sharedProps} className={styles.homeSubtitle}>
-					{text1}
-				</TextEffect>
-			)}
-			{show2 && (
-				<TextEffect {...sharedProps} className={styles.homeSubtitle}>
-					{text2}
-				</TextEffect>
-			)}
-			{show3 && (
-				<TextEffect {...sharedProps} className={styles.homeSubtitle}>
-					{text3}
-				</TextEffect>
-			)}
-			{show4 && (
-				<div className={styles.homeButtonsGrid}>
-					<Link href="/projects" className={styles.homeButton}>
-						View Projects
-					</Link>
-					<Link href="/contact" className={styles.homeButton}>
-						Contact
-					</Link>
-				</div>
-			)}
+			<div className={styles.homeIntroLines}>
+				{show1 && (
+					<TextEffect
+						{...sharedProps}
+						className={styles.homeSubtitle}
+					>
+						{text1}
+					</TextEffect>
+				)}
+				{show2 && (
+					<TextEffect
+						{...sharedProps}
+						className={styles.homeSubtitle}
+					>
+						{text2}
+					</TextEffect>
+				)}
+				{show3 && (
+					<TextEffect
+						{...sharedProps}
+						className={styles.homeSubtitle}
+					>
+						{text3}
+					</TextEffect>
+				)}
+			</div>
+			<div className={styles.homeJourney} aria-hidden={!showJourney}>
+				{showJourney && <Journey />}
+			</div>
+			<div
+				className={styles.homeButtonsWrapper}
+				aria-hidden={!showButtons}
+			>
+				{showButtons && (
+					<div className={styles.homeButtonsGrid}>
+						<Link href="/projects" className={styles.homeButton}>
+							View Projects
+						</Link>
+						<Link href="/contact" className={styles.homeButton}>
+							Contact
+						</Link>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 }

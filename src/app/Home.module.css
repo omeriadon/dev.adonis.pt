@@ -4,12 +4,31 @@
 	justify-content: flex-start;
 	align-items: center;
 	margin-top: 3rem;
-	gap: 1rem;
+	gap: 8rem;
 }
 
 .homeSubtitle {
 	font-size: 2rem;
 	text-align: center;
+}
+
+.homeIntroLines {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.1rem;
+}
+
+.homeJourney {
+	min-height: 2rem;
+	text-align: center;
+	font-size: 1rem;
+}
+
+.homeButtonsWrapper {
+	display: flex;
+	justify-content: center;
+	width: 100%;
 }
 
 @media (max-width: 1000px) {
@@ -22,7 +41,6 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 7rem;
-	margin-top: 6rem;
 	opacity: 0;
 	animation: fadeIn 5.5s ease forwards;
 }
