@@ -4,7 +4,8 @@ My personal portfolio
 
 Built with Next.js, React, and Tailwind CSS.
 
-<img width="1529" height="925" alt="SCR-20260109-smfq" src="https://github.com/user-attachments/assets/408d180c-83ff-485c-9b61-7b65e748c610" />
+<img width="1911" height="976" alt="SCR-20260116-oxqi" src="https://github.com/user-attachments/assets/89d77057-a6d5-46b8-852c-482a6fe75ec0" />
+
 
 <br/> <br/>
 
